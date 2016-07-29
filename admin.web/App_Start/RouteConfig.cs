@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace admin.web
@@ -13,6 +9,8 @@ namespace admin.web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute("HomeActions", "{action}", new { controller = "Home" });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
@@ -20,4 +18,5 @@ namespace admin.web
             );
         }
     }
+    
 }
