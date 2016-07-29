@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "admin.web", "admin.web\admin.web.csproj", "{70657A75-12A6-4FE2-9708-26127D78FD08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DonorGateway.Domin", "DonorGateway.Domin\DonorGateway.Domin.csproj", "{13885B8F-6076-46B2-A323-40B2B04432B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DonorGateway.Data", "DonorGateway.Data\DonorGateway.Data.csproj", "{874E9C0A-3254-49EA-BC42-3350B19D9856}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{70657A75-12A6-4FE2-9708-26127D78FD08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70657A75-12A6-4FE2-9708-26127D78FD08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70657A75-12A6-4FE2-9708-26127D78FD08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13885B8F-6076-46B2-A323-40B2B04432B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13885B8F-6076-46B2-A323-40B2B04432B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13885B8F-6076-46B2-A323-40B2B04432B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13885B8F-6076-46B2-A323-40B2B04432B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{874E9C0A-3254-49EA-BC42-3350B19D9856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{874E9C0A-3254-49EA-BC42-3350B19D9856}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{874E9C0A-3254-49EA-BC42-3350B19D9856}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{874E9C0A-3254-49EA-BC42-3350B19D9856}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
