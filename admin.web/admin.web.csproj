@@ -197,6 +197,16 @@
     <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DonorGateway.Data\DonorGateway.Data.csproj">
+      <Project>{874e9c0a-3254-49ea-bc42-3350b19d9856}</Project>
+      <Name>DonorGateway.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DonorGateway.Domain\DonorGateway.Domain.csproj">
+      <Project>{bd7d064d-693e-4afd-8b54-ea21269160ca}</Project>
+      <Name>DonorGateway.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
