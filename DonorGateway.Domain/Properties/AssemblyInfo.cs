@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DonorGateway.Domin")]
+[assembly: AssemblyTitle("DonorGateway.Domain")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DonorGateway.Domin")]
+[assembly: AssemblyProduct("DonorGateway.Domain")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("13885b8f-6076-46b2-a323-40b2b04432b9")]
+[assembly: Guid("bd7d064d-693e-4afd-8b54-ea21269160ca")]
 
 // Version information for an assembly consists of the following four values:
 //
