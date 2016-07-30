@@ -182,15 +182,32 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\app.module.js" />
+    <Content Include="app\blocks\exception\exception-handler.provider.js" />
+    <Content Include="app\blocks\exception\exception.js" />
+    <Content Include="app\blocks\exception\exception.module.js" />
+    <Content Include="app\blocks\logger\logger.js" />
+    <Content Include="app\blocks\logger\logger.module.js" />
+    <Content Include="app\core\config.js" />
+    <Content Include="app\core\core.module.js" />
+    <Content Include="app\filters\app.filters.js" />
+    <Content Include="app\filters\filter.module.js" />
+    <Content Include="app\modules.min.js" />
+    <Content Include="app\nav\nav.js" />
+    <Content Include="app\nav\nav.module.js" />
+    <Content Include="app\services\service.module.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="css\site.css" />
+    <Content Include="css\site.min.css" />
     <Content Include="css\vendor.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
