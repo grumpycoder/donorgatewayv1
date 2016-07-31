@@ -51,18 +51,7 @@ namespace admin.web.Controllers
             var userId = User.Identity.GetUserId();
             var applicationUser = Mapper.Map<UserViewModel>(UserManager.Users.FirstOrDefault(x => x.Id == userId));
 
-            //var applicationUser = UserManager.Users.FirstOrDefault(x => x.Id == userId);
             if (applicationUser == null) return NotFound();
-
-            //var vm = new UserViewModel()
-            //{
-            //    Id = applicationUser.Id,
-            //    UserName = applicationUser.UserName,
-            //    Email = applicationUser.Email,
-            //    FullName = applicationUser.FullName,
-            //    Roles = UserManager.GetRolesAsync(applicationUser.Id).Result.ToArray(),
-            //    UserPhoto = applicationUser.UserPhoto
-            //};
 
             return Ok(applicationUser);
         }
