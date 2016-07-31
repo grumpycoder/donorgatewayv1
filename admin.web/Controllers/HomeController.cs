@@ -13,5 +13,10 @@ namespace admin.web.Controllers
         {
             return View();
         }
+
+        public ActionResult Events()
+        {
+            return View();
+        }
     }
 }

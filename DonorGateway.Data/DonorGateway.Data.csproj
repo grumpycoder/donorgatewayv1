@@ -63,6 +63,14 @@
     <Compile Include="Migrations\201607292145190_AddApplicationUser.Designer.cs">
       <DependentUpon>201607292145190_AddApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607311419058_AddEventModel.cs" />
+    <Compile Include="Migrations\201607311419058_AddEventModel.Designer.cs">
+      <DependentUpon>201607311419058_AddEventModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607311421224_AddEventModel1.cs" />
+    <Compile Include="Migrations\201607311421224_AddEventModel1.Designer.cs">
+      <DependentUpon>201607311421224_AddEventModel1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -79,6 +87,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201607292145190_AddApplicationUser.resx">
       <DependentUpon>201607292145190_AddApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607311419058_AddEventModel.resx">
+      <DependentUpon>201607311419058_AddEventModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607311421224_AddEventModel1.resx">
+      <DependentUpon>201607311421224_AddEventModel1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -279,6 +279,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Users.cshtml" />
     <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Views\Home\Events.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

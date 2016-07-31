@@ -18,6 +18,12 @@ namespace DonorGateway.Data
             return new DataContext();
         }
 
+
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Guest> Guests { get; set; }
+        public DbSet<Template> Templates { get; set; }
+
+
         protected override void OnModelCreating(DbModelBuilder builder)
         {
             base.OnModelCreating(builder);
