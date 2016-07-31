@@ -1,13 +1,15 @@
-﻿using System;
+﻿using AutoMapper;
+using DonorGateway.Domain;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using DonorGateway.Domain;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using web.ViewModels;
 
 namespace admin.web.Controllers
@@ -47,35 +49,38 @@ namespace admin.web.Controllers
         public IHttpActionResult Get()
         {
             var userId = User.Identity.GetUserId();
-            var u = UserManager.Users.FirstOrDefault(x => x.Id == userId);
-            if (u == null) return NotFound();
+            var applicationUser = Mapper.Map<UserViewModel>(UserManager.Users.FirstOrDefault(x => x.Id == userId));
 
-            var vm = new UserViewModel()
-            {
-                Id = u.Id,
-                UserName = u.UserName,
-                Email = u.Email,
-                FullName = u.FullName,
-                Roles = UserManager.GetRolesAsync(u.Id).Result.ToArray(),
-                UserPhoto = u.UserPhoto
-            };
+            //var applicationUser = UserManager.Users.FirstOrDefault(x => x.Id == userId);
+            if (applicationUser == null) return NotFound();
 
-            return Ok(vm);
+            //var vm = new UserViewModel()
+            //{
+            //    Id = applicationUser.Id,
+            //    UserName = applicationUser.UserName,
+            //    Email = applicationUser.Email,
+            //    FullName = applicationUser.FullName,
+            //    Roles = UserManager.GetRolesAsync(applicationUser.Id).Result.ToArray(),
+            //    UserPhoto = applicationUser.UserPhoto
+            //};
+
+            return Ok(applicationUser);
         }
 
         [HttpGet, Route("Search")]
         public IHttpActionResult Search(string term = "")
         {
-            var users = UserManager.Users.Where(x => x.UserName.Contains(term) || x.FullName.Contains(term)).ToList().Select(u => new UserViewModel()
+
+            var list =
+                UserManager.Users.Where(x => x.UserName.Contains(term) || x.FullName.Contains(term)).ToList();
+
+            var users = Mapper.Map<List<ApplicationUser>, List<UserViewModel>>(list);
+
+            //TODO: Reove this in mapping??
+            foreach (var viewModel in users)
             {
-                Id = u.Id,
-                UserName = u.UserName,
-                Email = u.Email,
-                FullName = u.FullName,
-                Roles = UserManager.GetRolesAsync(u.Id).Result.ToArray(),
-                UserPhoto = u.UserPhoto,
-                UserPhotoType = u.UserPhotoType
-            });
+                viewModel.Roles = UserManager.GetRolesAsync(viewModel.Id).Result.ToArray();
+            }
 
             return Ok(users);
         }

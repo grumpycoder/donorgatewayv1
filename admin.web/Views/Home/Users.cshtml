@@ -54,12 +54,12 @@
 
                         <table st-table="vm.users" st-pipe="vm.search" class="table table-responsive table-striped">
                             <thead>
-                                <tr>
-                                    <th>User</th>
-                                    <th>Full Name</th>
-                                    <th>Roles</th>
-                                    <td></td>
-                                </tr>
+                            <tr>
+                                <th>User</th>
+                                <th>Full Name</th>
+                                <th>Roles</th>
+                                <td></td>
+                            </tr>
                                 <tr>
                                     <td colspan="2"><input st-search="searchTerm" st-clear-key class="form-control" type="text" placeholder="Filter Username or full name..." /></td>
                                     <td></td>
@@ -71,8 +71,7 @@
                                     <td>
                                         <gfl-text-avatar ng-hide="user.userPhoto" size="30" class="img-circle">{{user.fullName}}</gfl-text-avatar>
                                         <img ng-show="user.userPhoto" class="user-image" height="30" width="30" ng-src="data:{{user.userPhotoType}};base64,{{user.userPhoto}}">
-                                    </td>
-                                    <td>
+
                                         <span>{{user.userName}}</span>
                                     </td>
                                     <td>
