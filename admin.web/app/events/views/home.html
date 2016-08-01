@@ -11,14 +11,26 @@
 
         <div class="box-body">
 
-            <div class="row">
+        <!--<div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div>
+                        <pre>{{detailsForm.startDate | json}}</pre>
+                    </div>
+                </div>
+
+            </div>
+        </div>-->
+
+
+        <div class="row">
                 <div class="col-md-3 col md-6 col-xs-12">
                     <div class="info-box bg-green">
                         <span class="info-box-icon">
                             <i class="fa fa-key"></i>
                         </span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Guests Registered</span>
+                            <span class="info-box-text">Guests Attending</span>
                             <span class="info-box-number">{{vm.selectedEvent.guestAttendanceCount}}</span>
                         </div>
                     </div>
@@ -64,6 +76,9 @@
                     <div class="alert alert-warning" role="alert" ng-show="vm.selectedEvent.isExpired">
                         <i class="fa fa-exclamation-triangle"></i> Expired
                     </div>
+                    <div class="alert alert-danger" role="alert" ng-show="vm.selectedEvent.isAtCapacity">
+                        <i class="fa fa-exclamation-triangle"></i> Attendance at Capacity
+                    </div>
                 </div>
             </div>
 
@@ -81,7 +96,7 @@
 
                         <div class="form-group">
                             <label class="control-label">
-                                Display Name 
+                                Display Name
                             </label>
                             <input type="text" class="form-control" ng-model="vm.selectedEvent.displayName" />
                         </div>
@@ -173,12 +188,15 @@
                             <div class="dropdown">
                                 <a href="" class="dropdown-toggle start-toggle-select" role="button" data-toggle="dropdown" data-target="#">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" ng-model="vm.selectedEvent.startDate" date-input="{{vm.dateFormat}}" />
+                                        <input type="text" class="form-control" name="startDate" ng-model="vm.selectedEvent.startDate" date-input="{{vm.dateFormat}}" />
                                         <span class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </span>
                                     </div>
                                 </a>
+                                <div ng-messages="detailsForm.startDate.$error" ng-messages-multiple class="error-messages" ng-show="detailsForm.startDate.$dirty">
+                                    <div ng-message="max">Max of {{vm.event.ticketAllowance}} per guest allowed</div>
+                                </div>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                                     <datetimepicker data-ng-model="vm.selectedEvent.startDate"
                                                     date-format
@@ -257,12 +275,6 @@
                 </div><!-- /.col-md-4 -->
 
             </div>
-
-            <!--<div class="row">
-                <div>
-                    <pre>{{detailsForm | json}}</pre>
-                </div>
-            </div>-->
 
         </div><!-- /.box-body -->
 
