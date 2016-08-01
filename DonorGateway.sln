@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DonorGateway.Data", "DonorG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DonorGateway.Domain", "DonorGateway.Domain\DonorGateway.Domain.csproj", "{BD7D064D-693E-4AFD-8B54-EA21269160CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rsvp.web", "rsvp.web\rsvp.web.csproj", "{F8B92EE2-2C50-4C90-855A-9AFAABAAAB24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BD7D064D-693E-4AFD-8B54-EA21269160CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD7D064D-693E-4AFD-8B54-EA21269160CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD7D064D-693E-4AFD-8B54-EA21269160CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8B92EE2-2C50-4C90-855A-9AFAABAAAB24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8B92EE2-2C50-4C90-855A-9AFAABAAAB24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8B92EE2-2C50-4C90-855A-9AFAABAAAB24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8B92EE2-2C50-4C90-855A-9AFAABAAAB24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

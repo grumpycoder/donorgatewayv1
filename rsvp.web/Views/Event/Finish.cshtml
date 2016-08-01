@@ -1,0 +1,31 @@
+﻿@model rsvp.web.ViewModels.FinishFormViewModel
+@{
+    ViewBag.Title = "Finish";
+}
+
+<h2>Thank You</h2>
+
+<p>
+    @if (Model.IsAttending)
+    {
+    @Html.Raw(Model.EventTemplateYesResponseText)
+    }
+
+    @if (!Model.IsAttending)
+    {
+        @Html.Raw(Model.EventTemplateNoResponseText)
+    }
+
+    @if (Model.IsWaiting)
+    {
+        <p>
+            Your name has been placed on waiting list.
+        </p>
+    }
+
+    @Html.Raw(Model.EventTemplateFAQText)
+
+    @Html.Raw(Model.EventTemplateFooterText)
+
+</p>
+@Html.ActionLink("Back", "Index", "Event", new { id = Model.EventName}, null )
