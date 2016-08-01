@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace admin.web.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class BaseController : Controller
     {
         public BaseController()

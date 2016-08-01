@@ -37,6 +37,7 @@ namespace DonorGateway.Data
             builder.Entity<IdentityUserLogin>().ToTable("UserLogins", "Security");
             builder.Entity<IdentityRole>().ToTable("Roles", "Security");
 
+            builder.Entity<Event>().HasMany(x => x.Guests).WithRequired(x => x.Event).WillCascadeOnDelete(true);
 
         }
 

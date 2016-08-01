@@ -155,7 +155,7 @@ namespace admin.web.Controllers
 
             var template = context.Templates.Find(@event.TemplateId);
 
-            context.Templates.Remove(template);
+            if(template != null) context.Templates.Remove(template);
             context.SaveChanges();
 
             context.Events.Remove(@event);
