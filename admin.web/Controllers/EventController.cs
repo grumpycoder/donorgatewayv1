@@ -155,7 +155,7 @@ namespace admin.web.Controllers
 
             var template = context.Templates.Find(@event.TemplateId);
 
-            if(template != null) context.Templates.Remove(template);
+            if (template != null) context.Templates.Remove(template);
             context.SaveChanges();
 
             context.Events.Remove(@event);
@@ -185,5 +185,27 @@ namespace admin.web.Controllers
 
             return Ok(model);
         }
+
+        [HttpPost, Route("{id:int}/registerguest")]
+        public IHttpActionResult RegisterGuest(int id, Guest guestDto)
+        {
+            var @event = context.Events.Find(id);
+
+            if (@event == null) return NotFound();
+
+            if (guestDto == null) return NotFound();
+
+            @event.RegisterGuest(guestDto);
+            guestDto.Event = @event; 
+
+            context.Events.AddOrUpdate(@event);
+            context.SaveChanges();
+            
+            context.Guests.AddOrUpdate(guestDto);
+            context.SaveChanges();
+
+            return Ok(guestDto);
+        }
+
     }
 }

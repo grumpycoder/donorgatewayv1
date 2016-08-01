@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DonorGateway.Domain
 {
@@ -32,9 +33,42 @@ namespace DonorGateway.Domain
         public int GuestAttendanceCount { get; set; }
         public int TicketMailedCount { get; set; }
 
+        [NotMapped]
+        public int TicketRemainingCount
+        {
+            get
+            {
+                var remaining = Capacity - GuestAttendanceCount;
+                if (remaining < 0) remaining = 0;
+                return remaining;
+            }
+
+
+        }
+        [NotMapped]
+        public bool IsAtCapacity => TicketRemainingCount <= 0;
 
         public ICollection<Guest> Guests { get; set; }
         public virtual Template Template { get; set; }
 
+        public void RegisterGuest(Guest guest)
+        {
+            guest.ResponseDate = DateTime.Now;
+            if (TicketRemainingCount - guest.TicketCount < 0)
+            {
+                guest.IsAttending = false; 
+                guest.IsWaiting = true;
+                guest.WaitingDate = DateTime.Now;
+                GuestWaitingCount += guest.TicketCount ?? 0;
+            }
+            else
+            {
+                guest.IsAttending = true;
+                guest.IsWaiting = false;
+                guest.WaitingDate = null;
+                GuestAttendanceCount += guest.TicketCount ?? 0;
+            }
+
+        }
     }
 }

@@ -149,18 +149,15 @@
                 controller: 'EditGuestController',
                 controllerAs: 'vm',
                 resolve: {
-                    guest: guest,
-                    event: vm.selectedEvent
+                    guest: guest
                 }
             }).result.then(function (result) {
                 angular.extend(guest, result);
 
-                if (vm.selectedEvent.ticketRemainingCount - guest.guestCount >= 0) {
-                    vm.selectedEvent.ticketRemainingCount = vm.selectedEvent.ticketRemainingCount - guest.guestCount;
-                    vm.selectedEvent.ticketMailedQueueCount += 1;
-                }
-                vm.selectedEvent.registeredGuestCount += guest.guestCount;
-                if (guest.isWaiting) vm.selectedEvent.waitingGuestCount += guest.guestCount;
+                var event = angular.copy(vm.selectedEvent);
+                angular.extend(vm.selectedEvent, result.event);
+                
+                vm.selectedEvent.guests = event.guests;
             });
         }
 
@@ -250,8 +247,7 @@
                     angular.extend(vm.selectedEvent, data);
 
                     vm.selectedEvent.guests = guests;
-                    vm.selectedEvent.isExpired = moment(vm.selectedEvent.endDate).toDate() < vm.currentDate;
-
+                    logger.log('event', vm.selectedEvent);
                     logger.success('Saved Event: ' + data.name);
                 })
                 .finally(function () {

@@ -89,7 +89,7 @@
                     <td>
                         <button class="btn btn-block" ng-show="g.isWaiting" ng-click="vm.addToMailQueue(g)"><i class="fa fa-list"></i> Queue</button>
                         <button class="btn btn-block" ng-show="g.isAttending && !g.isMailed && !g.isWaiting" ng-click="vm.mailTicket(g)"><i class="icon ion-android-mail"></i> Mail</button>
-                        <button class="btn btn-block" ng-show="!g.isAttending" ng-click="vm.registerGuest(g)"><i class="fa fa-key"></i> Register</button>
+                        <button class="btn btn-block" ng-show="!g.isAttending && !g.isWaiting" ng-click="vm.registerGuest(g)"><i class="fa fa-key"></i> Register</button>
                         <span ng-show="g.isMailed"><i class="fa fa-check-circle fa-2x text-green center-block text-center"></i></span>
                     </td>
                 </tr>

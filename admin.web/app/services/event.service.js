@@ -10,7 +10,6 @@
     function serviceController(logger, $http, config) {
         logger.log(serviceId + ' loaded');
         var url = config.apiUrl + config.apiEndPoints.Event;
-
         var service = {
             create: create,
             downloadGuests: downloadGuests, 
@@ -18,10 +17,10 @@
             get: get,
             getById: getById,
             getGuests: getGuests, 
+            query: query,
             update: update,
-            query: query
+            registerGuest: registerGuest
         }
-
         return service;
 
         function create(event) {
@@ -59,6 +58,10 @@
         function query(name) {
             return $http.get(url + '/' + name)
                 .then(_success).catch(error);
+        }
+
+        function registerGuest(guest) {
+            return $http.post(url + '/' + guest.eventId + '/registerguest' , guest).then(_success).catch(error);
         }
 
         function update(event) {
