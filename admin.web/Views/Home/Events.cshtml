@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "Events";
+}
+<base href="/">
+<div ng-controller="EventController as vm">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            {{vm.title}}<small>{{vm.description}}</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Event Manager</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="box box-success" ng-class="{'box-solid' : vm.selectedEvent}">
+                    <div class="box-header with-border">
+                        <span class="box-title">
+                            Event: {{vm.selectedEvent.name}}
+                        </span>
+                    </div><!-- /.box-header -->
+
+                    <div class="box-body">
+
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <select ng-model="vm.selectedEvent"
+                                            ng-options="event.name for event in vm.events"
+                                            ng-disabled="false"
+                                            ng-change="vm.changeEvent(); showNewEvent = false"
+                                            class="form-control">
+                                        <option value="">Choose a Event</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <button class="btn btn-primary pull-right" ng-click="vm.showCreateEvent()">
+                                    <i class="fa fa-plus"></i>
+                                    New Event
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6" ng-show="showNewEvent">
+                                <input type="text" ng-model="vm.newEvent.name" class="form-control" placeholder="New Event name..." />
+                                <button class="btn btn-primary" ng-click="vm.createEvent(); showNewEvent = false">
+                                    Create
+                                </button>
+                                <button class="btn btn-default" ng-click="vm.newEvent = {}; showNewEvent = false">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-hide="vm.selectedEvent">
+                            <div class="col-md-12">
+                                <h4>
+                                    Choose an event from the list above to begin editing
+                                </h4>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-show="vm.selectedEvent">
+
+                            <div class="col-md-12">
+                                <uib-tabset>
+                                    <uib-tab ng-repeat="tab in vm.tabs" active="{{tab.active}}">
+                                        <uib-tab-heading>
+                                            <i class="fa" ng-class="tab.icon"></i> {{tab.title}}
+                                        </uib-tab-heading>
+
+                                        <div ng-include="tab.template"></div>
+                                    </uib-tab>
+                                </uib-tabset>
+                            </div>
+                        </div>
+                    </div><!--/box-body-->
+
+                    <div class="overlay" ng-show="vm.isBusy">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                </div><!--/box-->
+            </div>
+        </div>
+    </section>
+</div>

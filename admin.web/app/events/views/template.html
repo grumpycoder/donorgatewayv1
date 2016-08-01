@@ -1,0 +1,74 @@
+﻿
+
+<form name="templateForm" novalidate="">
+    <div class="box no-border">
+
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <uib-tabset active="activeJustified">
+                        <uib-tab index="0" heading="Image">
+                            <div class="center-block">
+
+                                <div ngf-drop ngf-select
+                                     class="drop-box"
+                                     ng-model="vm.file"
+                                     ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true"
+                                     ngf-change="vm.fileSelected($files, $file)"
+                                     accept="image/**"
+                                     ngf-pattern="'image/**'">
+
+                                    <div>
+                                        Drop image here or click to upload
+                                    </div>
+                                    <img ng-show="vm.selectedEvent.template.image" ng-src="data:{{vm.selectedEvent.template.mimeType}};base64,{{vm.selectedEvent.template.image}}" class="img-responsive center-block" alt="Event Image">
+                                </div>
+                            </div>
+
+                        </uib-tab>
+                        <uib-tab index="1" heading="Header">
+                            <text-angular name="headerText" ng-model="vm.selectedEvent.template.headerText"></text-angular>
+                        </uib-tab>
+                        <uib-tab index="2" heading="Body">
+                            <text-angular name="bodyText" ng-model="vm.selectedEvent.template.bodyText" markdownedit></text-angular>
+                        </uib-tab>
+                        <uib-tab index="3" heading="Footer">
+                            <text-angular name="footerText" ng-model="vm.selectedEvent.template.footerText" markdownedit></text-angular>
+                        </uib-tab>
+                        <uib-tab index="4" heading="FAQ">
+                            <text-angular name="faqText" ng-model="vm.selectedEvent.template.faqText" markdownedit></text-angular>
+                        </uib-tab>
+
+                        <uib-tab index="5" heading="YES Response">
+                            <text-angular name="yesText" ng-model="vm.selectedEvent.template.yesText" markdownedit></text-angular>
+                        </uib-tab>
+                        <uib-tab index="6" heading="NO Response">
+                            <text-angular name="noText" ng-model="vm.selectedEvent.template.noText" markdownedit></text-angular>
+                        </uib-tab>
+
+                        <uib-tab index="7" heading="Wait List">
+                            <text-angular name="waitText" ng-model="vm.selectedEvent.template.waitText" markdownedit></text-angular>
+                        </uib-tab>
+                        <uib-tab index="8" heading="Cancel Response">
+                            <text-angular name="cancelText" ng-model="vm.selectedEvent.template.cancelText" markdownedit></text-angular>
+                        </uib-tab>
+                        <uib-tab index="9" heading="Expire Response">
+                            <text-angular name="expireText" ng-model="vm.selectedEvent.template.expireText" markdownedit></text-angular>
+                        </uib-tab>
+
+                    </uib-tabset>
+
+                </div>
+            </div>
+
+        </div><!--./box-body-->
+        <div class="box-footer">
+            <button class="btn btn-success btn-lg pull-right" ng-disabled="templateForm.$pristine" ng-click="vm.saveTemplate(); templateForm.$setPristine();">Save</button>
+        </div><!--/box-footer-->
+    </div><!--./box-->
+</form>
+
+
+
