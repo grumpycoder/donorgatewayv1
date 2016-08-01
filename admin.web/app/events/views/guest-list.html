@@ -1,0 +1,117 @@
+﻿
+
+<div class="box no-border">
+    <div class="box-header">
+        <button class="btn" ng-click="vm.showGuestUpload()"><i class="fa fa-cloud-upload"></i> Upload</button>
+        <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showWaitQueue, 'btn-default': !vm.showWaitQueue }" ng-click="vm.filterWaitingQueue()"> <i class="fa fa-clock-o"></i> Show Waiting List</button>
+        <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showMailQueue, 'btn-default': !vm.showMailQueue }" ng-click="vm.filterMailQueue()"> <i class="fa fa-envelope"></i> Show Mail Queue</button>
+
+
+        <span class="pull-right">
+            <button class="btn btn-default" ng-click="vm.refreshGuests()">
+                <i class="fa fa-refresh"></i>
+                Refresh
+            </button>
+            <button class="btn btn-info" ng-click="vm.exportGuests()">
+                <i class="fa fa-download"></i>
+                Export
+            </button>
+</span>
+        
+    </div>
+    <div class="box-body">
+
+        <table st-table="vm.selectedEvent.guests" st-pipe="vm.searchGuests" class="table table-striped table-bordered table-hover">
+
+            <thead class="text-nowrap">
+                <tr>
+                    <th st-sort="name">Name</th>
+                    <th>Address</th>
+                    <th st-sort="city">City</th>
+                    <th st-sort="state">State</th>
+                    <th st-sort="zipcode">Zipcode</th>
+                    <th st-sort="ticketIssued">Ticket</th>
+                    <th st-sort="guestCount">Guests</th>
+                    <th st-sort="email">Email</th>
+                    <th st-sort="phone">Phone</th>
+                    <th st-sort="accountId">Account Id</th>
+                    <th st-sort="finderNumber">Finder Number</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><input type="search" st-search="name" class="form-control" placeholder="Name" /></td>
+                    <td><input type="text" st-clear-key st-search="address" class="form-control" placeholder="Address" /></td>
+                    <td><input type="text" st-clear-key st-search="city" class="form-control" placeholder="City" /></td>
+                    <td><input type="text" st-clear-key st-search="state" class="form-control" placeholder="State" /></td>
+                    <td><input type="text" st-clear-key st-search="zipcode" class="form-control" placeholder="Zipcode" /></td>
+                    <td width="80">
+                        <!--<input type="checkbox" st-search="ticketIssued" class="form-control" placeholder="Zipcode"/>-->
+                        <select st-search="isMailed" class="form-control">
+                            >
+                            <option value="" selected="">All</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </td>
+                    <td><input type="text" class="form-control" placeholder="Guests" /></td>
+                    <td><input type="text" st-clear-key st-search="email" class="form-control" placeholder="Email" /></td>
+                    <td><input type="text" st-clear-key st-search="phone" class="form-control" placeholder="Phone" /></td>
+                    <td><input type="text" st-clear-key st-search="accountId" class="form-control" placeholder="Account Id" /></td>
+                    <td><input type="text" st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number" /></td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr ng-repeat="g in vm.selectedEvent.guests">
+                    <td>{{g.name}}</td>
+                    <td>
+                        <address>
+                            {{g.street}}
+                            <br>
+                            {{g.street2}}<br>
+                            {{g.street3}}
+                        </address>
+                    </td>
+                    <td>{{g.city}}</td>
+                    <td>{{g.state}}</td>
+                    <td>{{g.zipcode}}</td>
+                    <td>
+                        <span class="center-block text-center">
+                            {{g.isMailed | checkmark}}
+                        </span>
+                    </td>
+                    <td>{{g.guestCount}}</td>
+                    <td>{{g.email}}</td>
+                    <td>{{g.phone}}</td>
+                    <td>{{g.accountId}}</td>
+                    <td>{{g.finderNumber}}</td>
+                    <td>
+                        <button class="btn btn-block" ng-show="g.isWaiting" ng-click="vm.addToMailQueue(g)"><i class="fa fa-list"></i> Queue</button>
+                        <button class="btn btn-block" ng-show="g.isAttending && !g.isMailed && !g.isWaiting" ng-click="vm.mailTicket(g)"><i class="icon ion-android-mail"></i> Mail</button>
+                        <button class="btn btn-block" ng-show="!g.isAttending" ng-click="vm.registerGuest(g)"><i class="fa fa-key"></i> Register</button>
+                        <span ng-show="g.isMailed"><i class="fa fa-check-circle fa-2x text-green center-block text-center"></i></span>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="12" class="text-center">
+                        <uib-pagination total-items="vm.searchModel.filteredCount"
+                                        ng-model="vm.searchModel.page"
+                                        ng-show="vm.searchModel.totalPages > 1"
+                                        max-size="5"
+                                        items-per-page="vm.searchModel.pageSize"
+                                        class="pagination-sm"
+                                        boundary-link-numbers="true"
+                                        ng-change="vm.paged()"
+                                        rotate="false">
+                        </uib-pagination>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+
+    </div>
+</div>

@@ -8,7 +8,6 @@ namespace DonorGateway.Domain
         public Event()
         {
             Guests = new List<Guest>();
-            Template = new Template();
         }
 
         public string Name { get; set; }

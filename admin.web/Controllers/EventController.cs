@@ -31,7 +31,8 @@ namespace admin.web.Controllers
 
         public IHttpActionResult Get()
         {
-            var list = context.Events;
+            var list = context.Events.Include(x => x.Template).ToList();
+
             return Ok(list);
         }
 

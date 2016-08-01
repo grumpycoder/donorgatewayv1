@@ -64,6 +64,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework.Utilities, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EFUtilities.1.0.2\lib\EntityFramework.Utilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -111,6 +115,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -189,7 +194,10 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -198,6 +206,9 @@
     <Compile Include="Helpers\OrderExt.cs" />
     <Compile Include="Helpers\PredicateBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\GuestProcessor.cs" />
+    <Compile Include="Services\IProcessor.cs" />
+    <Compile Include="Services\OperationResult.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\GuestExportViewModel.cs" />
@@ -216,12 +227,34 @@
     <Content Include="app\blocks\logger\logger.module.js" />
     <Content Include="app\core\config.js" />
     <Content Include="app\core\core.module.js" />
+    <Content Include="app\directives\clear-key.directive.js" />
+    <Content Include="app\directives\date-format.directive.js" />
+    <Content Include="app\directives\date-input.directive.js" />
+    <Content Include="app\directives\smart-table.directive.js" />
+    <Content Include="app\directives\toggleCheckbox.directive.js" />
+    <Content Include="app\events\createEvent.controller.js" />
+    <Content Include="app\events\editGuest.controller.js" />
+    <Content Include="app\events\event.module.js" />
+    <Content Include="app\events\events.js" />
+    <Content Include="app\events\uploadGuest.controller.js" />
+    <Content Include="app\events\views\create-event.html" />
+    <Content Include="app\events\views\edit-guest.html" />
+    <Content Include="app\events\views\guest-list.html" />
+    <Content Include="app\events\views\guest-upload.html" />
+    <Content Include="app\events\views\home.html" />
+    <Content Include="app\events\views\mail-queue.html" />
+    <Content Include="app\events\views\template.html" />
+    <Content Include="app\events\views\wait-queue.html" />
     <Content Include="app\filters\app.filters.js" />
     <Content Include="app\filters\filter.module.js" />
     <Content Include="app\modules.min.js" />
     <Content Include="app\nav\nav.js" />
     <Content Include="app\nav\nav.module.js" />
+    <Content Include="app\services\event.service.js" />
+    <Content Include="app\services\file.service.js" />
+    <Content Include="app\services\guest.service.js" />
     <Content Include="app\services\service.module.js" />
+    <Content Include="app\services\template.service.js" />
     <Content Include="app\services\user.service.js" />
     <Content Include="app\users\users.js" />
     <Content Include="app\users\users.module.js" />
@@ -277,6 +310,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="templates\datetimepicker.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -298,6 +332,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Dtos\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

@@ -12,9 +12,10 @@
         //feature areas
         'app.nav',
         'app.users',
+        'app.events'
         //'app.tax',
         //'app.template',
         //'app.mailers',
-        //'app.events'
+        
     ]);
 })();
