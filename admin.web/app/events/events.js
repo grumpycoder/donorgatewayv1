@@ -226,9 +226,8 @@
             if (vm.showMailQueue) {
                 vm.searchModel.isAttending = true;
                 vm.searchModel.isWaiting = false;
-                vm.searchModel.isMailed = false;
+                vm.searchModel.isMailed = null; 
             }
-
             vm.isBusy = true;
             return service.getGuests(vm.selectedEvent.id, vm.searchModel)
                 .then(function (data) {
