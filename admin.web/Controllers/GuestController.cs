@@ -1,8 +1,8 @@
-﻿using System.Data.Entity.Migrations;
+﻿using DonorGateway.Data;
+using DonorGateway.Domain;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Http;
-using DonorGateway.Data;
-using DonorGateway.Domain;
 
 namespace admin.web.Controllers
 {
@@ -33,14 +33,15 @@ namespace admin.web.Controllers
         {
             var @event = context.Events.Find(vm.EventId);
 
-            if (vm.IsWaiting == true) @event.GuestWaitingCount += vm.TicketCount ?? 0; 
-            if (vm.IsAttending == true) @event.GuestAttendanceCount += vm.TicketCount ?? 0; 
+            if (vm.IsWaiting == true) @event.GuestWaitingCount += vm.TicketCount ?? 0;
+            if (vm.IsAttending == true) @event.GuestAttendanceCount += vm.TicketCount ?? 0;
 
             context.Events.AddOrUpdate(@event);
             context.SaveChanges();
 
             context.Guests.AddOrUpdate(vm);
             context.SaveChanges();
+            //TODO: Return updated event details
             return Ok(vm);
         }
     }
