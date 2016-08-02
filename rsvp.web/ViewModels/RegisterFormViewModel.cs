@@ -1,7 +1,11 @@
 using DonorGateway.Domain;
 using FluentValidation;
 using FluentValidation.Attributes;
+using rsvp.web.Helpers;
 using System;
+using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace rsvp.web.ViewModels
 {
@@ -9,7 +13,7 @@ namespace rsvp.web.ViewModels
     public class RegisterFormViewModel
     {
         public int GuestId { get; set; }
-        
+
         public string PromoCode { get; set; }
 
         public string Name { get; set; }
@@ -50,6 +54,47 @@ namespace rsvp.web.ViewModels
 
         public Template Template { get; set; }
 
+
+        public void ProcessMessages()
+        {
+            var properties = typeof(FinishFormViewModel).GetProperties().Where(p => p.PropertyType == typeof(string));
+            foreach (var prop in properties)
+            {
+                ProcessField(prop);
+            }
+        }
+
+        private void ProcessField(PropertyInfo field)
+        {
+            if (field.GetValue(this, null) == null) return;
+
+            var text = field.GetValue(this, null).ToString();
+
+            var propertyInfos = typeof(FinishFormViewModel).GetProperties().Where(p => p.PropertyType == typeof(string));
+
+            foreach (var propertyInfo in propertyInfos)
+            {
+                if (propertyInfo.GetValue(this, null) == null) continue;
+                var propValue = propertyInfo.GetValue(this, null).ToString();
+
+                if (string.IsNullOrWhiteSpace(propValue)) continue;
+                text = ReplaceText(text, propertyInfo.Name, propValue);
+            }
+
+            field.SetValue(this, Convert.ChangeType(text, field.PropertyType), null);
+
+        }
+
+        private static string ReplaceText(string stringToReplace, string fieldName, string fieldValue)
+        {
+            var pattern = "@{" + fieldName + "}";
+
+            var regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            var matches = regex.Matches(stringToReplace);
+
+            return matches.Replace(stringToReplace, fieldValue);
+
+        }
     }
 
     public class RegisterFormViewModelValidator : AbstractValidator<RegisterFormViewModel>

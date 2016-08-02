@@ -15,6 +15,8 @@
         var tableStateRef;
         var pageSizeDefault = 10;
 
+        vm.hostLocation = 'rsvp-test/';
+
         vm.showWaitList = false;
         vm.showMailQueue = false;
 
@@ -89,6 +91,7 @@
             service.getById(vm.selectedEvent.id)
                 .then(function (data) {
                     angular.extend(vm.selectedEvent, data);
+                    logger.log('host', vm.hostLocation);
                 }).finally(function () {
                     vm.isBusy = false;
                     vm.searchGuests(tableStateRef);
