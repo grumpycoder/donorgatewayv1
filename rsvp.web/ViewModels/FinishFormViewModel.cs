@@ -50,7 +50,7 @@ namespace rsvp.web.ViewModels
             CurrentDate = DateTime.Today.ToString("d");
         }
 
-        public void ProcessMessages()
+        public void ParseMessages()
         {
             var properties = typeof(FinishFormViewModel).GetProperties().Where(p => p.PropertyType == typeof(string));
             foreach (var prop in properties)

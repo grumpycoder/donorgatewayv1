@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DonorGateway.Data;
+using DonorGateway.Domain;
 using rsvp.web.ViewModels;
-using System;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -21,27 +21,29 @@ namespace rsvp.web.Controllers
         [Route("{id}")]
         public ActionResult Index(string id)
         {
-            var @event = Mapper.Map<EventViewModel>(db.Events.FirstOrDefault(x => x.Name == id));
+            var @event = Mapper.Map<EventViewModel>(db.Events.Include(t => t.Template).SingleOrDefault(x => x.Name == id));
 
-            if (@event == null) return View("EventNotFound");
-
-            return View(@event);
+            return @event == null ? View("EventNotFound") : View(@event);
         }
 
         [HttpPost]
         public ActionResult Register(EventViewModel model)
         {
-            var guest = Mapper.Map<RegisterFormViewModel>(db.Guests.Include(e => e.Event).Include(t => t.Event.Template)
-                                                            .FirstOrDefault(g => g.FinderNumber == model.PromoCode));
+            var guest = Mapper.Map<RegisterFormViewModel>(db.Guests.Include(e => e.Event).Include(t => t.Event.Template).SingleOrDefault(g => g.FinderNumber == model.PromoCode && g.EventId == model.EventId));
 
             if (guest == null) ModelState.AddModelError("PromoCode", "Invalid Reservation Code");
 
             if (guest != null && guest.IsRegistered) ModelState.AddModelError("Attendance", "Already registered for event");
 
-            if (ModelState.IsValid) return View(guest);
+            if (!ModelState.IsValid)
+            {
+                model.Template = db.Templates.FirstOrDefault(x => x.Id == model.TemplateId);
+                return View("Index", model);
+            }
 
-            model.Template = db.Templates.FirstOrDefault(x => x.Id == model.TemplateId);
-            return View("Index", model);
+            return View(guest);
+
+
         }
 
         [HttpPost]
@@ -54,34 +56,23 @@ namespace rsvp.web.Controllers
                 return View("Register", form);
             }
 
-            var guest = db.Guests.Include(e => e.Event).Include(t => t.Event.Template).SingleOrDefault(x => x.Id == form.GuestId);
+            var @event = db.Events.Include(x => x.Template).SingleOrDefault(e => e.Id == form.EventId);
+            var guest = db.Guests.Include(e => e.Event).Include(t => t.Event.Template).SingleOrDefault(g => g.Id == form.GuestId);
 
-            var eventViewModel = Mapper.Map<EventViewModel>(db.Events.Include(t => t.Template).FirstOrDefault(e => e.Id == form.EventId));
+            Mapper.Map<RegisterFormViewModel, Guest>(form, guest);
 
-            if (eventViewModel.IsAtCapacity)
-            {
-                form.IsWaiting = true;
-                form.WaitingDate = DateTime.Now;
-                eventViewModel.GuestWaitingCount += form.TicketCount ?? 0;
-            }
-            else
-            {
-                eventViewModel.GuestAttendanceCount += form.TicketCount ?? 0;
-            }
+            @event.RegisterGuest(guest);
 
-            form.ResponseDate = DateTime.Now;
-            Mapper.Map(form, guest);
-            var @event = db.Events.Find(form.EventId);
-            Mapper.Map(eventViewModel, @event);
-            db.Guests.AddOrUpdate(guest);
             db.Events.AddOrUpdate(@event);
             db.SaveChanges();
 
+            db.Guests.AddOrUpdate(guest);
+            db.SaveChanges();
+
             var m = Mapper.Map<FinishFormViewModel>(guest);
-            m.ProcessMessages();
+            m.ParseMessages();
 
             return View("Finish", m);
-
         }
 
         public ActionResult Finish(FinishFormViewModel model)
