@@ -1,11 +1,11 @@
-﻿using System.Configuration;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System.Configuration;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using web;
+using System.Web.Security;
 using web.ViewModels;
 
 namespace admin.web.Controllers
@@ -61,21 +61,21 @@ namespace admin.web.Controllers
 
             if (user != null)
             {
-                //switch (env)
-                //{
-                //    case "Prod":
-                //        if (Membership.ValidateUser(model.Username, model.Password))
-                //        {
-                //            await SignInManager.SignInAsync(user, true, model.RememberMe);
-                //            return RedirectToLocal(returnUrl);
-                //        }
-                //        ModelState.AddModelError("", "Invalid username or password.");
-                //        break;
+                switch (env)
+                {
+                    case "Prod":
+                        if (Membership.ValidateUser(model.Username, model.Password))
+                        {
+                            await SignInManager.SignInAsync(user, true, model.RememberMe);
+                            return RedirectToLocal(returnUrl);
+                        }
+                        ModelState.AddModelError("", "Invalid username or password.");
+                        break;
 
-                //    default:
-                //        await SignInManager.SignInAsync(user, true, model.RememberMe);
-                //        return RedirectToLocal(returnUrl);
-                //}
+                    default:
+                        await SignInManager.SignInAsync(user, true, model.RememberMe);
+                        return RedirectToLocal(returnUrl);
+                }
                 await SignInManager.SignInAsync(user, true, model.RememberMe);
                 return RedirectToLocal(returnUrl);
             }
