@@ -3,59 +3,29 @@
     ViewBag.Title = "Finish";
 }
 
-<div class="container">
+<h2>Thank You</h2>
 
+<p>
+    @if (Model.IsAttending)
+    {
+    @Html.Raw(Model.EventTemplateYesResponseText)
+    }
 
-    <div class="row">
-        <div class="col-md-12">
-            @{
-                var imgSrc = $"data:{Model.EventTemplateMimeType};base64,{Convert.ToBase64String(Model.EventTemplateImage)}";
-            }
-            <img src="@imgSrc" class="img-responsive center-block event-image" alt="Event Image" />
-        </div>
-    </div>
+    @if (!Model.IsAttending)
+    {
+        @Html.Raw(Model.EventTemplateNoResponseText)
+    }
 
-    
-        @if (Model.IsAttending)
-        {
-            <div class="row">
-                <div class="col-md-12">
-                    @Html.Raw(Model.EventTemplateYesResponseText)
-                </div>
-            </div>
-        }
+    @if (Model.IsWaiting)
+    {
+        <p>
+            Your name has been placed on waiting list.
+        </p>
+    }
 
-        @if (!Model.IsAttending)
-            {
-            <div class="row">
-                <div class="col-md-12">
-                    @Html.Raw(Model.EventTemplateNoResponseText)
-                </div>
-            </div>
-        }
+    @Html.Raw(Model.EventTemplateFAQText)
 
-        @if (Model.IsWaiting)
-            {
-            <div class="row">
-                <div class="col-md-12">
-                    Your name has been placed on waiting list.
-                </div>
-            </div>
-        }
+    @Html.Raw(Model.EventTemplateFooterText)
 
-        <div class="row">
-            <div class="col-md-12">
-                @Html.Raw(Model.EventTemplateFAQText)
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                @Html.Raw(Model.EventTemplateFooterText)
-            </div>
-        </div>
-
-    
-    @Html.ActionLink("Back", "Index", "Event", new { id = Model.EventName }, null)
-
-</div>
+</p>
+@Html.ActionLink("Back", "Index", "Event", new { id = Model.EventName}, null )

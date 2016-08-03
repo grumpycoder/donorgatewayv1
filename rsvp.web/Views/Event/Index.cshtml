@@ -4,12 +4,9 @@
 }
 @using (Html.BeginForm("Register", "Event"))
 {
-
     @Html.HiddenFor(m => m.TemplateId)
     @Html.HiddenFor(m => m.EventId)
     @Html.HiddenFor(m => m.TicketAllowance)
-    @Html.HiddenFor(m => m.TicketRemainingCount)
-    @Html.HiddenFor(m => m.Capacity)
 
 
     <div class="container">
@@ -32,19 +29,9 @@
         </div>
 
 
-        @if (Model.IsRegistrationClosed)
-        {
-            <div class="row">
-                <div class="col-md-12">
-                    <p>
-                        Sorry, but registration for this event is closed.
-                    </p>
-                </div>
-            </div>
-        }
 
         @if (Model.IsExpired)
-        {
+                {
             <div class="row">
                 <div class="col-md-12">
                     @Html.Raw(Model.Template.ExpiredEventText)
@@ -52,7 +39,7 @@
             </div>
         }
         @if (Model.IsCancelled)
-        {
+                {
             <div class="row">
                 <div class="col-md-12">
                     @Html.Raw(Model.Template.CancelledEventText)
@@ -86,37 +73,35 @@
                 </div>
             }
 
-            if (!Model.IsExpired && !Model.IsRegistrationClosed && !Model.IsCancelled)
-            {
-                <div class="row">
-                    <div class="col-md-12">Enter the reservation code from your invitation below, then click the Submit button.</div>
-                </div>
+            <div class="row">
+                <div class="col-md-12">Enter the reservation code from your invitation below, then click the Submit button.</div>
+            </div>
 
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        @Html.ValidationSummary()
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="input-group input-group-lg">
-                            @Html.TextBoxFor(x => x.PromoCode, new { @class = "form-control", placeholder = "example: 55566677788" })
-                            <span class="input-group-btn">
-                                <button class="btn btn-lg btn-primary" type="submit">Submit</button>
-                            </span>
-                        </div><!-- /input-group -->
-                    </div><!-- /.col-lg-6 -->
-                    @*<div class="col-lg-12 col-md-12 col-sm-12">
-                            <p>
-                                <span>For example:</span> <strong>55566677788</strong>
-                            </p>
-                        </div>*@
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    @Html.ValidationSummary()
                 </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="input-group input-group-lg">
+                        @Html.TextBoxFor(x => x.PromoCode, new { @class = "form-control", placeholder = "example: 55566677788" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-lg btn-primary" type="submit">Submit</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+                @*<div class="col-lg-12 col-md-12 col-sm-12">
+                        <p>
+                            <span>For example:</span> <strong>55566677788</strong>
+                        </p>
+                    </div>*@
+            </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        @Html.Raw(Model.Template.FAQText)
-                    </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Raw(Model.Template.FAQText)
                 </div>
-            }
+            </div>
+
         }
 
     </div>

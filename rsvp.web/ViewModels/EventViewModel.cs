@@ -15,7 +15,6 @@ namespace rsvp.web.ViewModels
         public string Zipcode { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public DateTime? RegistrationCloseDate { get; set; }
         public DateTime? VenueOpenDate { get; set; }
         public int Capacity { get; set; }
         public int? TicketAllowance { get; set; }
@@ -31,18 +30,9 @@ namespace rsvp.web.ViewModels
 
         public bool IsExpired => EndDate < DateTime.Now;
         public bool IsAtCapacity => TicketRemainingCount <= 0;
-        public bool IsRegistrationClosed => RegistrationCloseDate <= DateTime.Now;
-        public int TicketRemainingCount
-        {
-            get
-            {
-                var remaining = Capacity - GuestAttendanceCount;
-                if (remaining < 0) remaining = 0;
-                return remaining;
-            }
-        }
-        public Template Template { get; set; }
+        public int TicketRemainingCount => Capacity - GuestAttendanceCount;
 
+        public Template Template { get; set; }
     }
 }
 
