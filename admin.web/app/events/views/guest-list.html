@@ -30,8 +30,8 @@
                     <th st-sort="city">City</th>
                     <th st-sort="state">State</th>
                     <th st-sort="zipcode">Zipcode</th>
-                    <th st-sort="ticketIssued">Ticket</th>
-                    <th st-sort="guestCount">Guests</th>
+                    <!--<th st-sort="ticketIssued">Ticket</th>-->
+                    <th st-sort="ticketCount">Guests</th>
                     <th st-sort="email">Email</th>
                     <th st-sort="phone">Phone</th>
                     <th st-sort="accountId">Account Id</th>
@@ -44,15 +44,15 @@
                     <td><input type="text" st-clear-key st-search="city" class="form-control" placeholder="City" /></td>
                     <td><input type="text" st-clear-key st-search="state" class="form-control" placeholder="State" /></td>
                     <td><input type="text" st-clear-key st-search="zipcode" class="form-control" placeholder="Zipcode" /></td>
-                    <td width="80">
-                        <!--<input type="checkbox" st-search="ticketIssued" class="form-control" placeholder="Zipcode"/>-->
+                    <!--<td width="80">
                         <select st-search="isMailed" class="form-control">
                             >
                             <option value="" selected="">All</option>
                             <option value="true">Yes</option>
                             <option value="false">No</option>
                         </select>
-                    </td>
+                    </td>-->
+
                     <td><input type="text" class="form-control" placeholder="Guests" /></td>
                     <td><input type="text" st-clear-key st-search="email" class="form-control" placeholder="Email" /></td>
                     <td><input type="text" st-clear-key st-search="phone" class="form-control" placeholder="Phone" /></td>
@@ -76,12 +76,12 @@
                     <td>{{g.city}}</td>
                     <td>{{g.state}}</td>
                     <td>{{g.zipcode}}</td>
-                    <td>
+                    <!--<td>
                         <span class="center-block text-center">
                             {{g.isMailed | checkmark}}
                         </span>
-                    </td>
-                    <td>{{g.guestCount}}</td>
+                    </td>-->
+                    <td class="text-center">{{g.ticketCount}}</td>
                     <td>{{g.email}}</td>
                     <td>{{g.phone}}</td>
                     <td>{{g.accountId}}</td>

@@ -15,6 +15,8 @@
         var tableStateRef;
         var pageSizeDefault = 10;
 
+        //TODO: hostLocation needs to be dynamic to environment
+        vm.hostLocation = 'rsvp-test/';
         vm.showWaitList = false;
         vm.showMailQueue = false;
 
