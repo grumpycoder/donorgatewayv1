@@ -175,6 +175,7 @@
     <Content Include="img\footer-bg.jpg" />
     <Content Include="img\logo.png" />
     <Content Include="img\logo_2x.png" />
+    <Content Include="img\missing-image.png" />
     <Content Include="img\SPLC_LOGO.png" />
     <Content Include="js\splc.js" />
     <Content Include="js\vendor.min.js" />
