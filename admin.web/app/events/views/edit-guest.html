@@ -8,18 +8,7 @@
         <fieldset>
             <legend>Request</legend>
             <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-4">
-                    <div class="form-group">
-                        <label class="control-label">Tickets Requested</label>
-                        <input type="number" name="guestCount" class="form-control" ng-model="vm.guest.ticketCount"
-                               max="{{vm.event.ticketAllowance}}"
-                               min="0"
-                               ng-change="vm.changeAttending()" />
-                        <div ng-messages="editGuestForm.ticketCount.$error" ng-messages-multiple class="error-messages" ng-show="editGuestForm.guestCount.$dirty">
-                            <div ng-message="max">Max of {{vm.event.ticketAllowance}} per guest allowed</div>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="col-md-8 col-sm-8 col-xs-8">
                     <div class="form-group">
                         <label class="control-label">Attending?</label>
@@ -36,6 +25,27 @@
 
                     </div>
                 </div>
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <div class="form-group">
+                        <label class="control-label">Tickets Requested</label>
+
+                        <select ng-model="vm.guest.ticketCount"
+                                ng-options="x for x in vm.ticketCountList "
+                                class="form-control"
+                                ng-required="true">
+                            <option value="">-- Choose Ticket --</option>
+                        </select>
+
+                        <!--<input type="number" name="guestCount" class="form-control" ng-model="vm.guest.ticketCount"
+                               max="{{vm.event.ticketAllowance}}"
+                               min="0"
+                               ng-change="vm.changeAttending()"/>
+                        <div ng-messages="editGuestForm.ticketCount.$error" ng-messages-multiple class="error-messages" ng-show="editGuestForm.guestCount.$dirty">
+                            <div ng-message="max">Max of {{vm.event.ticketAllowance}} per guest allowed</div>
+                        </div>-->
+                    </div>
+                </div>
+
                 <div class="col-md-12 col-sm12" ng-show="vm.isFull">
                     <div class="alert alert-info">
                         No space left. Guest will be added to waiting list

@@ -19,7 +19,8 @@
             getGuests: getGuests, 
             query: query,
             update: update,
-            registerGuest: registerGuest
+            registerGuest: registerGuest,
+            mailTicket: mailTicket
         }
         return service;
 
@@ -53,6 +54,10 @@
         function getGuests(id, vm) {
             return $http.post(url + '/' + id + '/guests', vm)
                 .then(_success).catch(error);
+        }
+
+        function mailTicket(guest) {
+            return $http.post(url + '/' + guest.eventId + '/mailticket', guest).then(_success).catch(error);
         }
 
         function query(name) {

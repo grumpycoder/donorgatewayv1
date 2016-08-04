@@ -207,5 +207,28 @@ namespace admin.web.Controllers
             return Ok(guestDto);
         }
 
+
+        [HttpPost, Route("{id:int}/mailticket")]
+        public IHttpActionResult MailTicket(int id, Guest guestDto)
+        {
+            var @event = context.Events.Find(id);
+
+            if (@event == null) return NotFound();
+
+            if (guestDto == null) return NotFound();
+
+            @event.MailTicket(guestDto);
+            guestDto.Event = @event;
+
+            context.Events.AddOrUpdate(@event);
+            context.SaveChanges();
+
+            context.Guests.AddOrUpdate(guestDto);
+            context.SaveChanges();
+
+            return Ok(guestDto);
+        }
+
+
     }
 }

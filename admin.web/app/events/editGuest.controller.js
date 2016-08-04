@@ -15,9 +15,22 @@
         vm.title = 'Edit Guest';
 
         vm.guest = angular.copy(guest);
+        vm.ticketCountList = [];
+
+        for (var i = 1; i < guest.event.ticketAllowance + 1; i++) {
+            vm.ticketCountList.push(i);
+        }
 
         vm.cancel = function () {
             $modal.dismiss();
+        }
+
+        vm.changeAttending = function () {
+            if (vm.guest.isAttending) {
+                vm.guest.ticketCount = 1;
+            } else {
+                vm.guest.ticketCount = null;
+            }
         }
 
         vm.save = function () {

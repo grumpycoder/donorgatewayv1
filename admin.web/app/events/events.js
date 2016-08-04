@@ -143,7 +143,6 @@
         }
 
         vm.registerGuest = function (guest) {
-
             $modal.open({
                 templateUrl: '/app/events/views/edit-guest.html',
                 controller: 'EditGuestController',
@@ -153,10 +152,8 @@
                 }
             }).result.then(function (result) {
                 angular.extend(guest, result);
-
                 var event = angular.copy(vm.selectedEvent);
                 angular.extend(vm.selectedEvent, result.event);
-                
                 vm.selectedEvent.guests = event.guests;
             });
         }
@@ -180,13 +177,18 @@
             guest.isMailed = true;
             guest.mailedDate = new Date();
             vm.isWaiting = false;
-            guestService.update(guest)
-                .then(function (data) {
-                    angular.extend(guest, data);
-                    logger.success('Issued ticket to: ' + guest.name);
-                }).finally(function () {
-                    vm.isBusy = false;
-                });
+            service.mailTicket(guest)
+                        .then(function (data) {
+                            angular.extend(guest, data);
+                            logger.success('Issued ticket to: ' + guest.name);
+
+                            var event = angular.copy(vm.selectedEvent);
+                            angular.extend(vm.selectedEvent, guest.event);
+                            vm.selectedEvent.guests = event.guests;
+
+                        }).finally(function () {
+                            vm.isBusy = false;
+                        });
         }
 
         vm.searchGuests = function (tableState) {
@@ -223,7 +225,7 @@
             if (vm.showMailQueue) {
                 vm.searchModel.isAttending = true;
                 vm.searchModel.isWaiting = false;
-                vm.searchModel.isMailed = null; 
+                vm.searchModel.isMailed = null;
             }
             vm.isBusy = true;
             return service.getGuests(vm.selectedEvent.id, vm.searchModel)
@@ -241,6 +243,7 @@
 
         vm.saveEvent = function (form) {
             vm.isBusy = true;
+            logger.log('before save', vm.selectedEvent);
             return service.update(vm.selectedEvent)
                 .then(function (data) {
                     var guests = vm.selectedEvent.guests;

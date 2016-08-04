@@ -56,7 +56,7 @@ namespace DonorGateway.Domain
             guest.ResponseDate = DateTime.Now;
             if (TicketRemainingCount - guest.TicketCount < 0)
             {
-                guest.IsAttending = false; 
+                guest.IsAttending = false;
                 guest.IsWaiting = true;
                 guest.WaitingDate = DateTime.Now;
                 GuestWaitingCount += guest.TicketCount ?? 0;
@@ -68,6 +68,15 @@ namespace DonorGateway.Domain
                 guest.WaitingDate = null;
                 GuestAttendanceCount += guest.TicketCount ?? 0;
             }
+
+        }
+
+        public void MailTicket(Guest guest)
+        {
+            guest.IsMailed = true;
+            guest.MailedDate = DateTime.Now;
+
+            TicketMailedCount += guest.TicketCount ?? 0;
 
         }
     }
