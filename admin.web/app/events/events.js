@@ -232,6 +232,7 @@
             vm.isBusy = true;
             return service.getGuests(vm.selectedEvent.id, vm.searchModel)
                 .then(function (data) {
+                    logger.log('data', data);
                     vm.selectedEvent.guests = data.items;
                     vm.searchModel = data;
                     vm.isBusy = false;
