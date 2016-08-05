@@ -258,6 +258,7 @@
                 .then(function (data) {
                     vm.selectedEvent.guests = data.items;
                     vm.searchModel = data;
+                    logger.log(data.items);
                     vm.isBusy = false;
                 });
 

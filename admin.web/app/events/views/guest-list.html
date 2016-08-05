@@ -40,6 +40,7 @@
                     <th st-sort="phone">Phone</th>
                     <th st-sort="accountId">Account Id</th>
                     <th st-sort="finderNumber">Finder Number</th>
+                    <th>Comments</th>
                     <th></th>
                 </tr>
                 <tr>
@@ -62,6 +63,7 @@
                     <td><input type="text" st-clear-key st-search="phone" class="form-control" placeholder="Phone" /></td>
                     <td><input type="text" st-clear-key st-search="accountId" class="form-control" placeholder="Account Id" /></td>
                     <td><input type="text" st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number" /></td>
+                    <td></td>
                     <td></td>
                 </tr>
             </thead>
@@ -90,6 +92,9 @@
                     <td>{{g.phone}}</td>
                     <td>{{g.accountId}}</td>
                     <td>{{g.finderNumber}}</td>
+                    <td class="text-center">
+                        <i ng-show="g.comment.length > 0" class="fa fa-comment" uib-popover="{{g.comment}}" popover-trigger="mouseenter"></i>
+                    </td>
                     <td>
                         <button class="btn btn-block" ng-show="g.isWaiting" ng-click="vm.addToMailQueue(g)"><i class="fa fa-list"></i> Move to Send</button>
                         <button class="btn btn-block" ng-show="g.isAttending && !g.isMailed && !g.isWaiting" ng-click="vm.mailTicket(g)"><i class="icon ion-android-mail"></i> Send Ticket</button>
