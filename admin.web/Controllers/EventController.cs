@@ -6,6 +6,7 @@ using CsvHelper;
 using DonorGateway.Data;
 using DonorGateway.Domain;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.IO;
@@ -83,7 +84,8 @@ namespace admin.web.Controllers
                 .Where(pred)
                 .Skip(skipRows)
                 .Take(pageSize)
-                .ToList();
+                .ProjectTo<GuestViewModel>();
+            //.ToList();
 
             var totalCount = context.Guests.Count();
             var filterCount = context.Guests.Where(pred).Count();
@@ -93,7 +95,12 @@ namespace admin.web.Controllers
             vm.FilteredCount = filterCount;
             vm.TotalPages = totalPages;
 
-            vm.Items = list;
+
+            var items = Mapper.Map<List<GuestViewModel>>(list);
+            vm.Items = list.ToList();
+
+            //vm.Items = list; 
+
             return Ok(vm);
 
         }
@@ -207,6 +214,28 @@ namespace admin.web.Controllers
             return Ok(guestDto);
         }
 
+        [HttpPost, Route("{id:int}/addticket")]
+        public IHttpActionResult AddTicket(int id, GuestViewModel guestDto)
+        {
+            var @event = context.Events.Find(id);
+
+            if (@event == null) return NotFound();
+            if (guestDto == null) return NotFound();
+
+            var guest = Mapper.Map<Guest>(guestDto);
+
+            @event.AddTickets(guest, guestDto.AdditionalTickets);
+
+            context.Events.AddOrUpdate(@event);
+            context.SaveChanges();
+
+            context.Guests.AddOrUpdate(guest);
+            context.SaveChanges();
+
+            Mapper.Map(guest, guestDto);
+            guestDto.Event = @event;
+            return Ok(guestDto);
+        }
 
         [HttpPost, Route("{id:int}/mailticket")]
         public IHttpActionResult MailTicket(int id, Guest guestDto)

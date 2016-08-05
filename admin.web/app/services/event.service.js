@@ -21,7 +21,8 @@
             update: update,
             addToMail: addToMail, 
             registerGuest: registerGuest,
-            mailTicket: mailTicket
+            mailTicket: mailTicket, 
+            addTicket: addTicket
         }
         return service;
 
@@ -59,6 +60,10 @@
 
         function mailTicket(guest) {
             return $http.post(url + '/' + guest.eventId + '/mailticket', guest).then(_success).catch(error);
+        }
+
+        function addTicket(guest) {
+            return $http.post(url + '/' + guest.eventId + '/addticket', guest).then(_success).catch(error);
         }
 
         function addToMail(guest) {

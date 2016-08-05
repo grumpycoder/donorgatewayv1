@@ -16,6 +16,7 @@ namespace admin.web.ViewModels
         public int FilteredCount { get; set; }
         public int TotalPages { get; set; }
 
-        public IList<T> Items { get; set; }
+        //public IList<T> Items { get; set; }
+        public List<T> Items { get; set; }
     }
 }

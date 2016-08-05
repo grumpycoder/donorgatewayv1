@@ -20,8 +20,8 @@
                 <i class="fa fa-download"></i>
                 Export
             </button>
-</span>
-        
+        </span>
+
     </div>
     <div class="box-body">
 
@@ -99,7 +99,10 @@
                         <button class="btn btn-block" ng-show="g.isWaiting" ng-click="vm.addToMailQueue(g)"><i class="fa fa-list"></i> Move to Send</button>
                         <button class="btn btn-block" ng-show="g.isAttending && !g.isMailed && !g.isWaiting" ng-click="vm.mailTicket(g)"><i class="icon ion-android-mail"></i> Send Ticket</button>
                         <button class="btn btn-block" ng-show="!g.isAttending && !g.isWaiting" ng-click="vm.registerGuest(g)"><i class="fa fa-key"></i> Register</button>
-                        <span ng-show="g.isMailed"><i class="fa fa-check-circle fa-2x text-green center-block text-center"></i></span>
+                        <div ng-show="g.isMailed">
+                            <i class="fa fa-check-circle fa-2x text-green center-block text-center" ng-click="vm.registerGuest(g)"></i>
+                            <!--<i class="fa fa-plus-square-o fa-2x"></i>-->
+                        </div>
                     </td>
                 </tr>
             </tbody>

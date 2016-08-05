@@ -80,6 +80,12 @@ namespace DonorGateway.Domain
 
         }
 
+        public void AddTickets(Guest guest, int additionalTickets)
+        {
+            guest.TicketCount = guest.TicketCount + additionalTickets;
+            GuestAttendanceCount = GuestAttendanceCount + additionalTickets;
+        }
+
         public void MoveToMailQueue(Guest guest)
         {
             guest.IsWaiting = false;

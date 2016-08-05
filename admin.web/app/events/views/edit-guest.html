@@ -4,10 +4,20 @@
         <h3 class="modal-title">{{vm.guest.name}}</h3>
     </div>
     <div class="modal-body">
+        <!--<div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div>
+                        <pre>{{editGuestForm | json}}</pre>
+                    </div>
+                </div>
+
+            </div>
+        </div>-->
 
         <fieldset>
             <legend>Request</legend>
-            <div class="row">
+            <div class="row" ng-hide="vm.showAddTicket">
 
                 <div class="col-md-8 col-sm-8 col-xs-8">
                     <div class="form-group">
@@ -35,14 +45,6 @@
                                 ng-required="true">
                             <option value="">-- Choose Ticket --</option>
                         </select>
-
-                        <!--<input type="number" name="guestCount" class="form-control" ng-model="vm.guest.ticketCount"
-                               max="{{vm.event.ticketAllowance}}"
-                               min="0"
-                               ng-change="vm.changeAttending()"/>
-                        <div ng-messages="editGuestForm.ticketCount.$error" ng-messages-multiple class="error-messages" ng-show="editGuestForm.guestCount.$dirty">
-                            <div ng-message="max">Max of {{vm.event.ticketAllowance}} per guest allowed</div>
-                        </div>-->
                     </div>
                 </div>
 
@@ -52,6 +54,25 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row" ng-show="vm.showAddTicket">
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label>Additional Tickets</label>
+
+                        <div class="input-group number-spinner">
+                            <span class="input-group-btn data-dwn">
+                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus" ng-click="vm.decrementTickets()"></span></button>
+                            </span>
+                            <input type="text" class="form-control text-center" ng-model="vm.guest.additionalTickets" name="additionalTickets">
+                            <span class="input-group-btn data-up">
+                                <button class="btn btn-default btn-info" data-dir="up" ng-click="vm.incrementTickets()"><span class="glyphicon glyphicon-plus"></span></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </fieldset>
 
         <fieldset>

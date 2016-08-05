@@ -1,8 +1,6 @@
-﻿using DonorGateway.Domain;
-
-namespace admin.web.ViewModels
+﻿namespace admin.web.ViewModels
 {
-    public class GuestSearchViewModel : Pager<Guest>
+    public class GuestSearchViewModel : Pager<GuestViewModel>
     {
         public string LookupId { get; set; }
         public string FinderNumber { get; set; }

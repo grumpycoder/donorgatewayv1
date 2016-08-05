@@ -17,11 +17,6 @@
 
         //TODO: hostLocation needs to be dynamic to environment
         vm.hostLocation = 'rsvp-test/';
-        //vm.showWaitList = false;
-        //vm.showMailQueue = false;
-        //vm.showTicketSent = false;
-
-        vm.showWaiting = false;
 
         vm.title = 'Event Manager';
         vm.description = "Manage Donor Events";
@@ -59,8 +54,6 @@
             logger.log(controllerId + ' activated');
             getEvents().then(function () {
                 logger.log('loaded events');
-                vm.selectedEvent = vm.events[0];
-                vm.searchGuests(tableStateRef);
             });
         }
 
