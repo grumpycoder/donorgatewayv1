@@ -19,6 +19,7 @@
             getGuests: getGuests, 
             query: query,
             update: update,
+            addToMail: addToMail, 
             registerGuest: registerGuest,
             mailTicket: mailTicket
         }
@@ -58,6 +59,10 @@
 
         function mailTicket(guest) {
             return $http.post(url + '/' + guest.eventId + '/mailticket', guest).then(_success).catch(error);
+        }
+
+        function addToMail(guest) {
+            return $http.post(url + '/' + guest.eventId + '/addtomail', guest).then(_success).catch(error);
         }
 
         function query(name) {

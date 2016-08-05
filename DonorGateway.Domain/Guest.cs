@@ -26,16 +26,16 @@ namespace DonorGateway.Domain
         public string Address2 { get; set; }
         public string Address3 { get; set; }
         public string City { get; set; }
-        public string State { get; set; } 
+        public string State { get; set; }
         public string StateName { get; set; }
         public string Zipcode { get; set; }
         public string Country { get; set; }
 
         public int? TicketCount { get; set; }
-        public bool? IsMailed { get; set; } = false;
+        public bool IsMailed { get; set; } = false;
 
-        public bool? IsAttending { get; set; } = false;
-        public bool? IsWaiting { get; set; } = false;
+        public bool IsAttending { get; set; } = false;
+        public bool IsWaiting { get; set; } = false;
 
         public DateTime? ResponseDate { get; set; }
         public DateTime? MailedDate { get; set; }

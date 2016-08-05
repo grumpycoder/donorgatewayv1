@@ -79,5 +79,13 @@ namespace DonorGateway.Domain
             TicketMailedCount += guest.TicketCount ?? 0;
 
         }
+
+        public void MoveToMailQueue(Guest guest)
+        {
+            guest.IsWaiting = false;
+            guest.IsAttending = true;
+            GuestWaitingCount = GuestWaitingCount - guest.TicketCount ?? 0;
+            GuestAttendanceCount += guest.TicketCount ?? 0;
+        }
     }
 }

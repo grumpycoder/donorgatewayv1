@@ -75,6 +75,10 @@
     <Compile Include="Migrations\201608011637364_EventCascadeDeleteGuest.Designer.cs">
       <DependentUpon>201608011637364_EventCascadeDeleteGuest.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608051514501_GuestStatusDataTypeToNotNull.cs" />
+    <Compile Include="Migrations\201608051514501_GuestStatusDataTypeToNotNull.Designer.cs">
+      <DependentUpon>201608051514501_GuestStatusDataTypeToNotNull.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -100,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608011637364_EventCascadeDeleteGuest.resx">
       <DependentUpon>201608011637364_EventCascadeDeleteGuest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608051514501_GuestStatusDataTypeToNotNull.resx">
+      <DependentUpon>201608051514501_GuestStatusDataTypeToNotNull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

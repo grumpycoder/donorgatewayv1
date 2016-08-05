@@ -196,11 +196,11 @@ namespace admin.web.Controllers
             if (guestDto == null) return NotFound();
 
             @event.RegisterGuest(guestDto);
-            guestDto.Event = @event; 
+            guestDto.Event = @event;
 
             context.Events.AddOrUpdate(@event);
             context.SaveChanges();
-            
+
             context.Guests.AddOrUpdate(guestDto);
             context.SaveChanges();
 
@@ -226,9 +226,31 @@ namespace admin.web.Controllers
             context.Guests.AddOrUpdate(guestDto);
             context.SaveChanges();
 
+            //TODO: Send mail here
+
             return Ok(guestDto);
         }
 
+        [HttpPost, Route("{id:int}/addtomail")]
+        public IHttpActionResult AddToMail(int id, Guest guestDto)
+        {
+            var @event = context.Events.Find(id);
+
+            if (@event == null) return NotFound();
+
+            if (guestDto == null) return NotFound();
+
+            @event.MoveToMailQueue(guestDto);
+            guestDto.Event = @event;
+
+            context.Events.AddOrUpdate(@event);
+            context.SaveChanges();
+
+            context.Guests.AddOrUpdate(guestDto);
+            context.SaveChanges();
+
+            return Ok(guestDto);
+        }
 
     }
 }

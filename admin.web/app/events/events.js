@@ -17,8 +17,11 @@
 
         //TODO: hostLocation needs to be dynamic to environment
         vm.hostLocation = 'rsvp-test/';
-        vm.showWaitList = false;
-        vm.showMailQueue = false;
+        //vm.showWaitList = false;
+        //vm.showMailQueue = false;
+        //vm.showTicketSent = false;
+
+        vm.showWaiting = false;
 
         vm.title = 'Event Manager';
         vm.description = "Manage Donor Events";
@@ -56,18 +59,23 @@
             logger.log(controllerId + ' activated');
             getEvents().then(function () {
                 logger.log('loaded events');
+                vm.selectedEvent = vm.events[0];
+                vm.searchGuests(tableStateRef);
             });
         }
 
         vm.addToMailQueue = function (guest) {
             vm.isBusy = true;
-            guest.isWaiting = false;
-            guest.isAttending = true;
-            guestService.update(guest)
+            service.addToMail(guest)
                 .then(function (data) {
-                    logger.log('added guest', data);
                     logger.info('Added Guest to Queue: ' + data.name);
-                    guest = data;
+                    angular.extend(guest, data);
+                    logger.success('Issued ticket to: ' + guest.name);
+
+                    var event = angular.copy(vm.selectedEvent);
+                    angular.extend(vm.selectedEvent, guest.event);
+                    vm.selectedEvent.guests = event.guests;
+                    logger.log('event', vm.selectedEvent);
                 }).finally(function () {
                     //complete();
                     vm.isBusy = false;
@@ -160,16 +168,26 @@
             });
         }
 
-        vm.filterWaitingQueue = function () {
-            vm.showWaitQueue = !vm.showWaitQueue;
-            vm.showMailQueue = null;
+        vm.toggleWaiting = function () {
+            vm.showWaiting = !vm.showWaiting;
+            vm.showMail = false;
+            vm.showSent = false; 
             vm.searchModel.page = 1;
             vm.searchGuests(tableStateRef);
         }
 
-        vm.filterMailQueue = function () {
-            vm.showMailQueue = !vm.showMailQueue;
-            vm.showWaitQueue = null;
+        vm.toggleMail = function () {
+            vm.showMail = !vm.showMail;
+            vm.showWaiting = false;
+            vm.showSent = false;
+            vm.searchModel.page = 1;
+            vm.searchGuests(tableStateRef);
+        }
+
+        vm.toggleSent = function() {
+            vm.showSent = !vm.showSent;
+            vm.showWaiting = false;
+            vm.showMail = false; 
             vm.searchModel.page = 1;
             vm.searchGuests(tableStateRef);
         }
@@ -217,22 +235,27 @@
 
             vm.searchModel.isAttending = null;
             vm.searchModel.isWaiting = null;
+            vm.searchModel.isMailed = null; 
 
-            if (vm.showWaitQueue) {
-                vm.searchModel.isAttending = true;
-                vm.searchModel.isWaiting = true;
-                vm.searchModel.isMailed = null;
+            if (vm.showWaiting) {
+                vm.searchModel.isWaiting = vm.showWaiting ? vm.showWaiting : null;
             }
 
-            if (vm.showMailQueue) {
-                vm.searchModel.isAttending = true;
+            if (vm.showMail) {
                 vm.searchModel.isWaiting = false;
-                vm.searchModel.isMailed = null;
+                vm.searchModel.isMailed = false;
+                vm.searchModel.isAttending = true;
             }
+
+            if (vm.showSent) {
+                vm.searchModel.isWaiting = false;
+                vm.searchModel.isMailed = true;
+                vm.searchModel.isAttending = true;
+            }
+
             vm.isBusy = true;
             return service.getGuests(vm.selectedEvent.id, vm.searchModel)
                 .then(function (data) {
-                    logger.log('data', data);
                     vm.selectedEvent.guests = data.items;
                     vm.searchModel = data;
                     vm.isBusy = false;

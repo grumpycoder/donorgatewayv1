@@ -3,9 +3,13 @@
 <div class="box no-border">
     <div class="box-header">
         <button class="btn" ng-click="vm.showGuestUpload()"><i class="fa fa-cloud-upload"></i> Upload</button>
-        <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showWaitQueue, 'btn-default': !vm.showWaitQueue }" ng-click="vm.filterWaitingQueue()"> <i class="fa fa-clock-o"></i> Show Waiting List</button>
-        <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showMailQueue, 'btn-default': !vm.showMailQueue }" ng-click="vm.filterMailQueue()"> <i class="fa fa-envelope"></i> Show Mail Queue</button>
+        <!--<button class="btn btn-default" ng-class="{ 'btn-warning': vm.showWaitQueue, 'btn-default': !vm.showWaitQueue }" ng-click="vm.filterWaitingQueue()"> <i class="fa fa-clock-o"></i> Show Waiting List</button>
+        <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showMailQueue, 'btn-default': !vm.showMailQueue }" ng-click="vm.filterSendTicket()"> <i class="fa fa-envelope"></i> Show Send Tickets</button>
+        <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showTicketSent, 'btn-default': !vm.showTicketSent }" ng-click="vm.filterTicketSent()"> <i class="fa fa-paper-plane"></i> Show Tickets Sent</button>-->
 
+        <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showWaiting, 'btn-default': !vm.showWaiting }" ng-click="vm.toggleWaiting()"> <i class="fa fa-clock-o"></i> Show Waiting List</button>
+        <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showMail, 'btn-default': !vm.showMail }" ng-click="vm.toggleMail()"> <i class="fa fa-envelope"></i> Show Send Tickets</button>
+        <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showSent, 'btn-default': !vm.showSent }" ng-click="vm.toggleSent()"> <i class="fa fa-paper-plane"></i> Show Tickets Sent</button>
 
         <span class="pull-right">
             <button class="btn btn-default" ng-click="vm.refreshGuests()">
@@ -87,8 +91,8 @@
                     <td>{{g.accountId}}</td>
                     <td>{{g.finderNumber}}</td>
                     <td>
-                        <button class="btn btn-block" ng-show="g.isWaiting" ng-click="vm.addToMailQueue(g)"><i class="fa fa-list"></i> Queue</button>
-                        <button class="btn btn-block" ng-show="g.isAttending && !g.isMailed && !g.isWaiting" ng-click="vm.mailTicket(g)"><i class="icon ion-android-mail"></i> Mail</button>
+                        <button class="btn btn-block" ng-show="g.isWaiting" ng-click="vm.addToMailQueue(g)"><i class="fa fa-list"></i> Move to Send</button>
+                        <button class="btn btn-block" ng-show="g.isAttending && !g.isMailed && !g.isWaiting" ng-click="vm.mailTicket(g)"><i class="icon ion-android-mail"></i> Send Ticket</button>
                         <button class="btn btn-block" ng-show="!g.isAttending && !g.isWaiting" ng-click="vm.registerGuest(g)"><i class="fa fa-key"></i> Register</button>
                         <span ng-show="g.isMailed"><i class="fa fa-check-circle fa-2x text-green center-block text-center"></i></span>
                     </td>
