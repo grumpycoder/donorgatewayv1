@@ -9,7 +9,7 @@
         <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showSent, 'btn-default': !vm.showSent }" ng-click="vm.toggleSent()"> <i class="fa fa-paper-plane"></i> Show Tickets Sent</button>
 
         <span class="pull-right">
-            <button class="btn btn-success" ng-click="vm.createGuest()">
+            <button class="btn btn-success" uib-popover="New Guest" popover-trigger="mouseenter"  ng-click="vm.createGuest()">
                 <i class="fa fa-plus-circle"></i>
             </button>
 
