@@ -5,6 +5,7 @@ namespace admin.web.ViewModels
 {
     public class GuestViewModel
     {
+        public int Id { get; set; }
         public string LookupId { get; set; }
         public string FinderNumber { get; set; }
         public string ConstituentType { get; set; }

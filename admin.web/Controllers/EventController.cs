@@ -223,7 +223,7 @@ namespace admin.web.Controllers
             if (guestDto == null) return NotFound();
 
             var guest = Mapper.Map<Guest>(guestDto);
-
+            
             @event.AddTickets(guest, guestDto.AdditionalTickets);
 
             context.Events.AddOrUpdate(@event);

@@ -3,10 +3,7 @@
 <div class="box no-border">
     <div class="box-header">
         <button class="btn" ng-click="vm.showGuestUpload()"><i class="fa fa-cloud-upload"></i> Upload</button>
-        <!--<button class="btn btn-default" ng-class="{ 'btn-warning': vm.showWaitQueue, 'btn-default': !vm.showWaitQueue }" ng-click="vm.filterWaitingQueue()"> <i class="fa fa-clock-o"></i> Show Waiting List</button>
-        <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showMailQueue, 'btn-default': !vm.showMailQueue }" ng-click="vm.filterSendTicket()"> <i class="fa fa-envelope"></i> Show Send Tickets</button>
-        <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showTicketSent, 'btn-default': !vm.showTicketSent }" ng-click="vm.filterTicketSent()"> <i class="fa fa-paper-plane"></i> Show Tickets Sent</button>-->
-
+     
         <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showWaiting, 'btn-default': !vm.showWaiting }" ng-click="vm.toggleWaiting()"> <i class="fa fa-clock-o"></i> Show Waiting List</button>
         <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showMail, 'btn-default': !vm.showMail }" ng-click="vm.toggleMail()"> <i class="fa fa-envelope"></i> Show Send Tickets</button>
         <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showSent, 'btn-default': !vm.showSent }" ng-click="vm.toggleSent()"> <i class="fa fa-paper-plane"></i> Show Tickets Sent</button>
