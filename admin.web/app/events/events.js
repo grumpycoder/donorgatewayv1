@@ -68,7 +68,6 @@
                     var event = angular.copy(vm.selectedEvent);
                     angular.extend(vm.selectedEvent, guest.event);
                     vm.selectedEvent.guests = event.guests;
-                    logger.log('event', vm.selectedEvent);
                 }).finally(function () {
                     //complete();
                     vm.isBusy = false;
@@ -145,7 +144,27 @@
                 });
         }
 
+        vm.createGuest = function () {
+
+            $modal.open({
+                templateUrl: '/app/events/views/edit-guest.html',
+                controller: 'CreateGuestController',
+                controllerAs: 'vm', 
+                resolve: {
+                    event: vm.selectedEvent
+                }
+            }).result.then(function (result) {
+                
+                var event = angular.copy(vm.selectedEvent);
+                angular.extend(vm.selectedEvent, result.event);
+                vm.selectedEvent.guests = event.guests;
+
+                vm.selectedEvent.guests.unshift(result);
+            });
+        }
+
         vm.registerGuest = function (guest) {
+           
             $modal.open({
                 templateUrl: '/app/events/views/edit-guest.html',
                 controller: 'EditGuestController',
@@ -251,7 +270,6 @@
                 .then(function (data) {
                     vm.selectedEvent.guests = data.items;
                     vm.searchModel = data;
-                    logger.log(data.items);
                     vm.isBusy = false;
                 });
 
@@ -263,14 +281,12 @@
 
         vm.saveEvent = function (form) {
             vm.isBusy = true;
-            logger.log('before save', vm.selectedEvent);
             return service.update(vm.selectedEvent)
                 .then(function (data) {
                     var guests = vm.selectedEvent.guests;
                     angular.extend(vm.selectedEvent, data);
 
                     vm.selectedEvent.guests = guests;
-                    logger.log('event', vm.selectedEvent);
                     logger.success('Saved Event: ' + data.name);
                 })
                 .finally(function () {
@@ -299,7 +315,6 @@
         };
 
         vm.saveTemplate = function () {
-            logger.log('template', vm.selectedEvent.template);
             vm.isBusy = true;
             templateService.update(vm.selectedEvent.template)
                 .then(function (data) {
@@ -329,7 +344,6 @@
             }).result.then(function (data) {
                 vm.selectedEvent = data;
                 vm.events.unshift(vm.selectedEvent);
-                logger.log('event', vm.selectedEvent);
                 logger.success('Successfully created ' + data.name);
             });
         }

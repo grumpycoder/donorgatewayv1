@@ -3,12 +3,16 @@
 <div class="box no-border">
     <div class="box-header">
         <button class="btn" ng-click="vm.showGuestUpload()"><i class="fa fa-cloud-upload"></i> Upload</button>
-     
+
         <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showWaiting, 'btn-default': !vm.showWaiting }" ng-click="vm.toggleWaiting()"> <i class="fa fa-clock-o"></i> Show Waiting List</button>
         <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showMail, 'btn-default': !vm.showMail }" ng-click="vm.toggleMail()"> <i class="fa fa-envelope"></i> Show Send Tickets</button>
         <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showSent, 'btn-default': !vm.showSent }" ng-click="vm.toggleSent()"> <i class="fa fa-paper-plane"></i> Show Tickets Sent</button>
 
         <span class="pull-right">
+            <button class="btn btn-success" ng-click="vm.createGuest()">
+                <i class="fa fa-plus-circle"></i>
+            </button>
+
             <button class="btn btn-default" ng-click="vm.refreshGuests()">
                 <i class="fa fa-refresh"></i>
                 Refresh
@@ -84,6 +88,7 @@
                             {{g.isMailed | checkmark}}
                         </span>
                     </td>-->
+            
                     <td class="text-center">{{g.ticketCount}}</td>
                     <td>{{g.email}}</td>
                     <td>{{g.phone}}</td>
@@ -98,7 +103,7 @@
                         <button class="btn btn-block" ng-show="!g.isAttending && !g.isWaiting" ng-click="vm.registerGuest(g)"><i class="fa fa-key"></i> Register</button>
                         <div ng-show="g.isMailed">
                             <i class="fa fa-check-circle fa-2x text-green center-block text-center" ng-click="vm.registerGuest(g)"></i>
-                            <!--<i class="fa fa-plus-square-o fa-2x"></i>-->
+                           
                         </div>
                     </td>
                 </tr>
