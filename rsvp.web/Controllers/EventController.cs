@@ -62,6 +62,7 @@ namespace rsvp.web.Controllers
             Mapper.Map<RegisterFormViewModel, Guest>(form, guest);
 
             @event.RegisterGuest(guest);
+            @event.SendMail(guest);
 
             db.Events.AddOrUpdate(@event);
             db.SaveChanges();

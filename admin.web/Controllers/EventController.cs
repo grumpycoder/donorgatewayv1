@@ -254,8 +254,7 @@ namespace admin.web.Controllers
 
             context.Guests.AddOrUpdate(guestDto);
             context.SaveChanges();
-
-            //TODO: Send mail here
+            
             @event.SendMail(guestDto); 
 
             return Ok(guestDto);
