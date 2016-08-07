@@ -1,6 +1,10 @@
-﻿using System;
+﻿using DonorGateway.Domain.Helpers;
+using FluentEmail;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace DonorGateway.Domain
 {
@@ -93,5 +97,69 @@ namespace DonorGateway.Domain
             GuestWaitingCount = GuestWaitingCount - guest.TicketCount ?? 0;
             GuestAttendanceCount += guest.TicketCount ?? 0;
         }
+
+        public void SendMail(Guest guest)
+        {
+
+            var message = Template.HeaderText + Template.BodyText;
+
+            if (guest.IsWaiting)
+            {
+                message += Template.WaitingResponseText;
+            }
+            if (!guest.IsAttending)
+            {
+                message += Template.NoResponseText;
+            }
+            if (guest.IsAttending)
+            {
+                message += Template.YesResponseText;
+            }
+
+            message = guest.ParseTemplate(message);
+            message = ParseTemplate(message);
+
+            var email = Email
+                        .From("marklawrence72@gmail.com")
+                        .To(guest.Email)
+                        .Subject("Test")
+                        .Body(message);
+
+            email.Send();
+
+        }
+
+        public string ParseTemplate(string message)
+        {
+            var properties = typeof(Event).GetProperties().Where(p => p.PropertyType == typeof(DateTime?) || p.PropertyType == typeof(string));
+            foreach (var prop in properties)
+            {
+                if (prop.GetValue(this, null) == null) continue;
+
+                var propValue = prop.GetValue(this, null).ToString();
+                if (prop.PropertyType == typeof(DateTime?))
+                {
+                    propValue = Convert.ToDateTime(prop.GetValue(this, null)).ToString("dddd, MMMM d, yyyy @ h:mm tt");
+                }
+
+                if (string.IsNullOrWhiteSpace(propValue)) continue;
+                message = ReplaceText(message, prop.Name, propValue);
+            }
+            return message;
+        }
+
+        private static string ReplaceText(string stringToReplace, string fieldName, string fieldValue)
+        {
+            var pattern = "@{" + fieldName + "}";
+
+            var regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            var matches = regex.Matches(stringToReplace);
+
+            return matches.Replace(stringToReplace, fieldValue);
+
+        }
+
     }
+
+
 }

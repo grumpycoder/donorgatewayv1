@@ -256,6 +256,7 @@ namespace admin.web.Controllers
             context.SaveChanges();
 
             //TODO: Send mail here
+            @event.SendMail(guestDto); 
 
             return Ok(guestDto);
         }
