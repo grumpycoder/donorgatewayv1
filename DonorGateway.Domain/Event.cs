@@ -1,9 +1,11 @@
 ﻿using DonorGateway.Domain.Helpers;
-using FluentEmail;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Text.RegularExpressions;
 
 namespace DonorGateway.Domain
@@ -119,13 +121,26 @@ namespace DonorGateway.Domain
             message = guest.ParseTemplate(message);
             message = ParseTemplate(message);
 
-            var email = Email
-                        .From("marklawrence72@gmail.com")
-                        .To(guest.Email)
-                        .Subject("Test")
-                        .Body(message);
+            //TODO: Possible error missing template image. 
+            var imageData = Template.Image;
+            var contentId = Guid.NewGuid().ToString();
+            var linkedResource = new LinkedResource(new MemoryStream(imageData), "image/jpeg")
+            {
+                ContentId = contentId,
+                TransferEncoding = TransferEncoding.Base64
+            };
+            message = $"<img src=\"cid:{contentId}\" />" + message;
+            var html = AlternateView.CreateAlternateViewFromString(message, null, "text/html");
+            html.LinkedResources.Add(linkedResource);
 
-            email.Send();
+
+            //TODO: Replace from with web.config setting
+            var mail = new MailMessage("mark@mail.com", guest.Email);
+            mail.AlternateViews.Add(html);
+            var client = new SmtpClient();
+            client.Send(mail);
+
+
 
         }
 
