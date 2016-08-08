@@ -78,18 +78,12 @@ namespace admin.web.Controllers
             if (vm.IsWaiting != null) pred = pred.And(p => p.IsWaiting == isWaiting);
             if (vm.IsAttending != null) pred = pred.And(p => p.IsAttending == isAttending);
 
-            //var list = context.Guests.AsQueryable()
-            //    .Order(vm.OrderBy, vm.OrderDirection == "desc" ? SortDirection.Descending : SortDirection.Ascending)
-            //    .Where(pred)
-            //    .Skip(skipRows)
-            //    .Take(pageSize)
-            //    .ProjectTo<GuestViewModel>();
-
             var list = context.Guests.AsQueryable()
                 .Order(vm.OrderBy, vm.OrderDirection == "desc" ? SortDirection.Descending : SortDirection.Ascending)
                 .Where(pred)
                 .Skip(skipRows)
-                .Take(pageSize).ToList();
+                .Take(pageSize)
+                .ProjectTo<GuestViewModel>();
 
             var totalCount = context.Guests.Count();
             var filterCount = context.Guests.Where(pred).Count();
@@ -99,11 +93,7 @@ namespace admin.web.Controllers
             vm.FilteredCount = filterCount;
             vm.TotalPages = totalPages;
 
-
-            //var items = Mapper.Map<List<GuestViewModel>>(list);
-            vm.Items = list;
-
-            //vm.Items = list; 
+            vm.Items = list.ToList();
 
             return Ok(vm);
 
@@ -209,7 +199,7 @@ namespace admin.web.Controllers
             @event.RegisterGuest(dto);
             @event.SendEmail(dto);
 
-            context.Entry(@event.Template).State = EntityState.Unchanged; 
+            context.Entry(@event.Template).State = EntityState.Unchanged;
 
             dto.Event = @event;
 
