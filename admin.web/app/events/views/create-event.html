@@ -11,7 +11,7 @@
                 Name - Url
             </label>
             <input type="text" ng-model="vm.event.name" name="name" class="form-control" placeholder="New Event Name..." ng-required="true" />
-            <div ng-messages="form.name.$error" class="error-messages" ng-show="form.name.$dirty">
+            <div ng-messages="form.name.$error" class="error-messages" ng-show="form.name.$invalid">
                 <div ng-message="required">Required</div>
             </div>
         </div>
@@ -21,7 +21,7 @@
                 Display Name
             </label>
             <input type="text" ng-model="vm.event.displayName" name="displayName" class="form-control" placeholder="New Event Display Name..." ng-required="true"/>
-            <div ng-messages="form.displayName.$error" class="error-messages" ng-show="form.displayName.$dirty">
+            <div ng-messages="form.displayName.$error" class="error-messages" ng-show="form.displayName.$invalid">
                 <div ng-message="required">Required</div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                    minlength="2"
                    maxlength="50"
                    required />
-            <div ng-messages="form.venue.$error" class="error-messages" ng-messages-multiple ng-show="form.venue.$dirty">
+            <div ng-messages="form.venue.$error" class="error-messages" ng-messages-multiple ng-show="form.venue.$invalid">
                 <div ng-message="required">Required</div>
                 <div ng-message="minlength">Too Short</div>
                 <div ng-message="maxlength">Too Long</div>
@@ -68,7 +68,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="vm.save()" ng-disabled="form.$pristine || form.$invalid" ng-enabled="form.$dirty">
+        <button class="btn btn-primary" ng-click="vm.save()" ng-disabled="form.$pristine || form.$invalid" ng-enabled="form.$dirty && !form.$invalid">
             Create
         </button>
         <button class="btn btn-default pull-left" ng-click="vm.cancel()">

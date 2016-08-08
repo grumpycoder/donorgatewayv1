@@ -7,7 +7,7 @@
         <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showWaiting, 'btn-default': !vm.showWaiting }" ng-click="vm.toggleWaiting()"> <i class="fa fa-clock-o"></i> Show Waiting List</button>
         <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showMail, 'btn-default': !vm.showMail }" ng-click="vm.toggleMail()"> <i class="fa fa-envelope"></i> Show Send Tickets</button>
         <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showSent, 'btn-default': !vm.showSent }" ng-click="vm.toggleSent()"> <i class="fa fa-paper-plane"></i> Show Tickets Sent</button>
-
+        
         <span class="pull-right">
             <button class="btn btn-success" uib-popover="New Guest" popover-trigger="mouseenter"  ng-click="vm.createGuest()">
                 <i class="fa fa-plus-circle"></i>
@@ -41,6 +41,7 @@
                     <th st-sort="phone">Phone</th>
                     <th st-sort="accountId">Account Id</th>
                     <th st-sort="finderNumber">Finder Number</th>
+                    <th st-sort="mailedDate">Date Mailed</th>
                     <th>Comments</th>
                     <th></th>
                 </tr>
@@ -50,15 +51,6 @@
                     <td><input type="text" st-clear-key st-search="city" class="form-control" placeholder="City" /></td>
                     <td><input type="text" st-clear-key st-search="state" class="form-control" placeholder="State" /></td>
                     <td><input type="text" st-clear-key st-search="zipcode" class="form-control" placeholder="Zipcode" /></td>
-                    <!--<td width="80">
-                        <select st-search="isMailed" class="form-control">
-                            >
-                            <option value="" selected="">All</option>
-                            <option value="true">Yes</option>
-                            <option value="false">No</option>
-                        </select>
-                    </td>-->
-
                     <td><input type="text" class="form-control" placeholder="Guests" /></td>
                     <td><input type="text" st-clear-key st-search="email" class="form-control" placeholder="Email" /></td>
                     <td><input type="text" st-clear-key st-search="phone" class="form-control" placeholder="Phone" /></td>
@@ -66,6 +58,9 @@
                     <td><input type="text" st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number" /></td>
                     <td></td>
                     <td></td>
+                    <td class="text-center">
+                        <button class="btn btn-danger" ng-show="vm.showMail" ng-click="vm.mailAllTickets()"> <i class="fa fa-paper-plane"></i> Send All</button>
+                    </td>
                 </tr>
             </thead>
             <tbody>
@@ -83,17 +78,12 @@
                     <td>{{g.city}}</td>
                     <td>{{g.state}}</td>
                     <td>{{g.zipcode}}</td>
-                    <!--<td>
-                        <span class="center-block text-center">
-                            {{g.isMailed | checkmark}}
-                        </span>
-                    </td>-->
-            
                     <td class="text-center">{{g.ticketCount}}</td>
                     <td>{{g.email}}</td>
                     <td>{{g.phone}}</td>
                     <td>{{g.accountId}}</td>
                     <td>{{g.finderNumber}}</td>
+                    <td>{{g.mailedDate}}</td>
                     <td class="text-center">
                         <i ng-show="g.comment.length > 0" class="fa fa-comment" uib-popover="{{g.comment}}" popover-trigger="mouseenter"></i>
                     </td>

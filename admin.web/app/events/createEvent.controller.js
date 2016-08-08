@@ -13,7 +13,7 @@
 
     function mainController(logger, $modal, service) {
         var vm = this;
-        vm.title = 'Edit Guest';
+        vm.title = 'Create Event';
         
         vm.dateFormat = "MM/DD/YYYY hh:mm";
 

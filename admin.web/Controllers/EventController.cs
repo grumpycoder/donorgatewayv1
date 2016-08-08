@@ -5,6 +5,7 @@ using AutoMapper.QueryableExtensions;
 using CsvHelper;
 using DonorGateway.Data;
 using DonorGateway.Domain;
+using EntityFramework.Utilities;
 using System;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
@@ -235,6 +236,31 @@ namespace admin.web.Controllers
             return Ok(dto);
         }
 
+        [HttpPut, Route("{id:int}/mailalltickets")]
+        public IHttpActionResult MailAllTickets(int id)
+        {
+            //var @event = context.Events.Include(g => g.Guests).SingleOrDefault(e => e.Id == id);
+            var @event = context.Events.SingleOrDefault(e => e.Id == id);
+
+            if (@event == null) return NotFound();
+
+            var list = context.Guests.Where(x => x.IsMailed == false && x.IsAttending == true && x.IsWaiting == false);
+
+            foreach (var guest in list)
+            {
+                guest.IsMailed = true;
+                guest.MailedDate = DateTime.Now;
+                @event.TicketMailedCount++;
+            }
+            context.Events.AddOrUpdate(@event);
+            context.SaveChanges();
+
+            EFBatchOperation.For(context, context.Guests).UpdateAll(@event.Guests.ToList(), x => x.ColumnsToUpdate(c => c.IsMailed, c => c.MailedDate));
+            context.SaveChanges();
+
+            return Ok(@event);
+        }
+
         [HttpPost, Route("{id:int}/mailticket")]
         public IHttpActionResult MailTicket(int id, Guest dto)
         {
@@ -247,9 +273,6 @@ namespace admin.web.Controllers
             @event.MailTicket(dto);
 
             dto.Event = @event;
-
-            //Do not modify template of event. 
-            //context.Entry(@event).Property<Template>("Template").IsModified = false;
 
             context.Events.AddOrUpdate(@event);
             context.SaveChanges();
