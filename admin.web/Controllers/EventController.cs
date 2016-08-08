@@ -6,7 +6,6 @@ using CsvHelper;
 using DonorGateway.Data;
 using DonorGateway.Domain;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.IO;
@@ -79,13 +78,18 @@ namespace admin.web.Controllers
             if (vm.IsWaiting != null) pred = pred.And(p => p.IsWaiting == isWaiting);
             if (vm.IsAttending != null) pred = pred.And(p => p.IsAttending == isAttending);
 
+            //var list = context.Guests.AsQueryable()
+            //    .Order(vm.OrderBy, vm.OrderDirection == "desc" ? SortDirection.Descending : SortDirection.Ascending)
+            //    .Where(pred)
+            //    .Skip(skipRows)
+            //    .Take(pageSize)
+            //    .ProjectTo<GuestViewModel>();
+
             var list = context.Guests.AsQueryable()
                 .Order(vm.OrderBy, vm.OrderDirection == "desc" ? SortDirection.Descending : SortDirection.Ascending)
                 .Where(pred)
                 .Skip(skipRows)
-                .Take(pageSize)
-                .ProjectTo<GuestViewModel>();
-            //.ToList();
+                .Take(pageSize).ToList();
 
             var totalCount = context.Guests.Count();
             var filterCount = context.Guests.Where(pred).Count();
@@ -96,8 +100,8 @@ namespace admin.web.Controllers
             vm.TotalPages = totalPages;
 
 
-            var items = Mapper.Map<List<GuestViewModel>>(list);
-            vm.Items = list.ToList();
+            //var items = Mapper.Map<List<GuestViewModel>>(list);
+            vm.Items = list;
 
             //vm.Items = list; 
 
@@ -194,37 +198,41 @@ namespace admin.web.Controllers
         }
 
         [HttpPost, Route("{id:int}/registerguest")]
-        public IHttpActionResult RegisterGuest(int id, Guest guestDto)
+        public IHttpActionResult RegisterGuest(int id, Guest dto)
         {
             var @event = context.Events.Find(id);
 
             if (@event == null) return NotFound();
 
-            if (guestDto == null) return NotFound();
+            if (dto == null) return NotFound();
 
-            @event.RegisterGuest(guestDto);
-            guestDto.Event = @event;
+            @event.RegisterGuest(dto);
+            @event.SendEmail(dto);
+
+            context.Entry(@event.Template).State = EntityState.Unchanged; 
+
+            dto.Event = @event;
 
             context.Events.AddOrUpdate(@event);
             context.SaveChanges();
 
-            context.Guests.AddOrUpdate(guestDto);
+            context.Guests.AddOrUpdate(dto);
             context.SaveChanges();
 
-            return Ok(guestDto);
+            return Ok(dto);
         }
 
         [HttpPost, Route("{id:int}/addticket")]
-        public IHttpActionResult AddTicket(int id, GuestViewModel guestDto)
+        public IHttpActionResult AddTicket(int id, GuestViewModel dto)
         {
             var @event = context.Events.Find(id);
 
             if (@event == null) return NotFound();
-            if (guestDto == null) return NotFound();
+            if (dto == null) return NotFound();
 
-            var guest = Mapper.Map<Guest>(guestDto);
-            
-            @event.AddTickets(guest, guestDto.AdditionalTickets);
+            var guest = Mapper.Map<Guest>(dto);
+
+            @event.AddTickets(guest, dto.AdditionalTickets);
 
             context.Events.AddOrUpdate(@event);
             context.SaveChanges();
@@ -232,53 +240,55 @@ namespace admin.web.Controllers
             context.Guests.AddOrUpdate(guest);
             context.SaveChanges();
 
-            Mapper.Map(guest, guestDto);
-            guestDto.Event = @event;
-            return Ok(guestDto);
+            Mapper.Map(guest, dto);
+            dto.Event = @event;
+            return Ok(dto);
         }
 
         [HttpPost, Route("{id:int}/mailticket")]
-        public IHttpActionResult MailTicket(int id, Guest guestDto)
+        public IHttpActionResult MailTicket(int id, Guest dto)
         {
             var @event = context.Events.Find(id);
 
             if (@event == null) return NotFound();
 
-            if (guestDto == null) return NotFound();
+            if (dto == null) return NotFound();
 
-            @event.MailTicket(guestDto);
-            guestDto.Event = @event;
+            @event.MailTicket(dto);
+
+            dto.Event = @event;
+
+            //Do not modify template of event. 
+            //context.Entry(@event).Property<Template>("Template").IsModified = false;
 
             context.Events.AddOrUpdate(@event);
             context.SaveChanges();
 
-            context.Guests.AddOrUpdate(guestDto);
+            context.Guests.AddOrUpdate(dto);
             context.SaveChanges();
-            
-            @event.SendMail(guestDto); 
 
-            return Ok(guestDto);
+            return Ok(dto);
         }
 
         [HttpPost, Route("{id:int}/addtomail")]
-        public IHttpActionResult AddToMail(int id, Guest guestDto)
+        public IHttpActionResult AddToMail(int id, Guest dto)
         {
             var @event = context.Events.Find(id);
 
             if (@event == null) return NotFound();
 
-            if (guestDto == null) return NotFound();
+            if (dto == null) return NotFound();
 
-            @event.MoveToMailQueue(guestDto);
-            guestDto.Event = @event;
+            @event.MoveToMailQueue(dto);
+            dto.Event = @event;
 
             context.Events.AddOrUpdate(@event);
             context.SaveChanges();
 
-            context.Guests.AddOrUpdate(guestDto);
+            context.Guests.AddOrUpdate(dto);
             context.SaveChanges();
 
-            return Ok(guestDto);
+            return Ok(dto);
         }
 
     }

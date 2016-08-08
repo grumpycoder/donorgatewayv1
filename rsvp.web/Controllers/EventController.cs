@@ -21,9 +21,15 @@ namespace rsvp.web.Controllers
         [Route("{id}")]
         public ActionResult Index(string id)
         {
-            var @event = Mapper.Map<EventViewModel>(db.Events.Include(t => t.Template).SingleOrDefault(x => x.Name == id));
+            var @event = db.Events.SingleOrDefault(x => x.Name == id);
+            if (@event == null) return View("EventNotFound");
 
-            return @event == null ? View("EventNotFound") : View(@event);
+
+            @event.ParseTemplate();
+
+            var vm = Mapper.Map<EventViewModel>(@event);
+            
+            return View(vm);
         }
 
         [HttpPost]
@@ -62,7 +68,10 @@ namespace rsvp.web.Controllers
             Mapper.Map<RegisterFormViewModel, Guest>(form, guest);
 
             @event.RegisterGuest(guest);
-            @event.SendMail(guest);
+            @event.SendEmail(guest);
+
+            //Do not modify template of event. 
+            db.Entry(@event.Template).State = EntityState.Unchanged;
 
             db.Events.AddOrUpdate(@event);
             db.SaveChanges();

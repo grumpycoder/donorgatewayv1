@@ -206,12 +206,11 @@
 
         vm.mailTicket = function (guest) {
             vm.isBusy = true;
-            guest.isMailed = true;
-            guest.mailedDate = new Date();
-            vm.isWaiting = false;
             service.mailTicket(guest)
                         .then(function (data) {
                             angular.extend(guest, data);
+                            logger.log(guest);
+
                             logger.success('Issued ticket to: ' + guest.name);
 
                             var event = angular.copy(vm.selectedEvent);

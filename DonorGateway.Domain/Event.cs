@@ -32,7 +32,7 @@ namespace DonorGateway.Domain
         public DateTime? VenueOpenDate { get; set; }
         public DateTime? RegistrationCloseDate { get; set; }
         public int? TicketAllowance { get; set; }
-        public bool? IsCancelled { get; set; }
+        public bool IsCancelled { get; set; }
         public int? TemplateId { get; set; }
 
         public int GuestWaitingCount { get; set; }
@@ -83,7 +83,6 @@ namespace DonorGateway.Domain
             guest.MailedDate = DateTime.Now;
 
             TicketMailedCount += guest.TicketCount ?? 0;
-
         }
 
         public void AddTickets(Guest guest, int additionalTickets)
@@ -100,8 +99,12 @@ namespace DonorGateway.Domain
             GuestAttendanceCount += guest.TicketCount ?? 0;
         }
 
-        public void SendMail(Guest guest)
+        public void SendEmail(Guest guest)
         {
+            ParseTemplate();
+            ParseTemplate(guest);
+
+            //guest.ParseTemplate();
 
             var message = Template.HeaderText + Template.BodyText;
 
@@ -118,9 +121,6 @@ namespace DonorGateway.Domain
                 message += Template.YesResponseText;
             }
 
-            message = guest.ParseTemplate(message);
-            message = ParseTemplate(message);
-
             //TODO: Possible error missing template image. 
             var imageData = Template.Image;
             var contentId = Guid.NewGuid().ToString();
@@ -135,16 +135,49 @@ namespace DonorGateway.Domain
 
 
             //TODO: Replace from with web.config setting
-            var mail = new MailMessage("mark@mail.com", guest.Email);
+            var mail = new MailMessage("rsvp@mail.com", "robbinfuqua@gmail.com");
             mail.AlternateViews.Add(html);
             var client = new SmtpClient();
             client.Send(mail);
 
 
+        }
+
+        public void ParseTemplate(Guest guest)
+        {
+            var properties = typeof(Template).GetProperties().Where(p => p.PropertyType == typeof(string));
+
+            foreach (var prop in properties)
+            {
+                if (prop.GetValue(this.Template, null) == null) continue;
+
+                var propValue = guest.Parse(prop.GetValue(this.Template, null).ToString());
+                if (string.IsNullOrWhiteSpace(propValue)) continue;
+
+                prop.SetValue(this.Template, Convert.ChangeType(propValue, prop.PropertyType), null);
+
+            }
 
         }
 
-        public string ParseTemplate(string message)
+        public void ParseTemplate()
+        {
+            var properties = typeof(Template).GetProperties().Where(p => p.PropertyType == typeof(string));
+
+            foreach (var prop in properties)
+            {
+                if (prop.GetValue(this.Template, null) == null) continue;
+
+                var propValue = Parse(prop.GetValue(this.Template, null).ToString());
+                if (string.IsNullOrWhiteSpace(propValue)) continue;
+
+                prop.SetValue(this.Template, Convert.ChangeType(propValue, prop.PropertyType), null);
+
+            }
+
+        }
+
+        private string Parse(string message)
         {
             var properties = typeof(Event).GetProperties().Where(p => p.PropertyType == typeof(DateTime?) || p.PropertyType == typeof(string));
             foreach (var prop in properties)

@@ -12,10 +12,20 @@ namespace web.App_Start
 
             Mapper.Initialize(cfg =>
             {
+                //cfg.CreateMap<Event, EventViewModel>()
+                //    .ForMember(vm => vm.EventId, map => map.MapFrom(m => m.Id))
+                //    .ForMember(vm => vm.EventName, map => map.MapFrom(m => m.Name))
+                //    .ForMember(vm => vm.EventDisplayName, map => map.MapFrom(m => m.DisplayName))
+                //    .ReverseMap();
+
+                //cfg.CreateMap<Event, EventViewModel>()
+                //   .ForMember(vm => vm.EventId, map => map.MapFrom(m => m.Id))
+                //   .ForMember(vm => vm.EventName, map => map.MapFrom(m => m.Name))
+                //   .ForMember(vm => vm.EventDisplayName, map => map.MapFrom(m => m.DisplayName))
+                //   .ReverseMap();
+
                 cfg.CreateMap<Event, EventViewModel>()
-                    .ForMember(vm => vm.EventId, map => map.MapFrom(m => m.Id))
-                    .ForMember(vm => vm.EventName, map => map.MapFrom(m => m.Name))
-                    .ForMember(vm => vm.EventDisplayName, map => map.MapFrom(m => m.DisplayName))
+                    .ForMember(d => d.EventId, d => d.MapFrom(m => m.Id))
                     .ReverseMap();
 
                 cfg.CreateMap<Guest, RegisterFormViewModel>()
