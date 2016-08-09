@@ -12,7 +12,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">User Manager</li>
+            <li class="active">Updates</li>
         </ol>
     </section>
 
@@ -22,11 +22,52 @@
             <div class="col-md-12">
                 <div class="box box-default box-solid">
                     <div class="box-header">
-                        <h3 class="box-title">{{vm.title}}</h3>
+                        <h3 class="box-title">{{vm.subTitle}}</h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
-
-
+                        <table class="table">
+                            <thead class="text-nowrap">
+                            <tr>
+                                <th>LookupId</th>
+                                <th>FinderNumber</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>City </th>
+                                <th>State</th>
+                                <th>Zip</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Updated By</th>
+                                <th>Source</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="d in vm.demographics">
+                                <td>{{d.lookupId}}</td>
+                                <td>{{d.finderNumber}}</td>
+                                <td>{{d.name}}</td>
+                                <td>
+                                    <address>
+                                        {{d.address}}
+                                        <br>
+                                        {{d.address2}}<br>
+                                        {{d.address3}}
+                                    </address>
+                                </td>
+                                <td>{{d.city}}</td>
+                                <td>{{d.state}}</td>
+                                <td>{{d.zipcode}}</td>
+                                <td>{{d.email}}</td>
+                                <td>{{d.phone}}</td>
+                                <td>{{d.updatedBy}}</td>
+                                <td>{{d.source}}</td>
+                                <td>
+                                    <button class="btn btn-default">Update</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">

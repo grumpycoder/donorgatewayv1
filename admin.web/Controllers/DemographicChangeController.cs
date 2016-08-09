@@ -1,6 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Web.Http;
 using DonorGateway.Data;
-using DonorGateway.Domain;
 
 namespace admin.web.Controllers
 {
@@ -15,12 +15,9 @@ namespace admin.web.Controllers
 
         public IHttpActionResult Get()
         {
-            //var demo = new DemographicChange()
-            //{
-            //    FinderNumber = "11111"
-            //}; 
+            var list = context.DemographicChanges.ToList();
 
-            return Ok("Got It");
+            return Ok(list);
         }
     }
 }
