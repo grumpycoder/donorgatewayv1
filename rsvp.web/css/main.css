@@ -45,10 +45,11 @@ span.field-validation-error {
 
 
 img.event-image {
-    margin-bottom: 2em
+    margin-bottom: 2em;
+    width: 100%;
 }
 
-/*SPLC Overrides*/ 
+/*SPLC Overrides*/
 form h3 {
     font-size: inherit;
 }
@@ -109,7 +110,7 @@ label.btn.btn-primary {
     cursor: pointer;
 }
 
-label.btn.btn-primary.active {
+    label.btn.btn-primary.active {
         background: #d5292a;
         border: 3px solid #cb1f20;
         color: #ffffff;

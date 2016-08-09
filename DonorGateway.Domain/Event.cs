@@ -104,8 +104,6 @@ namespace DonorGateway.Domain
             ParseTemplate();
             ParseTemplate(guest);
 
-            //guest.ParseTemplate();
-
             var message = Template.HeaderText + Template.BodyText;
 
             if (guest.IsWaiting)
@@ -129,7 +127,7 @@ namespace DonorGateway.Domain
                 ContentId = contentId,
                 TransferEncoding = TransferEncoding.Base64
             };
-            message = $"<img src=\"cid:{contentId}\" />" + message;
+            message = $"<img style='width:100%;' src=\"cid:{contentId}\" />" + message;
             var html = AlternateView.CreateAlternateViewFromString(message, null, "text/html");
             html.LinkedResources.Add(linkedResource);
 
