@@ -16,7 +16,7 @@
         var pageSizeDefault = 10;
 
         //TODO: hostLocation needs to be dynamic to environment
-        vm.hostLocation = 'rsvp-test/';
+        vm.hostLocation = 'localhost:54505/';
 
         vm.title = 'Event Manager';
         vm.description = "Manage Donor Events";
@@ -206,11 +206,8 @@
 
         vm.mailAllTickets = function () {
             vm.isBusy = true;
-            logger.log('send all tickets', vm.selectedEvent.id);
             service.mailAllTickets(vm.selectedEvent.id)
                 .then(function (data) {
-                    logger.log('returned data', data);
-                    debugger;
                     angular.extend(vm.selectedEvent, data);
                     vm.searchGuests(tableStateRef);
                     vm.isBusy = false; 
