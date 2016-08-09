@@ -29,6 +29,7 @@ namespace admin.web.ViewModels
 
         public bool IsExpired => EndDate < DateTime.Now;
         public bool IsAtCapacity => TicketRemainingCount <= 0;
+        public int? TemplateId { get; set; }
 
         public int TicketRemainingCount
         {
