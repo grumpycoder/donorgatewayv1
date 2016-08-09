@@ -88,6 +88,18 @@
     <Compile Include="Migrations\201608081224086_IsCancelledToNotNull.Designer.cs">
       <DependentUpon>201608081224086_IsCancelledToNotNull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608092103180_AddConstituent.cs" />
+    <Compile Include="Migrations\201608092103180_AddConstituent.Designer.cs">
+      <DependentUpon>201608092103180_AddConstituent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608092104171_AddDemographicChange.cs" />
+    <Compile Include="Migrations\201608092104171_AddDemographicChange.Designer.cs">
+      <DependentUpon>201608092104171_AddDemographicChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608092134449_AddDemographicChangeSourceEnum.cs" />
+    <Compile Include="Migrations\201608092134449_AddDemographicChangeSourceEnum.Designer.cs">
+      <DependentUpon>201608092134449_AddDemographicChangeSourceEnum.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -122,6 +134,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608081224086_IsCancelledToNotNull.resx">
       <DependentUpon>201608081224086_IsCancelledToNotNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608092103180_AddConstituent.resx">
+      <DependentUpon>201608092103180_AddConstituent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608092104171_AddDemographicChange.resx">
+      <DependentUpon>201608092104171_AddDemographicChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608092134449_AddDemographicChangeSourceEnum.resx">
+      <DependentUpon>201608092134449_AddDemographicChangeSourceEnum.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

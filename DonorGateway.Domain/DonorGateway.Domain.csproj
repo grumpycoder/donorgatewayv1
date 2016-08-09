@@ -63,6 +63,9 @@
   <ItemGroup>
     <Compile Include="ApplicationUser.cs" />
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="Constituent.cs" />
+    <Compile Include="ConstituentDetail.cs" />
+    <Compile Include="DemographicChange.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="Guest.cs" />
     <Compile Include="Helpers\RegexExtensions.cs" />

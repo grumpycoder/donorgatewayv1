@@ -26,6 +26,8 @@ namespace DonorGateway.Data
         public DbSet<Guest> Guests { get; set; }
         public DbSet<Template> Templates { get; set; }
 
+        public DbSet<Constituent> Constituents { get; set; }
+        public DbSet<DemographicChange> DemographicChanges { get; set; }
 
         public override int SaveChanges()
         {

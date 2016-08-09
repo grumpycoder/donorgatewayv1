@@ -18,5 +18,10 @@ namespace admin.web.Controllers
         {
             return View();
         }
+
+        public ActionResult Demographics()
+        {
+            return View();
+        }
     }
 }

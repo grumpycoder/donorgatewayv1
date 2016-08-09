@@ -201,6 +201,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DemographicChangeController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\GuestController.cs" />
@@ -236,6 +237,8 @@
     <Content Include="app\blocks\logger\logger.module.js" />
     <Content Include="app\core\config.js" />
     <Content Include="app\core\core.module.js" />
+    <Content Include="app\demographics\demographics.js" />
+    <Content Include="app\demographics\demographics.module.js" />
     <Content Include="app\directives\clear-key.directive.js" />
     <Content Include="app\directives\date-before.js" />
     <Content Include="app\directives\date-format.directive.js" />
@@ -340,6 +343,7 @@
     <Content Include="Views\Home\Users.cshtml" />
     <Content Include="Views\Auth\Login.cshtml" />
     <Content Include="Views\Home\Events.cshtml" />
+    <Content Include="Views\Home\Demographics.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

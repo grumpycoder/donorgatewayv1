@@ -11,7 +11,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Event Manager</li>
+            <li class="active">{{vm.title}}</li>
         </ol>
     </section>
 
@@ -22,7 +22,7 @@
 
                 <div class="box box-success" ng-class="{'box-solid' : vm.selectedEvent}">
                     <div class="box-header with-border">
-                        <span class="box-title">
+                        <span class="box-title" ng-show="vm.selectedEvent">
                             Event: {{vm.selectedEvent.name}}
                         </span>
                     </div><!-- /.box-header -->

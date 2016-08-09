@@ -12,6 +12,7 @@
 
     function mainController(logger, $modal, service, guestService, templateService) {
         var vm = this;
+        vm.title = 'Event Manager';
         var tableStateRef;
         var pageSizeDefault = 10;
 

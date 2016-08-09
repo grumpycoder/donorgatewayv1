@@ -63,26 +63,6 @@ namespace DonorGateway.Domain
         public string SubCategory { get; set; }
         public string Owner { get; set; }
 
-
-        //public void ParseTemplate()
-        //{
-        //    Event.ParseTemplate();
-        //    var properties = typeof(Template).GetProperties().Where(p => p.PropertyType == typeof(string));
-
-
-        //    foreach (var prop in properties)
-        //    {
-        //        if (prop.GetValue(this.Event.Template, null) == null) continue;
-
-        //        var propValue = Parse(prop.GetValue(this.Event.Template, null).ToString());
-        //        if (string.IsNullOrWhiteSpace(propValue)) continue;
-
-        //        prop.SetValue(this.Event.Template, Convert.ChangeType(propValue, prop.PropertyType), null);
-
-        //    }
-
-        //}
-
         public string Parse(string message)
         {
             var properties = typeof(Guest).GetProperties().Where(p => p.PropertyType == typeof(DateTime?) || p.PropertyType == typeof(string));
@@ -112,6 +92,58 @@ namespace DonorGateway.Domain
 
             return matches.Replace(stringToReplace, fieldValue);
 
+        }
+
+        protected bool Equals(Guest other)
+        {
+            return string.Equals(Name, other.Name, StringComparison.OrdinalIgnoreCase) && 
+                                                   string.Equals(LookupId, other.LookupId, StringComparison.OrdinalIgnoreCase) && 
+                                                   string.Equals(FinderNumber, other.FinderNumber, StringComparison.OrdinalIgnoreCase) && 
+                                                   string.Equals(Address, other.Address, StringComparison.OrdinalIgnoreCase) && 
+                                                   string.Equals(Address2, other.Address2, StringComparison.OrdinalIgnoreCase) && 
+                                                   string.Equals(Address3, other.Address3, StringComparison.OrdinalIgnoreCase) && 
+                                                   string.Equals(City, other.City, StringComparison.OrdinalIgnoreCase) && 
+                                                   string.Equals(State, other.State, StringComparison.OrdinalIgnoreCase) && 
+                                                   string.Equals(Zipcode, other.Zipcode, StringComparison.OrdinalIgnoreCase) && 
+                                                   string.Equals(Email, other.Email, StringComparison.OrdinalIgnoreCase) && 
+                                                   string.Equals(Phone, other.Phone, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof(Guest)) return false;
+            return Equals((Guest)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (Name != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Name) : 0);
+                hashCode = (hashCode * 397) ^ (LookupId != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(LookupId) : 0);
+                hashCode = (hashCode * 397) ^ (FinderNumber != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(FinderNumber) : 0);
+                hashCode = (hashCode * 397) ^ (Address != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Address) : 0);
+                hashCode = (hashCode * 397) ^ (Address2 != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Address2) : 0);
+                hashCode = (hashCode * 397) ^ (Address3 != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Address3) : 0);
+                hashCode = (hashCode * 397) ^ (City != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(City) : 0);
+                hashCode = (hashCode * 397) ^ (State != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(State) : 0);
+                hashCode = (hashCode * 397) ^ (Zipcode != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Zipcode) : 0);
+                hashCode = (hashCode * 397) ^ (Email != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Email) : 0);
+                hashCode = (hashCode * 397) ^ (Phone != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(Phone) : 0);
+                return hashCode;
+            }
+        }
+
+        public static bool operator ==(Guest left, Guest right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Guest left, Guest right)
+        {
+            return !Equals(left, right);
         }
     }
 }

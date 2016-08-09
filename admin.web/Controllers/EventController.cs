@@ -192,20 +192,25 @@ namespace admin.web.Controllers
         public IHttpActionResult RegisterGuest(int id, Guest dto)
         {
             var @event = context.Events.Find(id);
+            var guest = context.Guests.Find(dto.Id);
 
             if (@event == null) return NotFound();
 
-            if (dto == null) return NotFound();
-
             @event.RegisterGuest(dto);
             @event.SendEmail(dto);
+
+            if (guest != dto)
+            {
+                var demoChange = Mapper.Map<DemographicChange>(dto);
+                demoChange.Source = Source.Event;
+                context.DemographicChanges.Add(demoChange);
+            }
 
             context.Entry(@event.Template).State = EntityState.Unchanged;
 
             dto.Event = @event;
 
             context.Events.AddOrUpdate(@event);
-            context.SaveChanges();
 
             context.Guests.AddOrUpdate(dto);
             context.SaveChanges();

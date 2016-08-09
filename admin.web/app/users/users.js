@@ -10,6 +10,8 @@
     function UserController(logger, service, defaults, config) {
         var vm = this;
         vm.title = 'User Manager';
+        vm.subTitle = 'Users';
+
         vm.description = 'Edit and update users';
         var keyCodes = config.keyCodes;
 

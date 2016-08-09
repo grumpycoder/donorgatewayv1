@@ -12,7 +12,8 @@
         //feature areas
         'app.nav',
         'app.users',
-        'app.events'
+        'app.events', 
+        'app.demographics'
         //'app.tax',
         //'app.template',
         //'app.mailers',
