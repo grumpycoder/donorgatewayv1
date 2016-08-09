@@ -36,12 +36,14 @@
                     <th st-sort="state">State</th>
                     <th st-sort="zipcode">Zipcode</th>
                     <!--<th st-sort="ticketIssued">Ticket</th>-->
-                    <th st-sort="ticketCount">Guests</th>
+                    <th st-sort="ticketCount">Tickets</th>
                     <th st-sort="email">Email</th>
                     <th st-sort="phone">Phone</th>
                     <th st-sort="accountId">Account Id</th>
                     <th st-sort="finderNumber">Finder Number</th>
-                    <th st-sort="mailedDate">Date Mailed</th>
+                    <th st-sort="mailedDate">Mailed</th>
+                    <th st-sort="responseDate">Response</th>
+                    
                     <th>Comments</th>
                     <th></th>
                 </tr>
@@ -56,6 +58,7 @@
                     <td><input type="text" st-clear-key st-search="phone" class="form-control" placeholder="Phone" /></td>
                     <td><input type="text" st-clear-key st-search="accountId" class="form-control" placeholder="Account Id" /></td>
                     <td><input type="text" st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number" /></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td class="text-center">
@@ -83,7 +86,8 @@
                     <td>{{g.phone}}</td>
                     <td>{{g.accountId}}</td>
                     <td>{{g.finderNumber}}</td>
-                    <td>{{g.mailedDate}}</td>
+                    <td>{{g.mailedDate | date :'MM/dd/yyyy'}}</td>
+                    <td>{{g.responseDate | date :'MM/dd/yyyy'}}</td>
                     <td class="text-center">
                         <i ng-show="g.comment.length > 0" class="fa fa-comment" uib-popover="{{g.comment}}" popover-trigger="mouseenter"></i>
                     </td>
