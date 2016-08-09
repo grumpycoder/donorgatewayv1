@@ -60,16 +60,15 @@ namespace DonorGateway.Domain
         public void RegisterGuest(Guest guest)
         {
             guest.ResponseDate = DateTime.Now;
+            guest.IsAttending = guest.IsAttending;
             if (TicketRemainingCount - guest.TicketCount < 0)
             {
-                guest.IsAttending = false;
                 guest.IsWaiting = true;
                 guest.WaitingDate = DateTime.Now;
                 GuestWaitingCount += guest.TicketCount ?? 0;
             }
             else
             {
-                guest.IsAttending = true;
                 guest.IsWaiting = false;
                 guest.WaitingDate = null;
                 GuestAttendanceCount += guest.TicketCount ?? 0;
@@ -106,7 +105,7 @@ namespace DonorGateway.Domain
 
             var message = Template.HeaderText + Template.BodyText;
 
-            if (guest.IsWaiting)
+            if (guest.IsWaiting && guest.IsAttending)
             {
                 message += Template.WaitingResponseText;
             }
@@ -114,7 +113,7 @@ namespace DonorGateway.Domain
             {
                 message += Template.NoResponseText;
             }
-            if (guest.IsAttending)
+            if (guest.IsAttending && !guest.IsWaiting)
             {
                 message += Template.YesResponseText;
             }
