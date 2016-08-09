@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
@@ -129,14 +130,29 @@ namespace DonorGateway.Domain
             message = $"<img style='width:100%;' src=\"cid:{contentId}\" />" + message;
             var html = AlternateView.CreateAlternateViewFromString(message, null, "text/html");
             html.LinkedResources.Add(linkedResource);
+            
+            var sendToAddress = new MailAddress(guest.Email);
+            var sendFromAddress = new MailAddress(ConfigurationManager.AppSettings["SendFromAddress"], ConfigurationManager.AppSettings["SendFromDisplay"]);
+            var subject = $"SPLC Event {guest.Event.DisplayName} Confirmation";
 
+            var env = ConfigurationManager.AppSettings["Environment"];
+            switch (env)
+            {
+                case "Prod":
+                    break;
+                default:
+                    sendToAddress = new MailAddress(ConfigurationManager.AppSettings["SendToOverride"]);
+                    break;
+            }
+            var mail = new MailMessage(sendFromAddress, sendToAddress)
+            {
+                Subject = subject, 
+                Body = message
+            }; 
 
-            //TODO: Replace from with web.config setting
-            var mail = new MailMessage("rsvp@mail.com", "robbinfuqua@gmail.com");
             mail.AlternateViews.Add(html);
             var client = new SmtpClient();
             client.Send(mail);
-
 
         }
 
