@@ -19,6 +19,7 @@
 
         vm.event = {
             startDate: new Date(),
+            capacity: 1,
             template: {}
         };
 
