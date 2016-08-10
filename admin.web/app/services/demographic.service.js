@@ -20,8 +20,8 @@
 
         return service;
 
-        function get() {
-            return $http.get(url)
+        function get(page, size) {
+            return $http.get(url + '?page=' + page + '&pagesize=' + size)
                 .then(function (response) {
                     return response.data;
                 });

@@ -1,18 +1,16 @@
-﻿using System;
-using System.IO;
+﻿using CsvHelper;
 using DonorGateway.Data;
+using DonorGateway.Domain;
 using EntityFramework.Utilities;
+using System;
+using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
-using admin.web.Helpers;
-using admin.web.ViewModels;
-using AutoMapper.QueryableExtensions;
-using CsvHelper;
-using DonorGateway.Domain;
 
 namespace admin.web.Controllers
 {
@@ -26,9 +24,11 @@ namespace admin.web.Controllers
             context = new DataContext();
         }
 
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(int? page, int? pageSize)
         {
-            var list = context.DemographicChanges.ToList();
+            var size = pageSize ?? 2;
+            var pageNumber = (page ?? 1);
+            var list = context.DemographicChanges.OrderBy(x => x.Id).Skip(size * (pageNumber - 1)).Take(size).ToList();
 
             return Ok(list);
         }
@@ -66,7 +66,7 @@ namespace admin.web.Controllers
                 csv.WriteHeader<DemographicChange>();
                 csv.WriteRecords(list);
             }
-          
+
             var filename = $"demographic-changes-{DateTime.Now.ToString("u")}.csv";
 
             var response = new HttpResponseMessage(HttpStatusCode.OK);
