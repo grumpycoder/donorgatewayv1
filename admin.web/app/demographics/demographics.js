@@ -27,7 +27,7 @@
 
 
         function getDemographics() {
-            service.get(1, 2)
+            service.get(1, 20)
                 .then(function(data) {
                     vm.demographics = data;
                 });

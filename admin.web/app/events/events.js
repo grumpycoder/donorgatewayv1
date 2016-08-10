@@ -175,6 +175,7 @@
                 var event = angular.copy(vm.selectedEvent);
                 angular.extend(vm.selectedEvent, result.event);
                 vm.selectedEvent.guests = event.guests;
+                guest = null; 
             });
         }
 

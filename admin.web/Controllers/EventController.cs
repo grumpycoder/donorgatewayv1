@@ -227,11 +227,18 @@ namespace admin.web.Controllers
             if (dto == null) return NotFound();
 
             var guest = Mapper.Map<Guest>(dto);
+            var current = context.Guests.Find(dto.Id);
+
+            if (current != guest)
+            {
+                var demoChange = Mapper.Map<DemographicChange>(guest);
+                demoChange.Source = Source.Event;
+                context.DemographicChanges.Add(demoChange);
+            }
 
             @event.AddTickets(guest, dto.AdditionalTickets);
 
             context.Events.AddOrUpdate(@event);
-            context.SaveChanges();
 
             context.Guests.AddOrUpdate(guest);
             context.SaveChanges();

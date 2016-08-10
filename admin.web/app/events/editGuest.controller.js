@@ -16,9 +16,12 @@
 
         if (guest.isAttending) {
             vm.showAddTicket = true;
+            guest.additionalTickets = 0;
         }
 
         vm.guest = angular.copy(guest);
+        logger.log('guest', guest);
+        logger.log('vm.guest', vm.guest);
 
         vm.ticketCountList = [];
         for (var i = 1; i < guest.event.ticketAllowance + 1; i++) {
