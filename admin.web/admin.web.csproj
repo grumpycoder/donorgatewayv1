@@ -201,7 +201,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\DemographicChangeController.cs" />
+    <Compile Include="Controllers\DemographicController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\GuestController.cs" />
@@ -268,6 +268,7 @@
     <Content Include="app\services\file.service.js" />
     <Content Include="app\services\guest.service.js" />
     <Content Include="app\services\service.module.js" />
+    <Content Include="app\services\demographic.service.js" />
     <Content Include="app\services\template.service.js" />
     <Content Include="app\services\user.service.js" />
     <Content Include="app\users\users.js" />

@@ -25,6 +25,7 @@
                         <h3 class="box-title">{{vm.subTitle}}</h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
+                        <button class="btn btn-warning" ng-click="vm.deleteAll()">Update All</button>
                         <table class="table">
                             <thead class="text-nowrap">
                             <tr>
@@ -63,7 +64,7 @@
                                 <td>{{d.updatedBy}}</td>
                                 <td>{{d.source}}</td>
                                 <td>
-                                    <button class="btn btn-default">Update</button>
+                                    <button class="btn btn-default" ng-click="vm.delete(d)">Update</button>
                                 </td>
                             </tr>
                             </tbody>

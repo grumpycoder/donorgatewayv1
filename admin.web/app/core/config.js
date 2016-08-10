@@ -34,7 +34,8 @@
         Reason: 'reason',
         Event: 'event',
         Guest: 'guest',
-        File: 'file'
+        File: 'file', 
+        Demographic: 'demographics'
     };
 
     var config = {
