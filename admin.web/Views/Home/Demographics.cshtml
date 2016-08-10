@@ -25,6 +25,10 @@
                         <h3 class="box-title">{{vm.subTitle}}</h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
+                        <button class="btn btn-info" ng-click="vm.export()">
+                            <i class="fa fa-download"></i>
+                            Export
+                        </button>
                         <button class="btn btn-warning" ng-click="vm.deleteAll()">Update All</button>
                         <table class="table">
                             <thead class="text-nowrap">

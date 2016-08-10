@@ -14,7 +14,8 @@
         var service = {
             get: get,
             remove: remove,
-            removeAll: removeAll
+            removeAll: removeAll, 
+            exportList: exportList
         }
 
         return service;
@@ -40,6 +41,13 @@
 
         function error(error) {
             return error.data.message;
+        }
+
+        function exportList() {
+            return $http.post(url + '/export')
+              .then(function (data) {
+                  return data;
+              }).catch(error);
         }
     }
 })();
