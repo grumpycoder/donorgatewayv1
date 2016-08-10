@@ -118,19 +118,24 @@ namespace DonorGateway.Domain
             {
                 message += Template.YesResponseText;
             }
+            message += Template.FooterText;
 
-            //TODO: Possible error missing template image. 
-            var imageData = Template.Image;
-            var contentId = Guid.NewGuid().ToString();
-            var linkedResource = new LinkedResource(new MemoryStream(imageData), "image/jpeg")
-            {
-                ContentId = contentId,
-                TransferEncoding = TransferEncoding.Base64
-            };
-            message = $"<img style='width:100%;' src=\"cid:{contentId}\" />" + message;
             var html = AlternateView.CreateAlternateViewFromString(message, null, "text/html");
-            html.LinkedResources.Add(linkedResource);
-            
+
+            if (Template.Image != null)
+            {
+                var imageData = Template.Image;
+                var contentId = Guid.NewGuid().ToString();
+                var linkedResource = new LinkedResource(new MemoryStream(imageData), "image/jpeg")
+                {
+                    ContentId = contentId,
+                    TransferEncoding = TransferEncoding.Base64
+                };
+
+                message = $"<img style='width:100%;' src=\"cid:{contentId}\" />" + message;
+                html.LinkedResources.Add(linkedResource);
+            }
+
             var sendToAddress = new MailAddress(guest.Email);
             var sendFromAddress = new MailAddress(ConfigurationManager.AppSettings["SendFromAddress"], ConfigurationManager.AppSettings["SendFromDisplay"]);
             var subject = $"SPLC Event {guest.Event.DisplayName} Confirmation";
@@ -146,9 +151,9 @@ namespace DonorGateway.Domain
             }
             var mail = new MailMessage(sendFromAddress, sendToAddress)
             {
-                Subject = subject, 
+                Subject = subject,
                 Body = message
-            }; 
+            };
 
             mail.AlternateViews.Add(html);
             var client = new SmtpClient();
