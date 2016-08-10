@@ -28,7 +28,7 @@ namespace rsvp.web.Controllers
             @event.ParseTemplate();
 
             var vm = Mapper.Map<EventViewModel>(@event);
-            
+
             return View(vm);
         }
 
@@ -63,6 +63,8 @@ namespace rsvp.web.Controllers
             }
 
             var @event = db.Events.Include(x => x.Template).SingleOrDefault(e => e.Id == form.EventId);
+            if (@event == null) return View("EventNotFound");
+
             var guest = db.Guests.Include(e => e.Event).Include(t => t.Event.Template).SingleOrDefault(g => g.Id == form.GuestId);
 
             Mapper.Map<RegisterFormViewModel, Guest>(form, guest);
@@ -80,6 +82,7 @@ namespace rsvp.web.Controllers
             db.SaveChanges();
 
             var m = Mapper.Map<FinishFormViewModel>(guest);
+            m.Template = @event.Template;
             m.ParseMessages();
 
             return View("Finish", m);

@@ -11,7 +11,11 @@
     @Html.HiddenFor(m => m.PromoCode)
     @Html.HiddenFor(m => m.EventTicketAllowance)
 
-    var imgSrc = $"data:{Model.Template.MimeType};base64,{Convert.ToBase64String(Model.Template.Image)}";
+    var imgSrc = @"/img/missing-image.png";
+    if (Model.Template.Image != null)
+    {
+        imgSrc = $"data:{Model.Template.MimeType};base64,{Convert.ToBase64String(Model.Template.Image)}";
+    }
 
     <img src="@imgSrc" class="img-responsive center-block" alt="Event Image" />
 
