@@ -62,15 +62,12 @@
             vm.isBusy = true;
             service.addToMail(guest)
                 .then(function (data) {
-                    logger.info('Added Guest to Queue: ' + data.name);
+                    logger.info('Moved Guest ' + data.name + 'Send Ticket: ');
                     angular.extend(guest, data);
-                    logger.success('Issued ticket to: ' + guest.name);
-
                     var event = angular.copy(vm.selectedEvent);
                     angular.extend(vm.selectedEvent, guest.event);
                     vm.selectedEvent.guests = event.guests;
                 }).finally(function () {
-                    //complete();
                     vm.isBusy = false;
                 });
         }
