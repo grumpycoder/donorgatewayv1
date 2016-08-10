@@ -35,15 +35,13 @@
                     <th st-sort="city">City</th>
                     <th st-sort="state">State</th>
                     <th st-sort="zipcode">Zipcode</th>
-                    <!--<th st-sort="ticketIssued">Ticket</th>-->
                     <th st-sort="ticketCount">Tickets</th>
                     <th st-sort="email">Email</th>
                     <th st-sort="phone">Phone</th>
                     <th st-sort="accountId">Account Id</th>
                     <th st-sort="finderNumber">Finder Number</th>
                     <th st-sort="mailedDate">Mailed</th>
-                    <th st-sort="responseDate">Response</th>
-                    
+                    <th st-sort="responseDate">Responsed</th>
                     <th>Comments</th>
                     <th></th>
                 </tr>
@@ -53,17 +51,17 @@
                     <td><input type="text" st-clear-key st-search="city" class="form-control" placeholder="City" /></td>
                     <td><input type="text" st-clear-key st-search="state" class="form-control" placeholder="State" /></td>
                     <td><input type="text" st-clear-key st-search="zipcode" class="form-control" placeholder="Zipcode" /></td>
-                    <td><input type="text" class="form-control" placeholder="Guests" /></td>
+                    <td><input type="text" st-clear-key st-search="ticketCount" class="form-control" placeholder="Tickets" /></td>
                     <td><input type="text" st-clear-key st-search="email" class="form-control" placeholder="Email" /></td>
                     <td><input type="text" st-clear-key st-search="phone" class="form-control" placeholder="Phone" /></td>
                     <td><input type="text" st-clear-key st-search="accountId" class="form-control" placeholder="Account Id" /></td>
                     <td><input type="text" st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number" /></td>
                     <td></td>
                     <td></td>
-                    <td></td>
                     <td class="text-center">
                         <button class="btn btn-danger" ng-show="vm.showMail" ng-click="vm.mailAllTickets()"> <i class="fa fa-paper-plane"></i> Send All</button>
                     </td>
+                    <td></td>
                 </tr>
             </thead>
             <tbody>
@@ -97,14 +95,13 @@
                         <button class="btn btn-block" ng-show="!g.isAttending && !g.isWaiting" ng-click="vm.registerGuest(g)"><i class="fa fa-key"></i> Register</button>
                         <div ng-show="g.isMailed">
                             <i class="fa fa-check-circle fa-2x text-green center-block text-center" ng-click="vm.registerGuest(g)"></i>
-                           
                         </div>
                     </td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="12" class="text-center">
+                    <td colspan="14" class="text-center">
                         <uib-pagination total-items="vm.searchModel.filteredCount"
                                         ng-model="vm.searchModel.page"
                                         ng-show="vm.searchModel.totalPages > 1"
