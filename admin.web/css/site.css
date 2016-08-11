@@ -104,3 +104,7 @@ th[st-sort] {
 .alert {
     margin-bottom: 5px;
 }
+
+td .btn-group {
+    display: flex;
+}

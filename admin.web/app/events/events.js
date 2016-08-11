@@ -34,6 +34,20 @@
         vm.dateFormat = "MM/DD/YYYY h:mm a";
         vm.events = [];
 
+        vm.choices = [
+            { name: 'Register', action: vm.registerGuest, icon: 'icon ion-key' },
+            { name: 'Cancel', action: 'cancelGuest' },
+            { name: 'Add Tickets', action: 'addTickets' },
+            { name: 'Tickets Sent', action: 'sendMail' },
+            { name: 'Remove Waiting', action: 'addToMailQueue' }
+        ];
+
+        logger.log('choices', vm.choices);
+        vm.selectedAction = vm.choices[0];
+        vm.setAction = function (action) {
+            vm.selectedAction = action;
+        };
+
         vm.searchModel = {
             page: 1,
             pageSize: pageSizeDefault,
@@ -54,6 +68,9 @@
         function activate() {
             logger.log(controllerId + ' activated');
             getEvents().then(function () {
+                vm.selectedEvent = vm.events[0];
+                vm.changeEvent();
+
                 logger.log('loaded events');
             });
         }
