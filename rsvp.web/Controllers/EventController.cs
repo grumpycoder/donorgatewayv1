@@ -41,15 +41,10 @@ namespace rsvp.web.Controllers
 
             if (guest != null && guest.IsRegistered) ModelState.AddModelError("Attendance", "Already registered for event");
 
-            if (!ModelState.IsValid)
-            {
-                model.Template = db.Templates.FirstOrDefault(x => x.Id == model.TemplateId);
-                return View("Index", model);
-            }
+            if (ModelState.IsValid) return View(guest);
 
-            return View(guest);
-
-
+            model.Template = db.Templates.FirstOrDefault(x => x.Id == model.TemplateId);
+            return View("Index", model);
         }
 
         [HttpPost]
@@ -66,10 +61,9 @@ namespace rsvp.web.Controllers
             if (@event == null) return View("EventNotFound");
 
             var guest = db.Guests.Include(e => e.Event).Include(t => t.Event.Template).SingleOrDefault(g => g.Id == form.GuestId);
-            
-            Mapper.Map<RegisterFormViewModel, Guest>(form, guest);
 
-            var current = db.Guests.Find(form.GuestId);
+            var current = guest.Copy();
+            Mapper.Map(form, guest);
 
             if (guest != current)
             {
@@ -77,7 +71,6 @@ namespace rsvp.web.Controllers
                 demoChange.Source = Source.Event;
                 db.DemographicChanges.Add(demoChange);
             }
-            //Mapper.Map(current, form);
 
             @event.RegisterGuest(guest);
             @event.SendEmail(guest);
@@ -86,15 +79,16 @@ namespace rsvp.web.Controllers
             db.Entry(@event.Template).State = EntityState.Unchanged;
 
             db.Events.AddOrUpdate(@event);
-            
+
             db.Guests.AddOrUpdate(guest);
             db.SaveChanges();
 
-            var m = Mapper.Map<FinishFormViewModel>(guest);
-            m.Template = @event.Template;
-            m.ParseMessages();
+            var finishFormViewModel = Mapper.Map<FinishFormViewModel>(guest);
 
-            return View("Finish", m);
+            finishFormViewModel.Template = @event.Template;
+            finishFormViewModel.ParseMessages();
+
+            return View("Finish", finishFormViewModel);
         }
 
         public ActionResult Finish(FinishFormViewModel model)

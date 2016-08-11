@@ -96,16 +96,16 @@ namespace DonorGateway.Domain
 
         protected bool Equals(Guest other)
         {
-            return string.Equals(Name, other.Name, StringComparison.OrdinalIgnoreCase) && 
-                                                   string.Equals(LookupId, other.LookupId, StringComparison.OrdinalIgnoreCase) && 
-                                                   string.Equals(FinderNumber, other.FinderNumber, StringComparison.OrdinalIgnoreCase) && 
-                                                   string.Equals(Address, other.Address, StringComparison.OrdinalIgnoreCase) && 
-                                                   string.Equals(Address2, other.Address2, StringComparison.OrdinalIgnoreCase) && 
-                                                   string.Equals(Address3, other.Address3, StringComparison.OrdinalIgnoreCase) && 
-                                                   string.Equals(City, other.City, StringComparison.OrdinalIgnoreCase) && 
-                                                   string.Equals(State, other.State, StringComparison.OrdinalIgnoreCase) && 
-                                                   string.Equals(Zipcode, other.Zipcode, StringComparison.OrdinalIgnoreCase) && 
-                                                   string.Equals(Email, other.Email, StringComparison.OrdinalIgnoreCase) && 
+            return string.Equals(Name, other.Name, StringComparison.OrdinalIgnoreCase) &&
+                                                   string.Equals(LookupId, other.LookupId, StringComparison.OrdinalIgnoreCase) &&
+                                                   string.Equals(FinderNumber, other.FinderNumber, StringComparison.OrdinalIgnoreCase) &&
+                                                   string.Equals(Address, other.Address, StringComparison.OrdinalIgnoreCase) &&
+                                                   string.Equals(Address2, other.Address2, StringComparison.OrdinalIgnoreCase) &&
+                                                   string.Equals(Address3, other.Address3, StringComparison.OrdinalIgnoreCase) &&
+                                                   string.Equals(City, other.City, StringComparison.OrdinalIgnoreCase) &&
+                                                   string.Equals(State, other.State, StringComparison.OrdinalIgnoreCase) &&
+                                                   string.Equals(Zipcode, other.Zipcode, StringComparison.OrdinalIgnoreCase) &&
+                                                   string.Equals(Email, other.Email, StringComparison.OrdinalIgnoreCase) &&
                                                    string.Equals(Phone, other.Phone, StringComparison.OrdinalIgnoreCase);
         }
 
@@ -144,6 +144,11 @@ namespace DonorGateway.Domain
         public static bool operator !=(Guest left, Guest right)
         {
             return !Equals(left, right);
+        }
+
+        public virtual Guest Copy()
+        {
+            return MemberwiseClone() as Guest;
         }
     }
 }
