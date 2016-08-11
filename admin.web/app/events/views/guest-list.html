@@ -39,6 +39,7 @@
                     <th st-sort="email" class="hidden-xs hidden-sm hidden-md">Email</th>
                     <th st-sort="phone" class="hidden-xs hidden-sm hidden-md">Phone</th>
                     <th st-sort="finderNumber">Finder Number</th>
+                    <th st-sort="donorType">Donor Type</th>
                     <th st-sort="mailedDate" class="hidden-xs hidden-sm hidden-md">Mailed</th>
                     <th st-sort="responseDate" class="hidden-xs hidden-sm hidden-md">Responded</th>
                     <th class="hidden-xs hidden-sm hidden-md">Comments</th>
@@ -54,6 +55,7 @@
                     <td class="hidden-xs hidden-sm hidden-md"><input type="text" st-clear-key st-search="email" class="form-control " placeholder="Email" /></td>
                     <td class="hidden-xs hidden-sm hidden-md"><input type="text" st-clear-key st-search="phone" class="form-control " placeholder="Phone" /></td>
                     <td><input type="text" st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number" /></td>
+                    <td><input type="text" st-clear-key st-search="donorType" class="form-control" placeholder="Donor Type" /></td>
                     <td class="hidden-xs hidden-sm hidden-md"></td>
                     <td class="hidden-xs hidden-sm hidden-md"></td>
                     <td class="text-center hidden-xs hidden-sm hidden-md">
@@ -81,6 +83,7 @@
                     <td class="hidden-xs hidden-sm hidden-md">{{g.email}}</td>
                     <td class="hidden-xs hidden-sm hidden-md">{{g.phone}}</td>
                     <td>{{g.finderNumber}}</td>
+                    <td>{{g.donorType}}</td>
                     <td class="hidden-xs hidden-sm hidden-md">{{g.mailedDate | date :'MM/dd/yyyy'}}</td>
                     <td class="hidden-xs hidden-sm hidden-md">{{g.responseDate | date :'MM/dd/yyyy'}}</td>
                     <td class="text-center hidden-xs hidden-sm hidden-md">
