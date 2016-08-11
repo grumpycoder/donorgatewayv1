@@ -72,6 +72,17 @@
                 });
         }
 
+        vm.cancelGuest = function(guest) {
+            service.cancelGuest(guest)
+                .then(function (result) {
+                    logger.log('result', result);
+                    angular.extend(guest, result);
+                    var event = angular.copy(vm.selectedEvent);
+                    angular.extend(vm.selectedEvent, result.event);
+                    vm.selectedEvent.guests = event.guests;
+                });
+        }
+
         vm.changeEvent = function () {
             if (!vm.selectedEvent) return;
             //RESET VALUES

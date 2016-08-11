@@ -58,6 +58,19 @@ namespace DonorGateway.Domain
         public ICollection<Guest> Guests { get; set; }
         public virtual Template Template { get; set; }
 
+        public void CancelRegistration(Guest guest)
+        {
+            guest.ResponseDate = DateTime.Now;
+            guest.IsAttending = false;
+            guest.IsMailed = false; 
+            guest.IsWaiting = false;
+            guest.WaitingDate = null;
+            GuestAttendanceCount -= guest.TicketCount ?? 0;
+            TicketMailedCount -= guest.TicketCount ?? 0;
+            guest.TicketCount = 0;
+
+        }
+
         public void RegisterGuest(Guest guest)
         {
             guest.ResponseDate = DateTime.Now;
@@ -120,7 +133,7 @@ namespace DonorGateway.Domain
             {
                 message += Template.YesResponseText;
             }
-            
+
             var html = AlternateView.CreateAlternateViewFromString(message, null, "text/html");
 
             var sendToAddress = new MailAddress(guest.Email);

@@ -188,6 +188,27 @@ namespace admin.web.Controllers
             return Ok(model);
         }
 
+        [HttpPost, Route("{id:int}/CancelRegistration")]
+        public IHttpActionResult CancelRegistration(int id, Guest dto)
+        {
+            var @event = context.Events.Find(id);
+
+            if (@event == null) return NotFound();
+
+            @event.CancelRegistration(dto);
+
+            context.Entry(@event.Template).State = EntityState.Unchanged;
+            
+            context.Events.AddOrUpdate(@event);
+
+            context.Guests.AddOrUpdate(dto);
+
+            dto.Event = @event;
+            context.SaveChanges();
+
+            return Ok(dto);
+        }
+
         [HttpPost, Route("{id:int}/registerguest")]
         public IHttpActionResult RegisterGuest(int id, Guest dto)
         {

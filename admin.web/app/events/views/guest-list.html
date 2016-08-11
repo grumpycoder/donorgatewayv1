@@ -7,9 +7,9 @@
         <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showWaiting, 'btn-default': !vm.showWaiting }" ng-click="vm.toggleWaiting()"> <i class="fa fa-clock-o"></i> Show Waiting List</button>
         <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showMail, 'btn-default': !vm.showMail }" ng-click="vm.toggleMail()"> <i class="fa fa-envelope"></i> Show Send Tickets</button>
         <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showSent, 'btn-default': !vm.showSent }" ng-click="vm.toggleSent()"> <i class="fa fa-paper-plane"></i> Show Tickets Sent</button>
-        
+
         <span class="pull-right">
-            <button class="btn btn-success" uib-popover="New Guest" popover-trigger="mouseenter"  ng-click="vm.createGuest()">
+            <button class="btn btn-success" uib-popover="New Guest" popover-trigger="mouseenter" ng-click="vm.createGuest()">
                 <i class="fa fa-plus-circle"></i>
             </button>
 
@@ -90,8 +90,12 @@
                         <button class="btn btn-block" ng-show="g.isWaiting" ng-click="vm.addToMailQueue(g)"><i class="fa fa-list"></i> Move to Send</button>
                         <button class="btn btn-block" ng-show="g.isAttending && !g.isMailed && !g.isWaiting" ng-click="vm.mailTicket(g)"><i class="icon ion-android-mail"></i> Send Ticket</button>
                         <button class="btn btn-block" ng-show="!g.isAttending && !g.isWaiting" ng-click="vm.registerGuest(g)"><i class="fa fa-key"></i> Register</button>
-                        <div ng-show="g.isMailed">
-                            <i class="fa fa-check-circle fa-2x text-green center-block text-center" ng-click="vm.registerGuest(g)"></i>
+                        <div ng-show="g.isMailed" class="center-block text-center">
+                            <span>
+                                <i class="fa fa-check-circle fa-2x text-green" ng-click="vm.registerGuest(g)"></i>
+                                <i class="fa fa-times-circle fa-2x text-red" ng-click="vm.cancelGuest(g)"></i>
+                            </span>
+
                         </div>
                     </td>
                 </tr>

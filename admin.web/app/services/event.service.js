@@ -11,6 +11,7 @@
         logger.log(serviceId + ' loaded');
         var url = config.apiUrl + config.apiEndPoints.Event;
         var service = {
+            cancelGuest: cancelGuest, 
             create: create,
             downloadGuests: downloadGuests, 
             remove: remove,
@@ -26,6 +27,10 @@
             addTicket: addTicket
         }
         return service;
+
+        function cancelGuest(guest) {
+            return $http.post(url + '/' + guest.eventId + '/CancelRegistration', guest).then(_success).catch(error);
+        }
 
         function create(event) {
             return $http.post(url, event)
