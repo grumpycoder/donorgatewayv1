@@ -101,6 +101,8 @@ namespace DonorGateway.Domain
 
         public void SendEmail(Guest guest)
         {
+            if (string.IsNullOrWhiteSpace(guest.Email)) return;
+
             ParseTemplate();
             ParseTemplate(guest);
 
@@ -118,26 +120,8 @@ namespace DonorGateway.Domain
             {
                 message += Template.YesResponseText;
             }
-
-            //TODO: Possible error missing template image. 
-            var imageData = Template.Image;
-            //if (Template.Image == null)
-            //{
-            //    imageData = new byte[]
-            //    {
-                    
-            //    };
-            //}
             
-            var contentId = Guid.NewGuid().ToString();
-                var linkedResource = new LinkedResource(new MemoryStream(imageData), "image/jpeg")
-                {
-                    ContentId = contentId,
-                    TransferEncoding = TransferEncoding.Base64
-                };
-            message = $"<img style='width:100%;' src=\"cid:{contentId}\" />" + message;
             var html = AlternateView.CreateAlternateViewFromString(message, null, "text/html");
-            html.LinkedResources.Add(linkedResource);
 
             var sendToAddress = new MailAddress(guest.Email);
             var sendFromAddress = new MailAddress(ConfigurationManager.AppSettings["SendFromAddress"], ConfigurationManager.AppSettings["SendFromDisplay"]);
