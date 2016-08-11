@@ -117,13 +117,12 @@
                                 <i class="icon ion-flash"></i> Actions <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                <li role="menuitem"><a ng-click="vm.registerGuest(g)" ng-disable="g.isAttending"><i class="fa fa-key"></i> Register</a></li>
-                                <li role="menuitem"><a ng-click="vm.cancelGuest(g)"><i class="fa fa-times-circle text-red"></i> Cancel</a></li>
-                                <li role="menuitem"><a ng-click="vm.registerGuest(g)"><i class="fa fa-plus-circle"></i> Add Tickets</a></li>
+                                <li role="menuitem" ng-hide="g.isAttending"><a ng-click="vm.registerGuest(g)"><i class="fa fa-key"></i> Register</a></li>
+                                <li role="menuitem" ng-show="g.isAttending || g.isWaiting"><a ng-click="vm.cancelGuest(g)"><i class="fa fa-times-circle text-red"></i> Cancel</a></li>
+                                <li role="menuitem" ng-show="g.isAttending"><a ng-click="vm.registerGuest(g)"><i class="fa fa-plus-circle"></i> Add Tickets</a></li>
                                 <li class="divider"></li>
-                                <li role="menuitem"><a ng-click="vm.mailTicket(g)"><i class="icon ion-android-mail"></i> Ticket Sent</a></li>
-                                <li role="menuitem"><a ng-click="vm.addToMailQueue(g)"><i class="icon ion-clock"></i> Remove Waiting</a></li>
-                                <li role="menuitem"><a ng-click="vm.updateGuest(g)"><i class="icon ion-edit"></i> Update</a></li>
+                                <li role="menuitem" ng-hide="g.isMailed || g.isWaiting"><a ng-click="vm.mailTicket(g)"><i class="icon ion-android-mail"></i> Mail Ticket</a></li>
+                                <li role="menuitem" ng-show="g.isWaiting"><a ng-click="vm.addToMailQueue(g)"><i class="icon ion-clock"></i> Remove Waiting</a></li>
                             </ul>
                         </div>
                         <!--<button class="btn btn-block" ng-show="g.isWaiting" ng-click="vm.addToMailQueue(g)"><i class="fa fa-list"></i> Move to Send</button>
@@ -134,7 +133,6 @@
                                 <i class="fa fa-check-circle fa-2x text-green" ng-click="vm.registerGuest(g)"></i>
                                 <i class="fa fa-times-circle fa-2x text-red" ng-click="vm.cancelGuest(g)"></i>
                             </span>
-
                         </div>-->
                     </td>
                 </tr>
