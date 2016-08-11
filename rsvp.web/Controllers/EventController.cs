@@ -66,8 +66,18 @@ namespace rsvp.web.Controllers
             if (@event == null) return View("EventNotFound");
 
             var guest = db.Guests.Include(e => e.Event).Include(t => t.Event.Template).SingleOrDefault(g => g.Id == form.GuestId);
-
+            
             Mapper.Map<RegisterFormViewModel, Guest>(form, guest);
+
+            var current = db.Guests.Find(form.GuestId);
+
+            if (guest != current)
+            {
+                var demoChange = Mapper.Map<DemographicChange>(guest);
+                demoChange.Source = Source.Event;
+                db.DemographicChanges.Add(demoChange);
+            }
+            //Mapper.Map(current, form);
 
             @event.RegisterGuest(guest);
             @event.SendEmail(guest);
@@ -76,8 +86,7 @@ namespace rsvp.web.Controllers
             db.Entry(@event.Template).State = EntityState.Unchanged;
 
             db.Events.AddOrUpdate(@event);
-            db.SaveChanges();
-
+            
             db.Guests.AddOrUpdate(guest);
             db.SaveChanges();
 

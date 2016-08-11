@@ -24,6 +24,8 @@ namespace web.App_Start
                 //   .ForMember(vm => vm.EventDisplayName, map => map.MapFrom(m => m.DisplayName))
                 //   .ReverseMap();
 
+                cfg.CreateMap<Guest, DemographicChange>().ReverseMap();
+
                 cfg.CreateMap<Event, EventViewModel>()
                     .ForMember(d => d.EventId, d => d.MapFrom(m => m.Id))
                     .ReverseMap();

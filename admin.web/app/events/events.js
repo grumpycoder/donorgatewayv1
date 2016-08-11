@@ -312,7 +312,6 @@
                 vm.isBusy = false;
             }
             reader.onload = function () {
-                debugger;
                 var dataUrl = reader.result;
                 vm.selectedEvent.template.image = dataUrl.split(",")[1];
                 vm.selectedEvent.template.mimeType = $file.type;
