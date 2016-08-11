@@ -32,6 +32,7 @@ namespace admin.web.ViewModels
         public string StateName { get; set; }
         public string Zipcode { get; set; }
         public string Country { get; set; }
+        public string Comment { get; set; }
 
         public int? TicketCount { get; set; }
         public bool IsMailed { get; set; } = false;
