@@ -3,10 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Net.Mail;
-using System.Net.Mime;
 using System.Text.RegularExpressions;
 
 namespace DonorGateway.Domain
@@ -62,7 +60,7 @@ namespace DonorGateway.Domain
         {
             guest.ResponseDate = DateTime.Now;
             guest.IsAttending = false;
-            guest.IsMailed = false; 
+            guest.IsMailed = false;
             guest.IsWaiting = false;
             guest.WaitingDate = null;
             GuestAttendanceCount -= guest.TicketCount ?? 0;
@@ -121,15 +119,15 @@ namespace DonorGateway.Domain
 
             var message = Template.HeaderText + Template.BodyText;
 
-            if (guest.IsWaiting && guest.IsAttending)
+            if (guest.IsWaiting == true && guest.IsAttending == true)
             {
                 message += Template.WaitingResponseText;
             }
-            if (!guest.IsAttending)
+            if (guest.IsAttending == false)
             {
                 message += Template.NoResponseText;
             }
-            if (guest.IsAttending && !guest.IsWaiting)
+            if (guest.IsAttending == true && guest.IsWaiting == false)
             {
                 message += Template.YesResponseText;
             }

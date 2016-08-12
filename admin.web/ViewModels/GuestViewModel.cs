@@ -37,8 +37,8 @@ namespace admin.web.ViewModels
         public int? TicketCount { get; set; }
         public bool IsMailed { get; set; } = false;
 
-        public bool IsAttending { get; set; } = false;
-        public bool IsWaiting { get; set; } = false;
+        public bool? IsAttending { get; set; } = false;
+        public bool? IsWaiting { get; set; } = false;
 
         public DateTime? ResponseDate { get; set; }
         public DateTime? MailedDate { get; set; }

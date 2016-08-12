@@ -100,6 +100,10 @@
     <Compile Include="Migrations\201608092134449_AddDemographicChangeSourceEnum.Designer.cs">
       <DependentUpon>201608092134449_AddDemographicChangeSourceEnum.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608121856529_GuestBoolDataTypesToNullable.cs" />
+    <Compile Include="Migrations\201608121856529_GuestBoolDataTypesToNullable.Designer.cs">
+      <DependentUpon>201608121856529_GuestBoolDataTypesToNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -143,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608092134449_AddDemographicChangeSourceEnum.resx">
       <DependentUpon>201608092134449_AddDemographicChangeSourceEnum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608121856529_GuestBoolDataTypesToNullable.resx">
+      <DependentUpon>201608121856529_GuestBoolDataTypesToNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

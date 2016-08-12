@@ -16,6 +16,14 @@
         var tableStateRef;
         var pageSizeDefault = 10;
 
+        var choices = [
+            { id: 1, name: "Register", command: function (e) { vm.registerGuest(e) }, icon: 'icon ion-key', default: true },
+            { id: 2, name: "Mail Ticket", command: function (e) { vm.mailTicket(e) }, icon: 'icon ion-android-mail', default: false },
+            { id: 3, name: "Cancel", command: function (e) { vm.cancelGuest(e) }, icon: 'icon ion-android-cancel', default: false },
+            { id: 4, name: "Guest List", command: function (e) { vm.addToMailQueue(e) }, icon: 'icon ion-android-add-circle', default: false },
+            { id: 5, name: "Add Tickets", command: function (e) { vm.registerGuest(e) }, icon: 'icon ion-android-add-circle', default: false }
+        ];
+
         //TODO: hostLocation needs to be dynamic to environment
         vm.hostLocation = 'localhost:54505/';
 
@@ -34,19 +42,15 @@
         vm.dateFormat = "MM/DD/YYYY h:mm a";
         vm.events = [];
 
-        vm.choices = [
-            { name: 'Register', action: vm.registerGuest, icon: 'icon ion-key' },
-            { name: 'Cancel', action: 'cancelGuest' },
-            { name: 'Add Tickets', action: 'addTickets' },
-            { name: 'Tickets Sent', action: 'sendMail' },
-            { name: 'Remove Waiting', action: 'addToMailQueue' }
-        ];
+        vm.guestDefaultAction = function (guest) {
+            var defaultAction = vm.choices[0];
+            if (guest.isAttending) defaultAction = vm.choices[4];
 
-        logger.log('choices', vm.choices);
-        vm.selectedAction = vm.choices[0];
-        vm.setAction = function (action) {
-            vm.selectedAction = action;
-        };
+            if (guest.isWaiting) defaultAction = vm.choices[3];
+
+            if (!guest.isMailed && guest.isAttending) defaultAction = vm.choices[2];
+            return defaultAction;
+        }
 
         vm.searchModel = {
             page: 1,
@@ -89,7 +93,7 @@
                 });
         }
 
-        vm.cancelGuest = function(guest) {
+        vm.cancelGuest = function (guest) {
             service.cancelGuest(guest)
                 .then(function (result) {
                     logger.log('result', result);
@@ -175,12 +179,12 @@
             $modal.open({
                 templateUrl: '/app/events/views/edit-guest.html',
                 controller: 'CreateGuestController',
-                controllerAs: 'vm', 
+                controllerAs: 'vm',
                 resolve: {
                     event: vm.selectedEvent
                 }
             }).result.then(function (result) {
-                
+
                 var event = angular.copy(vm.selectedEvent);
                 angular.extend(vm.selectedEvent, result.event);
                 vm.selectedEvent.guests = event.guests;
@@ -190,7 +194,7 @@
         }
 
         vm.registerGuest = function (guest) {
-           
+
             $modal.open({
                 templateUrl: '/app/events/views/edit-guest.html',
                 controller: 'EditGuestController',
@@ -203,14 +207,14 @@
                 var event = angular.copy(vm.selectedEvent);
                 angular.extend(vm.selectedEvent, result.event);
                 vm.selectedEvent.guests = event.guests;
-                guest = null; 
+                guest = null;
             });
         }
 
         vm.toggleWaiting = function () {
             vm.showWaiting = !vm.showWaiting;
             vm.showMail = false;
-            vm.showSent = false; 
+            vm.showSent = false;
             vm.searchModel.page = 1;
             vm.searchGuests(tableStateRef);
         }
@@ -223,10 +227,10 @@
             vm.searchGuests(tableStateRef);
         }
 
-        vm.toggleSent = function() {
+        vm.toggleSent = function () {
             vm.showSent = !vm.showSent;
             vm.showWaiting = false;
-            vm.showMail = false; 
+            vm.showMail = false;
             vm.searchModel.page = 1;
             vm.searchGuests(tableStateRef);
         }
@@ -237,7 +241,7 @@
                 .then(function (data) {
                     angular.extend(vm.selectedEvent, data);
                     vm.searchGuests(tableStateRef);
-                    vm.isBusy = false; 
+                    vm.isBusy = false;
                 });
         }
 
@@ -246,7 +250,7 @@
             service.mailTicket(guest)
                         .then(function (data) {
                             angular.extend(guest, data);
-                            
+
                             logger.success('Issued ticket to: ' + guest.name);
 
                             var event = angular.copy(vm.selectedEvent);
@@ -282,7 +286,7 @@
 
             vm.searchModel.isAttending = null;
             vm.searchModel.isWaiting = null;
-            vm.searchModel.isMailed = null; 
+            vm.searchModel.isMailed = null;
 
             if (vm.showWaiting) {
                 vm.searchModel.isWaiting = vm.showWaiting ? vm.showWaiting : null;
@@ -303,7 +307,31 @@
             vm.isBusy = true;
             return service.getGuests(vm.selectedEvent.id, vm.searchModel)
                 .then(function (data) {
+
                     vm.selectedEvent.guests = data.items;
+
+                    vm.selectedEvent.guests = vm.selectedEvent.guests.map(function (guest) {
+
+                        var options = [];
+
+                        if (guest.isAttending == null) options.push(choices[0]);
+                        if (guest.isAttending && !guest.isWaiting && !guest.isMailed) {
+                            
+                            options.push(choices[1]);
+                        }
+                        if (guest.isWaiting) {
+                            options.push(choices[3]);
+                        }
+                        if (guest.isAttending) {
+                            options.push(choices[4]);
+                        }
+                        if (guest.isAttending != null) options.push(choices[2]);
+
+                        guest.primaryChoice = angular.copy(options[0]);
+                        options.shift();
+
+                        return angular.extend(guest, { choices: options });
+                    });
                     vm.searchModel = data;
                     vm.isBusy = false;
                 });
