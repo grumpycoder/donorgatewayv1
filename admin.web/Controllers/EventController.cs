@@ -75,6 +75,8 @@ namespace admin.web.Controllers
             if (!string.IsNullOrWhiteSpace(vm.Phone)) pred = pred.And(p => p.Phone.Contains(vm.Phone));
             if (!string.IsNullOrWhiteSpace(vm.Email)) pred = pred.And(p => p.Email.StartsWith(vm.Email));
             if (!string.IsNullOrWhiteSpace(vm.LookupId)) pred = pred.And(p => p.LookupId.StartsWith(vm.LookupId));
+            if (!string.IsNullOrWhiteSpace(vm.ConstituentType)) pred = pred.And(p => p.ConstituentType.StartsWith(vm.ConstituentType));
+            if (vm.TicketCount != null) pred = pred.And(p => p.TicketCount == vm.TicketCount);
             if (vm.IsMailed != null) pred = pred.And(p => p.IsMailed == ticketMailed);
             if (vm.IsWaiting != null) pred = pred.And(p => p.IsWaiting == isWaiting);
             if (vm.IsAttending != null) pred = pred.And(p => p.IsAttending == isAttending);
@@ -198,7 +200,7 @@ namespace admin.web.Controllers
             @event.CancelRegistration(dto);
 
             context.Entry(@event.Template).State = EntityState.Unchanged;
-            
+
             context.Events.AddOrUpdate(@event);
 
             context.Guests.AddOrUpdate(dto);

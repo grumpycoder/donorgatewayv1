@@ -15,7 +15,7 @@
         public bool? IsMailed { get; set; }
         public bool? IsWaiting { get; set; }
         public bool? IsAttending { get; set; }
-
-        public int? GuestCount { get; set; }
+        public int? TicketCount { get; set; }
+        public string ConstituentType { get; set; }
     }
 }

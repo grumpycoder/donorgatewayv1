@@ -42,16 +42,6 @@
         vm.dateFormat = "MM/DD/YYYY h:mm a";
         vm.events = [];
 
-        vm.guestDefaultAction = function (guest) {
-            var defaultAction = vm.choices[0];
-            if (guest.isAttending) defaultAction = vm.choices[4];
-
-            if (guest.isWaiting) defaultAction = vm.choices[3];
-
-            if (!guest.isMailed && guest.isAttending) defaultAction = vm.choices[2];
-            return defaultAction;
-        }
-
         vm.searchModel = {
             page: 1,
             pageSize: pageSizeDefault,
@@ -276,7 +266,8 @@
                 vm.searchModel.city = tableState.search.predicateObject.city;
                 vm.searchModel.state = tableState.search.predicateObject.state;
                 vm.searchModel.zipcode = tableState.search.predicateObject.zipcode;
-                vm.searchModel.guestCount = tableState.search.predicateObject.guestCount;
+                vm.searchModel.ticketCount = tableState.search.predicateObject.ticketCount;
+                vm.searchModel.constituentType = tableState.search.predicateObject.constituentType;
                 vm.searchModel.phone = tableState.search.predicateObject.phone;
                 vm.searchModel.email = tableState.search.predicateObject.email;
                 vm.searchModel.accountId = tableState.search.predicateObject.accountId;
