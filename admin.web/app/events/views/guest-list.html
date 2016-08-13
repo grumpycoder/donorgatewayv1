@@ -2,27 +2,39 @@
 
 <div class="box no-border">
     <div class="box-header">
-        <button class="btn" ng-click="vm.showGuestUpload()"><i class="fa fa-cloud-upload"></i> Upload</button>
+        <div class="row">
+            <div class="col-md-9 col-sm-9">
+                <button class="btn" ng-click="vm.showGuestUpload()"><i class="fa fa-cloud-upload"></i> Upload</button>
 
-        <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showWaiting, 'btn-default': !vm.showWaiting }" ng-click="vm.toggleWaiting()"> <i class="fa fa-clock-o"></i> Show Waiting List</button>
-        <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showMail, 'btn-default': !vm.showMail }" ng-click="vm.toggleMail()"> <i class="fa fa-envelope"></i> Show Send Tickets</button>
-        <button class="btn btn-default" ng-class="{ 'btn-warning': vm.showSent, 'btn-default': !vm.showSent }" ng-click="vm.toggleSent()"> <i class="fa fa-paper-plane"></i> Show Tickets Sent</button>
+                <button class="btn btn-default"
+                        ng-class="{ 'btn-warning': vm.showWaiting, 'btn-default': !vm.showWaiting }"
+                        ng-click="vm.toggleWaiting()">
+                    <i class="fa fa-clock-o"></i> Waiting List
+                </button>
+                <button class="btn btn-default"
+                        ng-class="{ 'btn-warning': vm.showMail, 'btn-default': !vm.showMail }"
+                        ng-click="vm.toggleMail()">
+                    <i class="fa fa-envelope"> </i> Send Tickets
+                </button>
+                <button class="btn btn-default"
+                        ng-class="{ 'btn-warning': vm.showSent, 'btn-default': !vm.showSent }"
+                        ng-click="vm.toggleSent()">
+                    <i class="fa fa-paper-plane"></i> Tickets Sent
+                </button>
 
-        <span class="pull-right">
-            <button class="btn btn-success" uib-popover="New Guest" popover-trigger="mouseenter" ng-click="vm.createGuest()">
-                <i class="fa fa-plus-circle"></i>
-            </button>
-
-            <button class="btn btn-default" ng-click="vm.refreshGuests()">
-                <i class="fa fa-refresh"></i>
-                Refresh
-            </button>
-            <button class="btn btn-info" ng-click="vm.exportGuests()">
-                <i class="fa fa-download"></i>
-                Export
-            </button>
-        </span>
-
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <div class="pull-right">
+                    <button class="btn btn-info" ng-click="vm.exportGuests()">
+                        <i class="fa fa-download"></i>
+                        Export
+                    </button>
+                    <button class="btn btn-default" ng-click="vm.refreshGuests()">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="box-body">
 
@@ -61,7 +73,13 @@
                     <td class="text-center hidden-xs hidden-sm hidden-md">
                         <button class="btn btn-danger" ng-show="vm.showMail" ng-click="vm.mailAllTickets()"> <i class="fa fa-paper-plane"></i> Send All</button>
                     </td>
-                    <td></td>
+                    <td>
+                        <div class="pull-right">
+                            <button class="btn btn-default" uib-popover="New Guest" popover-trigger="mouseenter" ng-click="vm.createGuest()">
+                                <i class="fa fa-plus-circle"></i>
+                            </button>
+                        </div>
+                    </td>
                 </tr>
             </thead>
             <tbody>
@@ -107,7 +125,7 @@
                             </div>
                         </div>
 
-                      
+
                     </td>
                 </tr>
             </tbody>
