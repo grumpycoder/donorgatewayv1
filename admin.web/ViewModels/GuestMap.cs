@@ -37,7 +37,7 @@ namespace admin.web.ViewModels
 
             Map(m => m.TicketCount).Name("TicketCount").Default(0);
             Map(m => m.IsMailed).Name("TicketMailed").Default(false);
-            Map(m => m.IsAttending).Name("Response").Default(false);
+            Map(m => m.IsAttending).Name("Response");
 
             Map(m => m.ActualDate).Name("ActualDate");
             Map(m => m.ExpectedDate).Name("ExpectedDate");
