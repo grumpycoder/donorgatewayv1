@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+using System.Data.Entity;
+using admin.web.ViewModels;
 using DonorGateway.Data;
+using System.Linq;
+using System.Web.Helpers;
+using System.Web.Http;
+using admin.web.Helpers;
+using AutoMapper.QueryableExtensions;
+using DonorGateway.Domain;
 
 namespace admin.web.Controllers
 {
@@ -19,10 +23,45 @@ namespace admin.web.Controllers
             context = new DataContext();
         }
 
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(int id)
         {
-            var list = context.Constituents.OrderBy(x => x.Id).Skip(0).Take(10);
+            var list = context.Constituents.SingleOrDefault(c => c.Id == id);
             return Ok(list);
+        }
+
+        [Route("search")]
+        public IHttpActionResult Search(ConsituentSearchViewModel vm)
+        {
+            var page = vm.Page.GetValueOrDefault(0);
+            var pageSize = vm.PageSize.GetValueOrDefault(10);
+            var skipRows = (page - 1) * pageSize;
+
+            var pred = PredicateBuilder.True<Constituent>();
+            if (!string.IsNullOrWhiteSpace(vm.Name)) pred = pred.And(p => p.Name.Contains(vm.Name));
+            if (!string.IsNullOrWhiteSpace(vm.FinderNumber)) pred = pred.And(p => p.FinderNumber.Contains(vm.FinderNumber));
+            if (!string.IsNullOrWhiteSpace(vm.LookupId)) pred = pred.And(p => p.LookupId.Contains(vm.LookupId));
+            if (!string.IsNullOrWhiteSpace(vm.Zipcode)) pred = pred.And(p => p.Zipcode.StartsWith(vm.Zipcode));
+            if (!string.IsNullOrWhiteSpace(vm.Email)) pred = pred.And(p => p.Email.Contains(vm.Email));
+            if (!string.IsNullOrWhiteSpace(vm.Phone)) pred = pred.And(p => p.Phone.Contains(vm.Phone));
+
+            var list = context.Constituents.AsQueryable()
+                         .Order(vm.OrderBy, vm.OrderDirection == "desc" ? SortDirection.Descending : SortDirection.Ascending)
+                         .Where(pred)
+                         //.Include(x => x.TaxItems)
+                         .Skip(skipRows)
+                         .Take(pageSize)
+                         .ProjectTo<ConstituentViewModel>();
+
+            var totalCount = context.Constituents.Count();
+            var filterCount = context.Constituents.Where(pred).Count();
+            var totalPages = (int)Math.Ceiling((decimal)filterCount / pageSize);
+
+            vm.TotalCount = totalCount;
+            vm.FilteredCount = filterCount;
+            vm.TotalPages = totalPages;
+
+            vm.Items = list.ToList();
+            return Ok(vm);
         }
 
     }

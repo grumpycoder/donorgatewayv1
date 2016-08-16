@@ -220,6 +220,8 @@
     <Compile Include="Services\IProcessor.cs" />
     <Compile Include="Services\OperationResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ConsituentSearchViewModel.cs" />
+    <Compile Include="ViewModels\ConstituentViewModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\GuestExportViewModel.cs" />
     <Compile Include="ViewModels\GuestMap.cs" />

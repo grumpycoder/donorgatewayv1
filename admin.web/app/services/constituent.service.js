@@ -12,7 +12,8 @@
         var url = config.apiUrl + config.apiEndPoints.Constituent;
 
         var service = {
-            get: get
+            get: get,
+            query: query
         }
 
         return service;
@@ -20,6 +21,13 @@
 
         function get() {
             return $http.get(url).then(_success).catch(error);
+        }
+
+        function query(vm) {
+            return $http.post(url + '/search', vm)
+              .then(function (response) {
+                  return response.data;
+              });
         }
 
         function _success(response) {

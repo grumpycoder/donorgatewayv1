@@ -27,39 +27,49 @@
                     </div><!-- /.box-header -->
                     <div class="box-body">
 
-                        <table st-table="vm.people" class="table table-responsive table-striped">
+                        <table st-table="vm.people" st-pipe="vm.search" class="table table-responsive table-striped">
                             <thead>
-                            <tr>
-                                <th class="sort-header"></th>
-                                <th class="sort-header" st-sort="Name">Name</th>
-                                <th class="sort-header" st-sort="LookupId">Lookup Id</th>
-                                <th class="sort-header" st-sort="FinderNumber">Finder Number</th>
-                                <th class="sort-header">Address</th>
-                                <th class="sort-header" st-sort="Phone">Phone</th>
-                                <th class="sort-header" st-sort="Email">Email</th>
-                                <th class="sort-header" st-sort="Status">Status</th>
-                                <th class="sort-header"></th>
-                            </tr>
-                            <tr>
-                                <th st-toggle-all="vm.data.items"></th>
-                                <th><input type="text" st-clear-key st-search="name" class="form-control" placeholder="Donor Name"/></th>
-                                <th><input type="text" st-clear-key st-search="lookupId" class="form-control" placeholder="Lookup Id"/></th>
-                                <th><input type="text" st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number"/></th>
-                                <th><input type="text" st-clear-key st-search="zipCode" class="form-control" placeholder="Zip Code"/></th>
-                                <th><input type="text" st-clear-key st-search="phone" class="form-control" placeholder="Phone Number"/></th>
-                                <th><input type="text" st-clear-key st-search="email" class="form-control" placeholder="Email Address"/></th>
-                                <th>
-                                    <select st-search="updateStatus" class="form-control">
-                                        <option ng-repeat="status in vm.updateStatusOptions" value="{{status.id}}">{{status.title}}</option>
-                                    </select>
-                                </th>
-                                <th>
-                                    @*<button class="btn btn-success" ng-click="vm.reconcileSelected()" uib-tooltip="Reconcile Selected"><i class="fa fa-check"></i>&nbsp;</button>*@
-                                </th>
-                            </tr>
+                                <tr>
+                                    <th class="sort-header" st-sort="Name">Name</th>
+                                    <th class="sort-header" st-sort="LookupId">Lookup Id</th>
+                                    <th class="sort-header" st-sort="FinderNumber">Finder Number</th>
+                                    <th class="sort-header">Address</th>
+                                    <th class="sort-header">City</th>
+                                    <th class="sort-header">State</th>
+                                    <th class="sort-header">Zipcode</th>
+                                    <th class="sort-header" st-sort="Phone">Phone</th>
+                                    <th class="sort-header" st-sort="Email">Email</th>
+                                    <th class="sort-header"></th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" st-clear-key st-search="name" class="form-control" placeholder="Donor Name" /></th>
+                                    <th><input type="text" st-clear-key st-search="lookupId" class="form-control" placeholder="Lookup Id" /></th>
+                                    <th><input type="text" st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number" /></th>
+                                    <th><input type="text" st-clear-key st-search="address" class="form-control" placeholder="Address" /></th>
+                                    <th><input type="text" st-clear-key st-search="city" class="form-control" placeholder="City" /></th>
+                                    <th><input type="text" st-clear-key st-search="state" class="form-control" placeholder="State" /></th>
+                                    <th><input type="text" st-clear-key st-search="zipcode" class="form-control" placeholder="Zip Code" /></th>
+                                    <th><input type="text" st-clear-key st-search="phone" class="form-control" placeholder="Phone Number" /></th>
+                                    <th><input type="text" st-clear-key st-search="email" class="form-control" placeholder="Email Address" /></th>
+                                    <th st-toggle-all="vm.data.items"></th>
+                                </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="person in vm.people" st-select-row="person" st-select-mode="multiple">
+                                <td>{{person.name}}</td>
+                                <td>{{person.lookupId}}</td>
+                                <td>{{person.finderNumber}}</td>
+                                <td>
+                                    <address>
+                                        {{person.street}}<br>
+                                        {{person.street2}}<br>
+                                    </address>
+                                </td>
+                                <td>{{person.city}}</td>
+                                <td>{{person.state}}</td>
+                                <td>{{person.zipcode}}</td>
+                                <td>{{person.phone}}</td>
+                                <td>{{person.email}}</td>
                                 <td style="white-space: nowrap;">
                                     <button class="btn btn-primary" ng-click="vm.editItem(person, $event)">
                                         <i class="fa fa-edit"></i>
@@ -68,26 +78,23 @@
                                         <i class="fa fa-usd"></i>
                                     </button>
                                 </td>
-                                <td>{{person.name}}</td>
-                                <td>{{person.lookupId}}</td>
-                                <td>{{person.finderNumber}}</td>
-                                <td>
-                                    <address>
-                                        {{person.street}}<br>
-                                        {{person.street2}}<br>
-                                        {{person.city}}, {{person.state}} {{person.zipcode}}<br>
-                                    </address>
-                                </td>
-                                <td>{{person.phone}}</td>
-                                <td>{{person.email}}</td>
-                                <td>{{person.updateStatus | updateStatus}}</td>
-                                <td>
-                                    <button class="btn btn-success" ng-click="vm.reconcileItem(person)" ng-disabled="person.updateStatus != 2">
-                                        <i class="fa fa-check"></i>
-                                    </button>
-                                </td>
                             </tr>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="14" class="text-center">
+                                        <uib-pagination total-items="vm.searchModel.filteredCount"
+                                                        ng-model="vm.searchModel.page"
+                                                        max-size="5"
+                                                        items-per-page="vm.searchModel.pageSize"
+                                                        class="pagination-sm"
+                                                        boundary-link-numbers="true"
+                                                        ng-change="vm.paged()"
+                                                        rotate="false">
+                                        </uib-pagination>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
 
                     </div>
