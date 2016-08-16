@@ -47,7 +47,7 @@
 
         function remove(id) {
             return $http.delete(url + '/' + id).then(_success).catch(error);
-        };
+        }
 
         function get() {
             return $http.get(url)
@@ -96,7 +96,7 @@
 
         function _success(response) {
             return response.data;
-        };
+        }
 
         function error(error) {
             return error.data.message; 

@@ -26,7 +26,70 @@
                         <h3 class="box-title">{{vm.subTitle}}</h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
-             
+
+                        <table st-table="vm.people" class="table table-responsive table-striped">
+                            <thead>
+                            <tr>
+                                <th class="sort-header"></th>
+                                <th class="sort-header" st-sort="Name">Name</th>
+                                <th class="sort-header" st-sort="LookupId">Lookup Id</th>
+                                <th class="sort-header" st-sort="FinderNumber">Finder Number</th>
+                                <th class="sort-header">Address</th>
+                                <th class="sort-header" st-sort="Phone">Phone</th>
+                                <th class="sort-header" st-sort="Email">Email</th>
+                                <th class="sort-header" st-sort="Status">Status</th>
+                                <th class="sort-header"></th>
+                            </tr>
+                            <tr>
+                                <th st-toggle-all="vm.data.items"></th>
+                                <th><input type="text" st-clear-key st-search="name" class="form-control" placeholder="Donor Name"/></th>
+                                <th><input type="text" st-clear-key st-search="lookupId" class="form-control" placeholder="Lookup Id"/></th>
+                                <th><input type="text" st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number"/></th>
+                                <th><input type="text" st-clear-key st-search="zipCode" class="form-control" placeholder="Zip Code"/></th>
+                                <th><input type="text" st-clear-key st-search="phone" class="form-control" placeholder="Phone Number"/></th>
+                                <th><input type="text" st-clear-key st-search="email" class="form-control" placeholder="Email Address"/></th>
+                                <th>
+                                    <select st-search="updateStatus" class="form-control">
+                                        <option ng-repeat="status in vm.updateStatusOptions" value="{{status.id}}">{{status.title}}</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    @*<button class="btn btn-success" ng-click="vm.reconcileSelected()" uib-tooltip="Reconcile Selected"><i class="fa fa-check"></i>&nbsp;</button>*@
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="person in vm.people" st-select-row="person" st-select-mode="multiple">
+                                <td style="white-space: nowrap;">
+                                    <button class="btn btn-primary" ng-click="vm.editItem(person, $event)">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-default" ng-click="vm.showTaxItems(person)">
+                                        <i class="fa fa-usd"></i>
+                                    </button>
+                                </td>
+                                <td>{{person.name}}</td>
+                                <td>{{person.lookupId}}</td>
+                                <td>{{person.finderNumber}}</td>
+                                <td>
+                                    <address>
+                                        {{person.street}}<br>
+                                        {{person.street2}}<br>
+                                        {{person.city}}, {{person.state}} {{person.zipcode}}<br>
+                                    </address>
+                                </td>
+                                <td>{{person.phone}}</td>
+                                <td>{{person.email}}</td>
+                                <td>{{person.updateStatus | updateStatus}}</td>
+                                <td>
+                                    <button class="btn btn-success" ng-click="vm.reconcileItem(person)" ng-disabled="person.updateStatus != 2">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">

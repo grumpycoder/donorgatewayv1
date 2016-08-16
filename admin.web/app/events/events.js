@@ -305,7 +305,7 @@
 
                         var options = [];
 
-                        if (guest.isAttending == null) options.push(choices[0]);
+                        if (guest.isAttending === null) options.push(choices[0]);
                         if (guest.isAttending && !guest.isWaiting && !guest.isMailed) {
                             
                             options.push(choices[1]);
@@ -316,7 +316,7 @@
                         if (guest.isAttending) {
                             options.push(choices[4]);
                         }
-                        if (guest.isAttending != null) options.push(choices[2]);
+                        if (guest.isAttending !== null) options.push(choices[2]);
 
                         guest.primaryChoice = angular.copy(options[0]);
                         options.shift();
