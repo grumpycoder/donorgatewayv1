@@ -13,8 +13,8 @@
         'app.nav',
         'app.users',
         'app.events', 
-        'app.demographics'
-        //'app.tax',
+        'app.demographics',
+        'app.donortax'
         //'app.template',
         //'app.mailers',
         

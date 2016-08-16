@@ -245,6 +245,8 @@
     <Content Include="app\directives\date-input.directive.js" />
     <Content Include="app\directives\smart-table.directive.js" />
     <Content Include="app\directives\toggleCheckbox.directive.js" />
+    <Content Include="app\donortax\donortax.js" />
+    <Content Include="app\donortax\donortax.module.js" />
     <Content Include="app\events\createEvent.controller.js" />
     <Content Include="app\events\createGuest.controller.js" />
     <Content Include="app\events\editGuest.controller.js" />
@@ -345,11 +347,13 @@
     <Content Include="Views\Auth\Login.cshtml" />
     <Content Include="Views\Home\Events.cshtml" />
     <Content Include="Views\Home\Demographics.cshtml" />
+    <Content Include="Views\Home\DonorTax.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\donortax\views\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
