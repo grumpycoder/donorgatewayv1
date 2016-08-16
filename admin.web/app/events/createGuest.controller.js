@@ -13,9 +13,9 @@
     function mainController($scope, logger, $modal, service, event) {
         var vm = this;
         vm.title = 'Create Guest';
-       
+
         vm.guest = {
-            finderNumber: '00000000000', 
+            finderNumber: '00000000000',
             eventId: event.id
         };
 
@@ -47,10 +47,15 @@
         }
 
         vm.save = function () {
+            vm.guest.insideSalutation = vm.guest.name;
+            vm.guest.outsideSalutation = vm.guest.name;
+            vm.guest.emailSalutation = vm.guest.name;
+            vm.guest.eventId = event.id;
             service.registerGuest(vm.guest)
                             .then(function (data) {
                                 angular.extend(vm.guest, data);
                                 $modal.close(vm.guest);
+                            }).finally(function () {
                             });
         }
     }

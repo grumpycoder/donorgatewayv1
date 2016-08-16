@@ -136,7 +136,7 @@ namespace DonorGateway.Domain
 
             var sendToAddress = new MailAddress(guest.Email);
             var sendFromAddress = new MailAddress(ConfigurationManager.AppSettings["SendFromAddress"], ConfigurationManager.AppSettings["SendFromDisplay"]);
-            var subject = $"SPLC Event {guest.Event.DisplayName} Confirmation";
+            var subject = $"SPLC Event {DisplayName} Confirmation";
 
             var env = ConfigurationManager.AppSettings["Environment"];
             switch (env)

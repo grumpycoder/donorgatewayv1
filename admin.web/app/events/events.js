@@ -25,7 +25,7 @@
         ];
 
         //TODO: hostLocation needs to be dynamic to environment
-        vm.hostLocation = 'localhost:54505/';
+        vm.hostLocation = 'rsvp-test/';
 
         vm.title = 'Event Manager';
         vm.description = "Manage Donor Events";
@@ -62,9 +62,6 @@
         function activate() {
             logger.log(controllerId + ' activated');
             getEvents().then(function () {
-                vm.selectedEvent = vm.events[0];
-                vm.changeEvent();
-
                 logger.log('loaded events');
             });
         }
@@ -75,6 +72,7 @@
                 .then(function (data) {
                     logger.info('Moved Guest ' + data.name + 'Send Ticket: ');
                     angular.extend(guest, data);
+                    BuildGuestOptions(guest);
                     var event = angular.copy(vm.selectedEvent);
                     angular.extend(vm.selectedEvent, guest.event);
                     vm.selectedEvent.guests = event.guests;
@@ -88,6 +86,8 @@
                 .then(function (result) {
                     logger.log('result', result);
                     angular.extend(guest, result);
+                    //BUG: Not changin options
+                    BuildGuestOptions(guest);
                     var event = angular.copy(vm.selectedEvent);
                     angular.extend(vm.selectedEvent, result.event);
                     vm.selectedEvent.guests = event.guests;
@@ -123,13 +123,12 @@
         }
 
         vm.deleteEvent = function (id) {
-            //TODO: Confirmation on delete
             vm.isBusy = true;
             service.remove(id)
                 .then(function () {
-                    vm.selectedEvent = undefined;
                     logger.success('Deleted event');
                 }).finally(function () {
+                    vm.selectedEvent = undefined;
                     vm.isBusy = false;
                     getEvents();
                 });
@@ -174,13 +173,34 @@
                     event: vm.selectedEvent
                 }
             }).result.then(function (result) {
-
+                var guest = result;
+                BuildGuestOptions(guest);
                 var event = angular.copy(vm.selectedEvent);
                 angular.extend(vm.selectedEvent, result.event);
                 vm.selectedEvent.guests = event.guests;
-
-                vm.selectedEvent.guests.unshift(result);
+                vm.selectedEvent.guests.unshift(guest);
             });
+        }
+
+        function BuildGuestOptions(guest) {
+            var options = [];
+
+            if (guest.isAttending === null) options.push(choices[0]);
+            if (guest.isAttending && !guest.isWaiting && !guest.isMailed) {
+                options.push(choices[1]);
+            }
+            if (guest.isWaiting) {
+                options.push(choices[3]);
+            }
+            if (guest.isAttending) {
+                options.push(choices[4]);
+            }
+            if (guest.isAttending !== null) options.push(choices[2]);
+
+            guest.primaryChoice = angular.copy(options[0]);
+            options.shift();
+
+            angular.extend(guest, { choices: options });
         }
 
         vm.registerGuest = function (guest) {
@@ -194,6 +214,8 @@
                 }
             }).result.then(function (result) {
                 angular.extend(guest, result);
+                BuildGuestOptions(guest);
+
                 var event = angular.copy(vm.selectedEvent);
                 angular.extend(vm.selectedEvent, result.event);
                 vm.selectedEvent.guests = event.guests;
@@ -240,12 +262,12 @@
             service.mailTicket(guest)
                         .then(function (data) {
                             angular.extend(guest, data);
-
-                            logger.success('Issued ticket to: ' + guest.name);
+                            BuildGuestOptions(guest);
 
                             var event = angular.copy(vm.selectedEvent);
                             angular.extend(vm.selectedEvent, guest.event);
                             vm.selectedEvent.guests = event.guests;
+                            logger.success('Mailed ticket to: ' + guest.name);
 
                         }).finally(function () {
                             vm.isBusy = false;
@@ -298,35 +320,15 @@
             vm.isBusy = true;
             return service.getGuests(vm.selectedEvent.id, vm.searchModel)
                 .then(function (data) {
-
-                    vm.selectedEvent.guests = data.items;
-
-                    vm.selectedEvent.guests = vm.selectedEvent.guests.map(function (guest) {
-
-                        var options = [];
-
-                        if (guest.isAttending === null) options.push(choices[0]);
-                        if (guest.isAttending && !guest.isWaiting && !guest.isMailed) {
-                            
-                            options.push(choices[1]);
-                        }
-                        if (guest.isWaiting) {
-                            options.push(choices[3]);
-                        }
-                        if (guest.isAttending) {
-                            options.push(choices[4]);
-                        }
-                        if (guest.isAttending !== null) options.push(choices[2]);
-
-                        guest.primaryChoice = angular.copy(options[0]);
-                        options.shift();
-
-                        return angular.extend(guest, { choices: options });
+                    var guests = data.items.map(function (guest) {
+                        BuildGuestOptions(guest); 
+                        return guest;
                     });
+                    vm.selectedEvent.guests = guests;
+
                     vm.searchModel = data;
                     vm.isBusy = false;
                 });
-
         }
 
         vm.paged = function paged() {
