@@ -16,6 +16,7 @@
         var pageSizeDefault = 10;
 
         vm.title = 'Donor Tax Manager';
+        vm.subTitle = 'Constituents';
 
         vm.people = [];
         vm.searchModel = {

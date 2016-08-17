@@ -8,44 +8,50 @@
         <div class="box-body">
 
             <div class="row">
-                
-                <div class="col-md-4 col-sm-4">
+                <div class="col-md-12">
+
                     <div class="form-group">
-                    <label class="control-label">Tax Year</label>
+                        <label class="control-label">Tax Year</label>
                         <select ng-model="vm.selectedYear" ng-options="year for year in vm.years" ng-disabled="false" ng-change="vm.yearChanged()" class="form-control">
                             <option value="">Choose a tax year</option>
                         </select>
                     </div>
+
                 </div>
             </div>
+
             <div class="row">
-                <div class="col-md-5 col-sm-5">
-                    <p class="input-group">
-
-                        <input type="text" class="form-control"
-                               uib-datepicker-popup="MM/dd/yyyy"
-                               datepicker-options="vm.dateOptions"
-                               ng-model="vm.newItem.donationDate"
-                               is-open="newStatus.opened"
-                               ng-required="true"
-                               close-text="Close" />
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="newStatus.opened = !newStatus.opened"><i class="fa fa-calendar"></i></button>
-                        </span>
-                    </p><!-- /.input group -->
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                   uib-datepicker-popup="MM/dd/yyyy"
+                                   datepicker-options="vm.dateOptions"
+                                   ng-model="vm.newItem.donationDate"
+                                   is-open="newStatus.opened"
+                                   ng-required="true"
+                                   close-text="Close" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="newStatus.opened = !newStatus.opened"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="col-md-5 col-sm-5">
-                    <p class="input-group">
-                        <input type="number" class="form-control" ng-model="vm.newItem.amount">
-                        <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                    </p>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group">
+                                <input type="number" class="form-control" ng-model="vm.newItem.amount">
+                                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-
                 <div class="col-md-2">
                     <button class="btn btn-success" ng-click="vm.addItem()" ng-disabled="!vm.newItem.amount || !vm.newItem.donationDate"><i class="fa fa-plus"></i> Add</button>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-12">
 
@@ -69,7 +75,6 @@
                                         <button class="btn btn-warning" ng-click="vm.cancelEdit(item)" ng-show="vm.currentEdit[item.id]"><i class="fa fa-ban"></i></button>
                                     </div>
                                 </td>
-
                                 <td ng-hide="vm.currentEdit[item.id]">
                                     {{item.donationDate | date:'MM/dd/yyyy'}}
                                 </td>
@@ -103,6 +108,7 @@
                     </table>
                 </div>
             </div>
+
         </div><!-- /box-body -->
 
         <div class="overlay" ng-show="vm.isBusy">

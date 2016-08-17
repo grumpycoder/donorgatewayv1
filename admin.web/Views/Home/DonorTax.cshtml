@@ -24,6 +24,11 @@
                 <div class="box box-default box-solid">
                     <div class="box-header">
                         <h3 class="box-title">{{vm.subTitle}}</h3>
+                        <small>({{vm.searchModel.filteredCount}} / {{vm.searchModel.totalCount}}) Total Records</small>
+                        <span class="pull-right">
+                            <small>Page {{vm.searchModel.page}} of {{vm.searchModel.totalPages}}</small>
+                        </span>
+
                     </div><!-- /.box-header -->
                     <div class="box-body">
 
@@ -86,12 +91,6 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    @*<button class="btn btn-primary" ng-click="vm.editItem(person, $event)">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-default" ng-click="vm.showTaxItems(person)">
-                                        <i class="fa fa-usd"></i>
-                                    </button>*@
                                 </td>
                             </tr>
                             </tbody>
