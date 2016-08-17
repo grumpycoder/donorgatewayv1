@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using admin.web.Helpers;
 using admin.web.ViewModels;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DonorGateway.Data;
+using DonorGateway.Domain;
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Http;
-using admin.web.Helpers;
-using AutoMapper.QueryableExtensions;
-using DonorGateway.Domain;
 
 namespace admin.web.Controllers
 {
@@ -47,7 +48,7 @@ namespace admin.web.Controllers
             var list = context.Constituents.AsQueryable()
                          .Order(vm.OrderBy, vm.OrderDirection == "desc" ? SortDirection.Descending : SortDirection.Ascending)
                          .Where(pred)
-                         //.Include(x => x.TaxItems)
+                         .Include(x => x.TaxItems)
                          .Skip(skipRows)
                          .Take(pageSize)
                          .ProjectTo<ConstituentViewModel>();
@@ -62,6 +63,52 @@ namespace admin.web.Controllers
 
             vm.Items = list.ToList();
             return Ok(vm);
+        }
+
+        public IHttpActionResult Put(Constituent vm)
+        {
+            if (vm.Id == 0) return NotFound();
+
+            var demoChange = Mapper.Map<DemographicChange>(vm);
+            demoChange.Source = Source.Tax;
+            context.DemographicChanges.Add(demoChange);
+
+            context.Constituents.AddOrUpdate(vm);
+            context.SaveChanges();
+
+            Mapper.Map<ConstituentViewModel>(vm);
+
+            return Ok(vm);
+        }
+
+        [HttpPost, Route("{id:int}/taxitem")]
+        public IHttpActionResult AddTaxItem(int id, TaxItem item)
+        {
+            context.TaxItems.AddOrUpdate(item);
+            context.SaveChanges();
+            return Ok(item);
+        }
+
+        [HttpPut, Route("{id:int}/taxitem")]
+        public IHttpActionResult UpdateTaxItem(int id, TaxItem item)
+        {
+            var o = context.TaxItems.Find(item.Id);
+            if (o == null) return NotFound();
+
+            context.TaxItems.AddOrUpdate(item);
+            context.SaveChanges();
+            return Ok(item);
+        }
+
+        [HttpDelete, Route("deletetax/{id:int}")]
+        public IHttpActionResult DeleteTaxItem(int id)
+        {
+            var tax = context.TaxItems.Find(id);
+            if (tax == null) return NotFound();
+
+            context.TaxItems.Remove(tax);
+            context.SaveChanges();
+            return Ok();
         }
 
     }

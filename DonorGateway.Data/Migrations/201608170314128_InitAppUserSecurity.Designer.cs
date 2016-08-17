@@ -7,13 +7,13 @@ namespace DonorGateway.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class GuestBoolDataTypesToNullable : IMigrationMetadata
+    public sealed partial class InitAppUserSecurity : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(GuestBoolDataTypesToNullable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitAppUserSecurity));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608121856529_GuestBoolDataTypesToNullable"; }
+            get { return "201608170314128_InitAppUserSecurity"; }
         }
         
         string IMigrationMetadata.Source

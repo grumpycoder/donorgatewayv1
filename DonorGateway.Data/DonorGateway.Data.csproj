@@ -60,49 +60,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext.cs" />
-    <Compile Include="Migrations\201607292145190_AddApplicationUser.cs" />
-    <Compile Include="Migrations\201607292145190_AddApplicationUser.Designer.cs">
-      <DependentUpon>201607292145190_AddApplicationUser.cs</DependentUpon>
+    <Compile Include="Migrations\201608170314128_InitAppUserSecurity.cs" />
+    <Compile Include="Migrations\201608170314128_InitAppUserSecurity.Designer.cs">
+      <DependentUpon>201608170314128_InitAppUserSecurity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201607311419058_AddEventModel.cs" />
-    <Compile Include="Migrations\201607311419058_AddEventModel.Designer.cs">
-      <DependentUpon>201607311419058_AddEventModel.cs</DependentUpon>
+    <Compile Include="Migrations\201608170315592_EventGuestTemplateModels.cs" />
+    <Compile Include="Migrations\201608170315592_EventGuestTemplateModels.Designer.cs">
+      <DependentUpon>201608170315592_EventGuestTemplateModels.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201607311421224_AddEventModel1.cs" />
-    <Compile Include="Migrations\201607311421224_AddEventModel1.Designer.cs">
-      <DependentUpon>201607311421224_AddEventModel1.cs</DependentUpon>
+    <Compile Include="Migrations\201608170317490_DemographicChangeModel.cs" />
+    <Compile Include="Migrations\201608170317490_DemographicChangeModel.Designer.cs">
+      <DependentUpon>201608170317490_DemographicChangeModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608011637364_EventCascadeDeleteGuest.cs" />
-    <Compile Include="Migrations\201608011637364_EventCascadeDeleteGuest.Designer.cs">
-      <DependentUpon>201608011637364_EventCascadeDeleteGuest.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608051514501_GuestStatusDataTypeToNotNull.cs" />
-    <Compile Include="Migrations\201608051514501_GuestStatusDataTypeToNotNull.Designer.cs">
-      <DependentUpon>201608051514501_GuestStatusDataTypeToNotNull.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608081222481_IsExpiredToNotNull.cs" />
-    <Compile Include="Migrations\201608081222481_IsExpiredToNotNull.Designer.cs">
-      <DependentUpon>201608081222481_IsExpiredToNotNull.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608081224086_IsCancelledToNotNull.cs" />
-    <Compile Include="Migrations\201608081224086_IsCancelledToNotNull.Designer.cs">
-      <DependentUpon>201608081224086_IsCancelledToNotNull.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608092103180_AddConstituent.cs" />
-    <Compile Include="Migrations\201608092103180_AddConstituent.Designer.cs">
-      <DependentUpon>201608092103180_AddConstituent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608092104171_AddDemographicChange.cs" />
-    <Compile Include="Migrations\201608092104171_AddDemographicChange.Designer.cs">
-      <DependentUpon>201608092104171_AddDemographicChange.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608092134449_AddDemographicChangeSourceEnum.cs" />
-    <Compile Include="Migrations\201608092134449_AddDemographicChangeSourceEnum.Designer.cs">
-      <DependentUpon>201608092134449_AddDemographicChangeSourceEnum.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608121856529_GuestBoolDataTypesToNullable.cs" />
-    <Compile Include="Migrations\201608121856529_GuestBoolDataTypesToNullable.Designer.cs">
-      <DependentUpon>201608121856529_GuestBoolDataTypesToNullable.cs</DependentUpon>
+    <Compile Include="Migrations\201608170321389_ConstituentAndTaxItems.cs" />
+    <Compile Include="Migrations\201608170321389_ConstituentAndTaxItems.Designer.cs">
+      <DependentUpon>201608170321389_ConstituentAndTaxItems.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,38 +90,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607292145190_AddApplicationUser.resx">
-      <DependentUpon>201607292145190_AddApplicationUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608170314128_InitAppUserSecurity.resx">
+      <DependentUpon>201608170314128_InitAppUserSecurity.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607311419058_AddEventModel.resx">
-      <DependentUpon>201607311419058_AddEventModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608170315592_EventGuestTemplateModels.resx">
+      <DependentUpon>201608170315592_EventGuestTemplateModels.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607311421224_AddEventModel1.resx">
-      <DependentUpon>201607311421224_AddEventModel1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608170317490_DemographicChangeModel.resx">
+      <DependentUpon>201608170317490_DemographicChangeModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608011637364_EventCascadeDeleteGuest.resx">
-      <DependentUpon>201608011637364_EventCascadeDeleteGuest.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608051514501_GuestStatusDataTypeToNotNull.resx">
-      <DependentUpon>201608051514501_GuestStatusDataTypeToNotNull.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608081222481_IsExpiredToNotNull.resx">
-      <DependentUpon>201608081222481_IsExpiredToNotNull.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608081224086_IsCancelledToNotNull.resx">
-      <DependentUpon>201608081224086_IsCancelledToNotNull.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608092103180_AddConstituent.resx">
-      <DependentUpon>201608092103180_AddConstituent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608092104171_AddDemographicChange.resx">
-      <DependentUpon>201608092104171_AddDemographicChange.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608092134449_AddDemographicChangeSourceEnum.resx">
-      <DependentUpon>201608092134449_AddDemographicChangeSourceEnum.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608121856529_GuestBoolDataTypesToNullable.resx">
-      <DependentUpon>201608121856529_GuestBoolDataTypesToNullable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608170321389_ConstituentAndTaxItems.resx">
+      <DependentUpon>201608170321389_ConstituentAndTaxItems.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

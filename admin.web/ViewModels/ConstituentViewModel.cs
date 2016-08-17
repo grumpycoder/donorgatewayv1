@@ -1,7 +1,14 @@
-﻿namespace admin.web.ViewModels
+﻿using System.Collections.Generic;
+using DonorGateway.Domain;
+
+namespace admin.web.ViewModels
 {
     public class ConstituentViewModel
     {
+        public ConstituentViewModel()
+        {
+            TaxItems = new List<TaxItem>();
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string LookupId { get; set; }
@@ -13,5 +20,7 @@
         public string Zipcode { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+
+        public List<TaxItem> TaxItems { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿//mark.lawrence
-//donortax.js
+//donortax.controller.js
 
 (function() {
     'use strict';
@@ -16,6 +16,7 @@
         var pageSizeDefault = 10;
 
         vm.title = 'Donor Tax Manager';
+        vm.subTitle = 'Constituents';
 
         vm.people = [];
         vm.searchModel = {
@@ -24,8 +25,7 @@
             orderBy: 'id',
             orderDirection: 'asc'
         };
-
-
+        
         activate();
 
         function activate() {
@@ -48,7 +48,6 @@
                 vm.searchModel.zipcode = tableState.search.predicateObject.zipcode;
                 vm.searchModel.email = tableState.search.predicateObject.email;
                 vm.searchModel.phone = tableState.search.predicateObject.phone;
-                vm.searchModel.updateStatus = tableState.search.predicateObject.updateStatus;
             }
 
             vm.isBusy = true;
@@ -64,6 +63,32 @@
             vm.search(tableStateRef);
         };
 
+        vm.edit = function (person) {
+            $modal.open({
+                templateUrl: '/app/donortax/views/edit-constituent.html',
+                controller: 'EditConstituentController',
+                controllerAs: 'vm', 
+                resolve: {
+                    person: person
+                }
+            }).result.then(function (person) {
+                logger.success('Successfully updated ' + person.name);
+            });
+        }
+
+        vm.viewTaxes = function (person) {
+
+            $modal.open({
+                templateUrl: '/app/donortax/views/taxitems.html',
+                controller: 'TaxItemsController',
+                controllerAs: 'vm',
+                resolve: {
+                    person: person
+                }
+            }).result.then(function (person) {
+                logger.success('Successfully updated ' + person.name);
+            });
+        }
     }
 
 })();

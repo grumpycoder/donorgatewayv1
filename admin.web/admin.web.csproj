@@ -248,8 +248,12 @@
     <Content Include="app\directives\date-input.directive.js" />
     <Content Include="app\directives\smart-table.directive.js" />
     <Content Include="app\directives\toggleCheckbox.directive.js" />
-    <Content Include="app\donortax\donortax.js" />
+    <Content Include="app\donortax\taxItems.controller.js" />
+    <Content Include="app\donortax\editConstituent.controller.js" />
+    <Content Include="app\donortax\donortax.controller.js" />
     <Content Include="app\donortax\donortax.module.js" />
+    <Content Include="app\donortax\views\edit-constituent.html" />
+    <Content Include="app\donortax\views\taxitems.html" />
     <Content Include="app\events\createEvent.controller.js" />
     <Content Include="app\events\createGuest.controller.js" />
     <Content Include="app\events\editGuest.controller.js" />
@@ -357,7 +361,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\donortax\views\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>

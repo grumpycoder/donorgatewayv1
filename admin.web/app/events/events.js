@@ -204,7 +204,7 @@
         }
 
         vm.registerGuest = function (guest) {
-
+            guest.event = angular.copy(vm.selectedEvent);
             $modal.open({
                 templateUrl: '/app/events/views/edit-guest.html',
                 controller: 'EditGuestController',

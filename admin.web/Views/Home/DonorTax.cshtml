@@ -24,6 +24,11 @@
                 <div class="box box-default box-solid">
                     <div class="box-header">
                         <h3 class="box-title">{{vm.subTitle}}</h3>
+                        <small>({{vm.searchModel.filteredCount}} / {{vm.searchModel.totalCount}}) Total Records</small>
+                        <span class="pull-right">
+                            <small>Page {{vm.searchModel.page}} of {{vm.searchModel.totalPages}}</small>
+                        </span>
+
                     </div><!-- /.box-header -->
                     <div class="box-body">
 
@@ -32,25 +37,25 @@
                                 <tr>
                                     <th class="sort-header" st-sort="Name">Name</th>
                                     <th class="sort-header" st-sort="LookupId">Lookup Id</th>
-                                    <th class="sort-header" st-sort="FinderNumber">Finder Number</th>
+                                    <th class="sort-header hidden-sm hidden-xs" st-sort="FinderNumber">Finder Number</th>
                                     <th class="sort-header">Address</th>
                                     <th class="sort-header">City</th>
                                     <th class="sort-header">State</th>
                                     <th class="sort-header">Zipcode</th>
-                                    <th class="sort-header" st-sort="Phone">Phone</th>
-                                    <th class="sort-header" st-sort="Email">Email</th>
+                                    <th class="sort-header hidden-sm hidden-xs" st-sort="Phone">Phone</th>
+                                    <th class="sort-header hidden-sm hidden-xs" st-sort="Email">Email</th>
                                     <th class="sort-header"></th>
                                 </tr>
                                 <tr>
                                     <th><input type="text" st-clear-key st-search="name" class="form-control" placeholder="Donor Name" /></th>
                                     <th><input type="text" st-clear-key st-search="lookupId" class="form-control" placeholder="Lookup Id" /></th>
-                                    <th><input type="text" st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number" /></th>
+                                    <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number" /></th>
                                     <th><input type="text" st-clear-key st-search="address" class="form-control" placeholder="Address" /></th>
                                     <th><input type="text" st-clear-key st-search="city" class="form-control" placeholder="City" /></th>
                                     <th><input type="text" st-clear-key st-search="state" class="form-control" placeholder="State" /></th>
                                     <th><input type="text" st-clear-key st-search="zipcode" class="form-control" placeholder="Zip Code" /></th>
-                                    <th><input type="text" st-clear-key st-search="phone" class="form-control" placeholder="Phone Number" /></th>
-                                    <th><input type="text" st-clear-key st-search="email" class="form-control" placeholder="Email Address" /></th>
+                                    <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="phone" class="form-control" placeholder="Phone Number" /></th>
+                                    <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="email" class="form-control" placeholder="Email Address" /></th>
                                     <th st-toggle-all="vm.data.items"></th>
                                 </tr>
                             </thead>
@@ -58,7 +63,7 @@
                             <tr ng-repeat="person in vm.people" st-select-row="person" st-select-mode="multiple">
                                 <td>{{person.name}}</td>
                                 <td>{{person.lookupId}}</td>
-                                <td>{{person.finderNumber}}</td>
+                                <td class="hidden-sm hidden-xs">{{person.finderNumber}}</td>
                                 <td>
                                     <address>
                                         {{person.street}}<br>
@@ -68,15 +73,24 @@
                                 <td>{{person.city}}</td>
                                 <td>{{person.state}}</td>
                                 <td>{{person.zipcode}}</td>
-                                <td>{{person.phone}}</td>
-                                <td>{{person.email}}</td>
-                                <td style="white-space: nowrap;">
-                                    <button class="btn btn-primary" ng-click="vm.editItem(person, $event)">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-default" ng-click="vm.showTaxItems(person)">
-                                        <i class="fa fa-usd"></i>
-                                    </button>
+                                <td class="hidden-sm hidden-xs">{{person.phone}}</td>
+                                <td class="hidden-sm hidden-xs">{{person.email}}</td>
+                                <td>
+                                    <!-- Split button -->
+                                    <div>
+                                        <div class="btn-group" uib-dropdown>
+                                            <button id="split-button" type="button" class="btn btn-primary" ng-click="vm.viewTaxes(person)"><i class="icon ion-cash"></i> <span>Taxes</span></button>
+                                            <button type="button" class="btn btn-primary" uib-dropdown-toggle>
+                                                <span class="caret"></span>
+                                                <span class="sr-only">Split button</span>
+                                            </button>
+                                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                                                <li role="menuitem" >
+                                                    <a ng-click="vm.edit(person)"><i class="icon ion-edit"></i> Edit</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             </tbody>
