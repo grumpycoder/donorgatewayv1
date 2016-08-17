@@ -7,13 +7,13 @@ namespace DonorGateway.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddConstituent : IMigrationMetadata
+    public sealed partial class EventGuestTemplateModels : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddConstituent));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(EventGuestTemplateModels));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608092103180_AddConstituent"; }
+            get { return "201608170315592_EventGuestTemplateModels"; }
         }
         
         string IMigrationMetadata.Source

@@ -13,7 +13,8 @@
 
         var service = {
             get: get,
-            query: query
+            query: query, 
+            save: save
         }
 
         return service;
@@ -25,6 +26,13 @@
 
         function query(vm) {
             return $http.post(url + '/search', vm)
+              .then(function (response) {
+                  return response.data;
+              });
+        }
+
+        function save(person) {
+            return $http.put(url, person)
               .then(function (response) {
                   return response.data;
               });

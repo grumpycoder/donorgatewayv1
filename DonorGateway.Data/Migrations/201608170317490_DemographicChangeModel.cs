@@ -3,15 +3,18 @@ namespace DonorGateway.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddDemographicChange : DbMigration
+    public partial class DemographicChangeModel : DbMigration
     {
         public override void Up()
         {
+            DropTable("dbo.DemographicChanges");
+
             CreateTable(
                 "dbo.DemographicChanges",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Source = c.Int(nullable: false),
                         Name = c.String(maxLength: 8000, unicode: false),
                         LookupId = c.String(maxLength: 8000, unicode: false),
                         FinderNumber = c.String(maxLength: 8000, unicode: false),

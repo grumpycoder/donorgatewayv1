@@ -7,13 +7,13 @@ namespace DonorGateway.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddDemographicChange : IMigrationMetadata
+    public sealed partial class ConstituentAndTaxItems : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddDemographicChange));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ConstituentAndTaxItems));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608092104171_AddDemographicChange"; }
+            get { return "201608170321389_ConstituentAndTaxItems"; }
         }
         
         string IMigrationMetadata.Source

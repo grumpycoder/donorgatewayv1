@@ -26,8 +26,10 @@ namespace DonorGateway.Data
         public DbSet<Guest> Guests { get; set; }
         public DbSet<Template> Templates { get; set; }
 
-        public DbSet<Constituent> Constituents { get; set; }
         public DbSet<DemographicChange> DemographicChanges { get; set; }
+
+        public DbSet<Constituent> Constituents { get; set; }
+        public DbSet<TaxItem> TaxItems { get; set; }
 
         public override int SaveChanges()
         {
@@ -77,6 +79,11 @@ namespace DonorGateway.Data
             builder.Entity<IdentityRole>().ToTable("Roles", "Security");
 
             builder.Entity<Event>().HasMany(x => x.Guests).WithRequired(x => x.Event).WillCascadeOnDelete(true);
+            //builder.Entity<TaxItem>().Property(p => p.DonationDate).HasColumnType("date");
+
+            builder.Entity<Constituent>().HasKey(c => c.Id);
+            builder.Entity<Constituent>().HasMany(t => t.TaxItems);
+
 
         }
 

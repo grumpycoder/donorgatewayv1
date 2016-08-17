@@ -1,0 +1,114 @@
+﻿<div class="modal-body" ng-cloak="">
+
+    <div class="box box-solid box-default">
+
+        <div class="box-header">
+            <h3 class="modal-title">{{ vm.constituent.name }}</h3>
+        </div><!-- /box-header -->
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <select ng-model="vm.selectedYear" ng-options="year for year in vm.years" ng-disabled="false" ng-change="vm.yearChanged()" class="form-control">
+                            <option value="">Choose a tax year</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <p class="input-group">
+
+                        <input type="text" class="form-control"
+                               uib-datepicker-popup="MM/dd/yyyy"
+                               datepicker-options="vm.dateOptions"
+                               ng-model="vm.newItem.donationDate"
+                               is-open="newStatus.opened"
+                               ng-required="true"
+                               close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="newStatus.opened = !newStatus.opened"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </p><!-- /.input group -->
+                </div>
+
+                <div class="col-md-5">
+                    <p class="input-group">
+                        <input type="number" class="form-control" ng-model="vm.newItem.amount">
+                        <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                    </p>
+                </div>
+
+                <div class="col-md-2">
+                    <button class="btn btn-success" ng-click="vm.addItem()" ng-disabled="!vm.newItem.amount || !vm.newItem.donationDate"><i class="fa fa-plus"></i> Add</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+
+                    <table class="table table-bordered table-condensed table-responsive table-hover">
+                        <thead>
+                            <tr>
+                                <th class="col-md-2"></th>
+                                <th class="col-md-3">Donation Date</th>
+                                <th class="col-md-2">Amount</th>
+                                <th class="col-md-2">TaxYear</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in vm.taxItems | orderBy: '-donationDate' | filter:vm.selectedYear track by $index">
+                                <td style="white-space: nowrap;">
+                                    <div>
+                                        <button class="btn btn-primary" ng-click="vm.editItem(item)" ng-hide="vm.currentEdit[item.id]"><i class="fa fa-edit"></i></button>
+                                        <button class="btn btn-danger" ng-click="vm.deleteItem(item)" ng-hide="vm.currentEdit[item.id]"><i class="fa fa-trash"></i></button>
+
+                                        <button class="btn btn-success" ng-click="vm.saveItem(item)" ng-show="vm.currentEdit[item.id]"><i class="fa fa-save"></i></button>
+                                        <button class="btn btn-warning" ng-click="vm.cancelEdit(item)" ng-show="vm.currentEdit[item.id]"><i class="fa fa-ban"></i></button>
+                                    </div>
+                                </td>
+
+                                <td ng-hide="vm.currentEdit[item.id]">
+                                    {{item.donationDate | date:'MM/dd/yyyy'}}
+                                </td>
+                                <td style="width: 150px;" class="fourth" ng-show="vm.currentEdit[item.id]">
+                                    <p class="input-group">
+                                        <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy"
+                                               datepicker-options="vm.dateOptions"
+                                               ng-model="vm.itemToEdit.donationDate"
+                                               is-open="status.opened"
+                                               ng-required="true"
+                                               close-text="Close" />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="status.opened = !status.opened"><i class="glyphicon glyphicon-calendar"></i></button>
+                                        </span>
+                                    </p>
+                                </td>
+
+                                <td ng-hide="vm.currentEdit[item.id]">
+                                    {{item.amount | currency}}
+                                </td>
+                                <td class="fourth" ng-show="vm.currentEdit[item.id]">
+                                    <input type="number" class="form-control" step="0.01" ng-model="vm.itemToEdit.amount">
+                                </td>
+
+                                <td ng-hide="vm.currentEdit[item.id]">{{item.taxYear}}</td>
+                                <td ng-show="vm.currentEdit[item.id]">
+                                    <input type="text" readonly="" ng-model="vm.itemToEdit.taxYear" class="form-control">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!-- /box-body -->
+
+        <div class="overlay" ng-show="vm.isBusy">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+    </div><!-- /box -->
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-default" ng-hide="vm.hasChanges" ng-click="$close()">Close</button>
+</div><!-- /box-footer -->

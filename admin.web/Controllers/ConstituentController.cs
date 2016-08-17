@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using admin.web.Helpers;
 using admin.web.ViewModels;
+using AutoMapper.QueryableExtensions;
 using DonorGateway.Data;
+using DonorGateway.Domain;
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Http;
-using admin.web.Helpers;
-using AutoMapper.QueryableExtensions;
-using DonorGateway.Domain;
+using AutoMapper;
 
 namespace admin.web.Controllers
 {
@@ -47,7 +48,7 @@ namespace admin.web.Controllers
             var list = context.Constituents.AsQueryable()
                          .Order(vm.OrderBy, vm.OrderDirection == "desc" ? SortDirection.Descending : SortDirection.Ascending)
                          .Where(pred)
-                         //.Include(x => x.TaxItems)
+                         .Include(x => x.TaxItems)
                          .Skip(skipRows)
                          .Take(pageSize)
                          .ProjectTo<ConstituentViewModel>();
@@ -63,6 +64,23 @@ namespace admin.web.Controllers
             vm.Items = list.ToList();
             return Ok(vm);
         }
+
+        public IHttpActionResult Put(Constituent vm)
+        {
+            if (vm.Id == 0) return NotFound();
+
+            var demoChange = Mapper.Map<DemographicChange>(vm);
+            demoChange.Source = Source.Tax;
+            context.DemographicChanges.Add(demoChange);
+
+            context.Constituents.AddOrUpdate(vm);
+            context.SaveChanges();
+
+            Mapper.Map<ConstituentViewModel>(vm);
+
+            return Ok(vm);
+        }
+
 
     }
 }
