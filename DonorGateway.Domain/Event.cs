@@ -133,6 +133,10 @@ namespace DonorGateway.Domain
                 message += Template.YesResponseText;
             }
 
+            message += "Sincerely, <br />";
+            message += $"<p><img style='width:150px;' src=\"http://donate.splcenter.org/image/morris_dees_sig2.png\" /></p>";
+            message += "Morris Dees<br />Founder, Souther Poverty Law Center";
+
             var html = AlternateView.CreateAlternateViewFromString(message, null, "text/html");
 
             var sendToAddress = new MailAddress(guest.Email);
