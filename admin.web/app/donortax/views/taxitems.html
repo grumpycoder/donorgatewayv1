@@ -8,8 +8,10 @@
         <div class="box-body">
 
             <div class="row">
-                <div class="col-md-12">
+                
+                <div class="col-md-4 col-sm-4">
                     <div class="form-group">
+                    <label class="control-label">Tax Year</label>
                         <select ng-model="vm.selectedYear" ng-options="year for year in vm.years" ng-disabled="false" ng-change="vm.yearChanged()" class="form-control">
                             <option value="">Choose a tax year</option>
                         </select>
@@ -17,7 +19,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-5 col-sm-5">
                     <p class="input-group">
 
                         <input type="text" class="form-control"
@@ -33,7 +35,7 @@
                     </p><!-- /.input group -->
                 </div>
 
-                <div class="col-md-5">
+                <div class="col-md-5 col-sm-5">
                     <p class="input-group">
                         <input type="number" class="form-control" ng-model="vm.newItem.amount">
                         <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
@@ -110,5 +112,5 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-default" ng-hide="vm.hasChanges" ng-click="$close()">Close</button>
+    <button class="btn btn-default" ng-hide="vm.hasChanges" ng-click="vm.cancel()">Close</button>
 </div><!-- /box-footer -->

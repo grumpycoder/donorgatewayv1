@@ -1,5 +1,6 @@
 ﻿using admin.web.Helpers;
 using admin.web.ViewModels;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using DonorGateway.Data;
 using DonorGateway.Domain;
@@ -9,7 +10,6 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Http;
-using AutoMapper;
 
 namespace admin.web.Controllers
 {
@@ -81,6 +81,35 @@ namespace admin.web.Controllers
             return Ok(vm);
         }
 
+        [HttpPost, Route("{id:int}/taxitem")]
+        public IHttpActionResult AddTaxItem(int id, TaxItem item)
+        {
+            context.TaxItems.AddOrUpdate(item);
+            context.SaveChanges();
+            return Ok(item);
+        }
+
+        [HttpPut, Route("{id:int}/taxitem")]
+        public IHttpActionResult UpdateTaxItem(int id, TaxItem item)
+        {
+            var o = context.TaxItems.Find(item.Id);
+            if (o == null) return NotFound();
+
+            context.TaxItems.AddOrUpdate(item);
+            context.SaveChanges();
+            return Ok(item);
+        }
+
+        [HttpDelete, Route("deletetax/{id:int}")]
+        public IHttpActionResult DeleteTaxItem(int id)
+        {
+            var tax = context.TaxItems.Find(id);
+            if (tax == null) return NotFound();
+
+            context.TaxItems.Remove(tax);
+            context.SaveChanges();
+            return Ok();
+        }
 
     }
 }

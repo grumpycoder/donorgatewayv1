@@ -14,7 +14,10 @@
         var service = {
             get: get,
             query: query, 
-            save: save
+            save: save, 
+            addTax: addTax, 
+            updateTax: updateTax, 
+            removeTax: removeTax
         }
 
         return service;
@@ -36,6 +39,27 @@
               .then(function (response) {
                   return response.data;
               });
+        }
+
+        function addTax(taxItem) {
+            return $http.post(url + '/' + taxItem.constituentId + '/taxitem', taxItem)
+           .then(function (response) {
+               return response.data;
+           });
+        }
+
+        function updateTax(taxItem) {
+            return $http.put(url + '/' + taxItem.constituentId + '/taxitem', taxItem)
+           .then(function (response) {
+               return response.data;
+           });
+        }
+
+        function removeTax(id) {
+            return $http.delete(url + '/deletetax/' + id)
+           .then(function (response) {
+               return response.data;
+           });
         }
 
         function _success(response) {

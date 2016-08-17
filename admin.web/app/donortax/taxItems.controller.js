@@ -10,13 +10,11 @@
 
     mainController.$inject = ['$scope', 'logger', '$uibModalInstance', 'constituentService', 'person'];
 
-    function mainController($scope, logger, $modal, service, person) {
+    function mainController($scope, logger, $modal, service, constituent) {
         var vm = this;
         var currentYear = parseInt(moment().get('Year'));
 
         vm.selectedYear = currentYear - 1;
-        logger.log('selectedYear', vm.selectedYear);
-
         vm.dateOptions = {
             formatYear: 'yyyy',
             maxDate: new Date('12/30/' + vm.selectedYear),
@@ -24,40 +22,26 @@
             startingDay: 1
         };
         vm.altInputFormats = ['M!/d!/yyyy'];
-
         vm.years = [];
 
-        vm.minDate = new Date('1/1/' + vm.selectedYear);
-        vm.maxDate = new Date('12/30/' + vm.selectedYear);
-
-        vm.addItem = addItem;
-        vm.cancelEdit = cancelEdit;
-        vm.constituent = constituent;
-        vm.deleteItem = deleteItem;
-        vm.editItem = editItem;
-        vm.itemToEdit = {};
-        vm.newItem = {};
-        vm.saveItem = saveItem;
-        vm.taxItems = constituent.taxItems;
         vm.yearChanged = yearChanged;
 
+        vm.constituent = constituent;
+        vm.itemToEdit = {};
+        vm.newItem = {};
+        vm.taxItems = constituent.taxItems;
         activate();
 
         function activate() {
             getYears();
         }
 
-        function getYears() {
-            for (var i = 0; i < 5; i++) {
-                vm.years.push(currentYear - i);
-            }
-        }
 
-        function addItem() {
+        vm.addItem = function() {
             vm.newItem.constituentId = constituent.id;
             vm.newItem.taxYear = moment(vm.newItem.donationDate).year();
 
-            service.create(vm.newItem)
+            service.addTax(vm.newItem)
                 .then(function (data) {
                     vm.taxItems.push(data);
                     vm.newItem = {};
@@ -65,28 +49,28 @@
                 });
         }
 
-        function cancelEdit() {
+        vm.cancelEdit = function() {
             vm.currentEdit = {};
         }
 
-        function deleteItem(item) {
+        vm.deleteItem = function(item) {
             var idx = vm.taxItems.indexOf(item);
-            service.remove(item.id)
+            service.removeTax(item.id)
                 .then(function (data) {
                     vm.taxItems.splice(idx, 1);
                     logger.warning('deleted ' + item.donationDate);
                 });
         }
 
-        function editItem(item) {
+        vm.editItem = function(item) {
             vm.currentEdit = {};
             vm.currentEdit[item.id] = true;
             vm.itemToEdit = angular.copy(item);
             vm.itemToEdit.donationDate = moment(vm.itemToEdit.donationDate).toDate();
         }
 
-        function saveItem(item) {
-            service.update(vm.itemToEdit)
+        vm.saveItem = function(item) {
+            service.updateTax(vm.itemToEdit)
                 .then(function (response) {
                     angular.extend(item, vm.itemToEdit);
                     vm.currentEdit = {};
@@ -101,6 +85,18 @@
             };
             vm.newItem.donationDate = vm.dateOptions.minDate;
         }
+
+        function getYears() {
+            for (var i = 0; i < 5; i++) {
+                vm.years.push(currentYear - i);
+            }
+            vm.yearChanged();
+        }
+
+        vm.cancel = function () {
+            $modal.dismiss();
+        }
+
     }
 
 })();
