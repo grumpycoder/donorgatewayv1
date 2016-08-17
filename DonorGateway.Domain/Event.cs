@@ -99,6 +99,7 @@ namespace DonorGateway.Domain
         public void AddTickets(Guest guest, int additionalTickets)
         {
             guest.TicketCount = guest.TicketCount + additionalTickets;
+            TicketMailedCount += additionalTickets;
             GuestAttendanceCount = GuestAttendanceCount + additionalTickets;
         }
 
