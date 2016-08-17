@@ -16,6 +16,7 @@
         vm.person = person;
 
         vm.cancel = function () {
+            logger.log('cancel');
             $modal.dismiss();
         }
 
