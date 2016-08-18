@@ -3,5 +3,117 @@
     ViewBag.Title = "Mailers";
 }
 
-<h2>Mailers</h2>
+<div ng-controller="MailerController as vm" ng-cloak>
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            {{vm.title}}
+            <small>{{vm.description}}</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">{{vm.title}}</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-default box-solid">
+                    <div class="box-header">
+                        <h3 class="box-title">{{vm.subTitle}}</h3>
+                        <small>({{vm.searchModel.filteredCount}} / {{vm.searchModel.totalCount}}) Total Records</small>
+                        <span class="pull-right">
+                            <small>Page {{vm.searchModel.page}} of {{vm.searchModel.totalPages}}</small>
+                        </span>
+
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+
+                        <table st-table="vm.mailers" st-pipe="vm.search" class="table table-responsive table-bordered">
+                            <thead>
+                            <tr>
+                                <th class="sort-header"></th>
+                                <th class="sort-header" st-sort="firstName">First Name</th>
+                                <th class="sort-header" st-sort="lastName">Last Name</th>
+                                <th class="sort-header">Address</th>
+                                <th class="sort-header" st-sort="city">City</th>
+                                <th class="sort-header" st-sort="state">State</th>
+                                <th class="sort-header" st-sort="zipCode">Zip</th>
+                                <th class="sort-header" st-sort="finderNumber">Finder</th>
+                                <th class="sort-header" st-sort="sourceCode">Source Code</th>
+                                <th class="sort-header" st-sort="campaignId">Campaign</th>
+                                <th class="sort-header" st-sort="reasonId">Reason</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <toggle st-search="suppress" ng-model="vm.toggleSuppress" ng-change="vm.filterSuppress()"></toggle>
+                                </th>
+                                <th><input st-clear-key st-search="firstName" class="form-control" placeholder="First Name"/></th>
+                                <th><input st-clear-key st-search="lastName" class="form-control" placeholder="Last Name"/></th>
+                                <th><input st-clear-key st-search="address" class="form-control" placeholder="Address"/></th>
+                                <th><input st-clear-key st-search="city" class="form-control" placeholder="City"/></th>
+                                <th><input st-clear-key st-search="state" class="form-control" placeholder="State"/></th>
+                                <th><input st-clear-key st-search="zipCode" class="form-control" placeholder="Zipcode"/></th>
+                                <th><input st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number"/></th>
+                                <th><input st-clear-key st-search="sourceCode" class="form-control" placeholder="Source Code"/></th>
+                                <th>
+                                    <select st-search="campaignId" ng-model="vm.searchViewModel.campaignId" class="form-control">
+                                        <option value="">
+                                            All items
+                                        </option>
+                                        <option ng-repeat="item in vm.campaigns" value="{{ item.id }}">
+                                            {{ item.name }}
+                                        </option>
+                                    </select>
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="m in vm.mailers">
+                                <td>
+                                    <button class="btn btn-danger btn-sm" ng-click="vm.setSuppress(m)" ng-hide="m.suppress">Suppress</button>
+                                    <button class="btn btn-success btn-sm" ng-click="vm.setSuppress(m)" ng-show="m.suppress">Restore</button>
+                                </td>
+                                <td>{{m.firstName}}</td>
+                                <td>{{m.lastName}}</td>
+                                <td>
+                                    <address>
+                                        {{m.address}}
+                                        <br>
+                                        {{m.address2}}<br>
+                                        {{m.address3}}
+                                    </address>
+                                </td>
+                                <td>{{m.city}}</td>
+                                <td>{{m.state}}</td>
+                                <td>{{m.zipCode}}</td>
+                                <td>{{m.finderNumber}}</td>
+                                <td>{{m.sourceCode}}</td>
+                                <td>{{m.campaign.name}}</td>
+                                <td ng-click="vm.openTags(m)">
+                                   
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+</div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                    </div>
+                    <!-- ./box-footer -->
+                    <div class="overlay" ng-show="vm.isBusy">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
 

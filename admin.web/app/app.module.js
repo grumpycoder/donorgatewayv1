@@ -14,8 +14,8 @@
         'app.users',
         'app.events', 
         'app.demographics',
-        'app.donortax'
-        //'app.template',
+        'app.donortax',
+        'app.mailer',
         //'app.mailers',
         
     ]);

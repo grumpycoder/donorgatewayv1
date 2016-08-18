@@ -76,6 +76,10 @@
     <Compile Include="Migrations\201608170321389_ConstituentAndTaxItems.Designer.cs">
       <DependentUpon>201608170321389_ConstituentAndTaxItems.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608180106057_Mailers.cs" />
+    <Compile Include="Migrations\201608180106057_Mailers.Designer.cs">
+      <DependentUpon>201608180106057_Mailers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -101,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608170321389_ConstituentAndTaxItems.resx">
       <DependentUpon>201608170321389_ConstituentAndTaxItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608180106057_Mailers.resx">
+      <DependentUpon>201608180106057_Mailers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

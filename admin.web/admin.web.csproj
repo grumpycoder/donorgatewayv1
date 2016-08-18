@@ -229,6 +229,8 @@
     <Compile Include="ViewModels\GuestSearchViewModel.cs" />
     <Compile Include="ViewModels\GuestViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MailerSearchViewModel.cs" />
+    <Compile Include="ViewModels\MailerViewModel.cs" />
     <Compile Include="ViewModels\Pager.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
@@ -276,6 +278,7 @@
     <Content Include="app\modules.min.js" />
     <Content Include="app\nav\nav.js" />
     <Content Include="app\nav\nav.module.js" />
+    <Content Include="app\services\mailer.service.js" />
     <Content Include="app\services\event.service.js" />
     <Content Include="app\services\file.service.js" />
     <Content Include="app\services\guest.service.js" />
