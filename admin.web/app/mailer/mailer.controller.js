@@ -69,7 +69,6 @@
             service.query(vm.searchModel)
                 .then(function (data) {
                     vm.mailers = data.items;
-                    logger.log('mailers', vm.mailers);
                     vm.searchModel = data;
                     vm.isBusy = false;
                 });
@@ -79,6 +78,12 @@
             vm.search(tableStateRef);
         };
 
+        vm.toggleSuppress = function(mailer) {
+            mailer.suppress = !mailer.suppress;
+            service.save(mailer).then(function(data) {
+                angular.extend(mailer, data);
+            });
+        }
     }
 
 })();

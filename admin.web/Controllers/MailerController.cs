@@ -5,6 +5,7 @@ using DonorGateway.Data;
 using DonorGateway.Domain;
 using System;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Http;
@@ -52,7 +53,7 @@ namespace admin.web.Controllers
             var suppress = vm.Suppress ?? false;
 
             var pred = PredicateBuilder.True<Mailer>();
-            pred = pred.And(p => p.Suppress == suppress);
+            //pred = pred.And(p => p.Suppress == suppress);
             if (!string.IsNullOrWhiteSpace(vm.FirstName)) pred = pred.And(p => p.FirstName.Contains(vm.FirstName));
             if (!string.IsNullOrWhiteSpace(vm.LastName)) pred = pred.And(p => p.LastName.Contains(vm.LastName));
             if (!string.IsNullOrWhiteSpace(vm.FinderNumber)) pred = pred.And(p => p.FinderNumber.StartsWith(vm.FinderNumber));
@@ -84,6 +85,17 @@ namespace admin.web.Controllers
             return Ok(vm);
         }
 
+
+        [HttpPut]
+        public IHttpActionResult Put(Mailer mailer)
+        {
+            var m = context.Mailers.Find(mailer.Id);
+            if (m == null) return NotFound();
+
+            context.Mailers.AddOrUpdate(mailer);
+            context.SaveChanges();
+            return Ok(m);
+        }
 
     }
 }

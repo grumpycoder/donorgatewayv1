@@ -15,7 +15,8 @@
             get: get,
             query: query, 
             campaigns: campaigns, 
-            reasons: reasons
+            reasons: reasons, 
+            save: save
         }
 
         return service;
@@ -38,6 +39,10 @@
 
         function reasons() {
             return $http.get(url + '/reasons').then(_success).catch(error);
+        }
+
+        function save(mailer) {
+            return $http.put(url, mailer).then(_success).catch(error);
         }
 
         function _success(response) {
