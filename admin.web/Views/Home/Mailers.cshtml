@@ -32,86 +32,137 @@
                     </div><!-- /.box-header -->
                     <div class="box-body">
 
-                        <table st-table="vm.mailers" st-pipe="vm.search" class="table table-responsive table-bordered">
-                            <thead>
-                            <tr>
-                                <th class="sort-header"></th>
-                                <th class="sort-header" st-sort="firstName">First Name</th>
-                                <th class="sort-header" st-sort="lastName">Last Name</th>
-                                <th class="sort-header">Address</th>
-                                <th class="sort-header" st-sort="city">City</th>
-                                <th class="sort-header" st-sort="state">State</th>
-                                <th class="sort-header" st-sort="zipCode">Zip</th>
-                                <th class="sort-header" st-sort="finderNumber">Finder</th>
-                                <th class="sort-header" st-sort="sourceCode">Source Code</th>
-                                <th class="sort-header" st-sort="campaignId">Campaign</th>
-                                <th class="sort-header" st-sort="reasonId">Reason</th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <toggle st-search="suppress" ng-model="vm.toggleSuppress" ng-change="vm.filterSuppress()"></toggle>
-                                </th>
-                                <th><input st-clear-key st-search="firstName" class="form-control" placeholder="First Name"/></th>
-                                <th><input st-clear-key st-search="lastName" class="form-control" placeholder="Last Name"/></th>
-                                <th><input st-clear-key st-search="address" class="form-control" placeholder="Address"/></th>
-                                <th><input st-clear-key st-search="city" class="form-control" placeholder="City"/></th>
-                                <th><input st-clear-key st-search="state" class="form-control" placeholder="State"/></th>
-                                <th><input st-clear-key st-search="zipCode" class="form-control" placeholder="Zipcode"/></th>
-                                <th><input st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number"/></th>
-                                <th><input st-clear-key st-search="sourceCode" class="form-control" placeholder="Source Code"/></th>
-                                <th>
-                                    <select st-search="campaignId" ng-model="vm.searchViewModel.campaignId" class="form-control">
-                                        <option value="">
-                                            All Campaigns
-                                        </option>
-                                        <option ng-repeat="item in vm.campaigns" value="{{ item.id }}">
-                                            {{ item.name }}
-                                        </option>
-                                    </select>
-                                </th>
-                                <th style="width: 100px;">
-                                    <select st-search="reasonId" ng-model="vm.searchViewModel.reasonId" class="form-control">
-                                        <option value="">
-                                            All Reason
-                                        </option>
-                                        <option ng-repeat="item in vm.reasons" value="{{ item.id }}">
-                                            {{ item.name }}
-                                        </option>
-                                    </select>
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="m in vm.mailers">
-                                <td>
-                                    <button class="btn" ng-class="m.suppress ? 'btn-warning' : 'btn-primary'" ng-click="vm.toggleSuppress(m)">
-                                        <span ng-hide="m.suppress"><i class="icon ion-android-hand"></i> Suppress</span>
-                                        <span ng-show="m.suppress"><i class="icon ion-ios-flag"></i> Restore</span>
-                                    </button>
-                                </td>
-                                <td>{{m.firstName}}</td>
-                                <td>{{m.lastName}}</td>
-                                <td>
-                                    <address>
-                                        {{m.address}}
-                                        <br>
-                                        {{m.address2}}<br>
-                                        {{m.address3}}
-                                    </address>
-                                </td>
-                                <td>{{m.city}}</td>
-                                <td>{{m.state}}</td>
-                                <td>{{m.zipCode}}</td>
-                                <td>{{m.finderNumber}}</td>
-                                <td>{{m.suppress}}</td>
-                                <td>{{m.campaign.name}}</td>
-                                <td>{{m.reason.name}}
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
 
-</div>
+                        <div class="row">
+
+
+                            <div class="col-md-9 col-sm-9">
+                                <div class="form-group">
+                                    <button class="btn btn-default"
+                                            ng-class="{ 'btn-warning': vm.showSuppress, 'btn-default': !vm.showSuppress }"
+                                            ng-click="vm.toggleFilter()">
+                                        <i class="fa fa-clock-o"></i> Suppress List
+                                    </button>
+                                    <button class="btn btn-default" ng-click="vm.refresh()">
+                                        <i class="fa fa-refresh"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-3">
+
+                                <div class="pull-right">
+                                    <div class="form-group">
+                                        <button class="btn" ng-click="vm.showGuestUpload()"><i class="fa fa-cloud-upload"></i> Upload</button>
+                                        <button class="btn btn-info" ng-click="vm.exportGuests()">
+                                            <i class="fa fa-download"></i>
+                                            Export
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <table st-table="vm.mailers" st-pipe="vm.search" class="table table-responsive table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="sort-header"></th>
+                                            <th class="sort-header" st-sort="firstName">First Name</th>
+                                            <th class="sort-header" st-sort="lastName">Last Name</th>
+                                            <th class="sort-header">Address</th>
+                                            <th class="sort-header" st-sort="city">City</th>
+                                            <th class="sort-header" st-sort="state">State</th>
+                                            <th class="sort-header" st-sort="zipCode">Zip</th>
+                                            <th class="sort-header" st-sort="finderNumber">Finder</th>
+                                            <th class="sort-header" st-sort="sourceCode">Source Code</th>
+                                            <th class="sort-header" st-sort="campaignId">Campaign</th>
+                                            <th class="sort-header" st-sort="reasonId">Reason</th>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <toggle st-search="suppress" ng-model="vm.toggleSuppress" ng-change="vm.filterSuppress()"></toggle>
+                                            </th>
+                                            <th><input st-clear-key st-search="firstName" class="form-control" placeholder="First Name" /></th>
+                                            <th><input st-clear-key st-search="lastName" class="form-control" placeholder="Last Name" /></th>
+                                            <th><input st-clear-key st-search="address" class="form-control" placeholder="Address" /></th>
+                                            <th><input st-clear-key st-search="city" class="form-control" placeholder="City" /></th>
+                                            <th><input st-clear-key st-search="state" class="form-control" placeholder="State" /></th>
+                                            <th><input st-clear-key st-search="zipCode" class="form-control" placeholder="Zipcode" /></th>
+                                            <th><input st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number" /></th>
+                                            <th><input st-clear-key st-search="sourceCode" class="form-control" placeholder="Source Code" /></th>
+                                            <th>
+                                                <select st-search="campaignId" ng-model="vm.searchViewModel.campaignId" class="form-control">
+                                                    <option value="">
+                                                        All Campaigns
+                                                    </option>
+                                                    <option ng-repeat="item in vm.campaigns" value="{{ item.id }}">
+                                                        {{ item.name }}
+                                                    </option>
+                                                </select>
+                                            </th>
+                                            <th style="width: 100px;">
+                                                <select st-search="reasonId" ng-model="vm.searchViewModel.reasonId" class="form-control">
+                                                    <option value="">
+                                                        All Reason
+                                                    </option>
+                                                    <option ng-repeat="item in vm.reasons" value="{{ item.id }}">
+                                                        {{ item.name }}
+                                                    </option>
+                                                </select>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="m in vm.mailers">
+                                            <td>
+                                                <button class="btn" ng-class="m.suppress ? 'btn-warning' : 'btn-primary'" ng-click="vm.toggleSuppress(m)">
+                                                    <span ng-hide="m.suppress"><i class="icon ion-android-hand"></i> </span>
+                                                    <span ng-show="m.suppress"><i class="icon ion-ios-flag"></i> </span>
+                                                </button>
+                                            </td>
+                                            <td>{{m.firstName}}</td>
+                                            <td>{{m.lastName}}</td>
+                                            <td>
+                                                <address>
+                                                    {{m.address}}
+                                                    <br>
+                                                    {{m.address2}}<br>
+                                                    {{m.address3}}
+                                                </address>
+                                            </td>
+                                            <td>{{m.city}}</td>
+                                            <td>{{m.state}}</td>
+                                            <td>{{m.zipCode}}</td>
+                                            <td>{{m.finderNumber}}</td>
+                                            <td>{{m.sourceCode}}</td>
+                                            <td>{{m.campaign.name}}</td>
+                                            <td>{{m.reason.name}}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="11" class="text-center">
+                                                <uib-pagination total-items="vm.searchModel.filteredCount"
+                                                                ng-model="vm.searchModel.page"
+                                                                ng-show="vm.searchModel.totalPages > 1"
+                                                                max-size="5"
+                                                                items-per-page="vm.searchModel.pageSize"
+                                                                class="pagination-sm"
+                                                                boundary-link-numbers="true"
+                                                                ng-change="vm.paged()"
+                                                                rotate="false">
+                                                </uib-pagination>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
                     </div>

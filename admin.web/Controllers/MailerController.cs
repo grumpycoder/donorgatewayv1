@@ -50,10 +50,8 @@ namespace admin.web.Controllers
             var pageSize = vm.PageSize.GetValueOrDefault(10);
             var skipRows = (page - 1) * pageSize;
 
-            var suppress = vm.Suppress ?? false;
-
             var pred = PredicateBuilder.True<Mailer>();
-            //pred = pred.And(p => p.Suppress == suppress);
+            pred = pred.And(p => p.Suppress == vm.Suppress);
             if (!string.IsNullOrWhiteSpace(vm.FirstName)) pred = pred.And(p => p.FirstName.Contains(vm.FirstName));
             if (!string.IsNullOrWhiteSpace(vm.LastName)) pred = pred.And(p => p.LastName.Contains(vm.LastName));
             if (!string.IsNullOrWhiteSpace(vm.FinderNumber)) pred = pred.And(p => p.FinderNumber.StartsWith(vm.FinderNumber));

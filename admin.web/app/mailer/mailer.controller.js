@@ -26,7 +26,8 @@
             page: 1,
             pageSize: pageSizeDefault,
             orderBy: 'id',
-            orderDirection: 'asc'
+            orderDirection: 'asc',
+            suppress: false
         };
         
         activate();
@@ -77,6 +78,18 @@
         vm.paged = function paged(pageNum) {
             vm.search(tableStateRef);
         };
+
+        vm.refresh = function() {
+            vm.search(tableStateRef);
+        }
+
+        vm.toggleFilter = function () {
+            vm.showSuppress = !vm.showSuppress;
+            vm.searchModel.suppress = vm.showSuppress;
+
+            vm.searchModel.page = 1;
+            vm.search(tableStateRef);
+        }
 
         vm.toggleSuppress = function(mailer) {
             mailer.suppress = !mailer.suppress;
