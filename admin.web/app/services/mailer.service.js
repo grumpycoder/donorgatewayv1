@@ -14,7 +14,8 @@
         var service = {
             get: get,
             query: query, 
-            campaigns: campaigns
+            campaigns: campaigns, 
+            reasons: reasons
         }
 
         return service;
@@ -33,6 +34,10 @@
 
         function campaigns() {
             return $http.get(url + '/campaigns').then(_success).catch(error);
+        }
+
+        function reasons() {
+            return $http.get(url + '/reasons').then(_success).catch(error);
         }
 
         function _success(response) {

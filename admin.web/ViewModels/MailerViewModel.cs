@@ -1,3 +1,5 @@
+using DonorGateway.Domain;
+
 namespace admin.web.ViewModels
 {
     public class MailerViewModel
@@ -17,5 +19,7 @@ namespace admin.web.ViewModels
         public bool? Suppress { get; set; }
         public int? CampaignId { get; set; }
         public int? ReasonId { get; set; }
+        public SuppressReason Reason { get; set; }
+        public Campaign Campaign { get; set; }
     }
 }

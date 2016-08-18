@@ -29,14 +29,18 @@ namespace admin.web.Controllers
             return Ok(campaigns);
         }
 
+        [HttpGet, Route("reasons")]
+        public IHttpActionResult Reasons()
+        {
+            var reasons = context.SuppressReasons.ToList();
+            return Ok(reasons);
+        }
+
         public IHttpActionResult Get()
         {
             var list = context.Mailers.OrderBy(x => x.Id).Skip(0).Take(20).ToList();
             return Ok(list);
         }
-
-
-        public int? ReasonId { get; set; }
 
         [Route("search")]
         public IHttpActionResult Search(MailerSearchViewModel vm)
@@ -62,6 +66,7 @@ namespace admin.web.Controllers
 
             var list = context.Mailers.AsQueryable()
                          .Order(vm.OrderBy, vm.OrderDirection == "desc" ? SortDirection.Descending : SortDirection.Ascending)
+                         .Include(r => r.Reason)
                          .Where(pred)
                          .Skip(skipRows)
                          .Take(pageSize)

@@ -18,7 +18,9 @@
         vm.title = 'Mailer Manager';
         vm.subTitle = 'Mailers';
 
-        vm.campaigns = []; 
+        vm.campaigns = [];
+        vm.reasons = [];
+
         vm.mailers = [];
         vm.searchModel = {
             page: 1,
@@ -35,6 +37,12 @@
                 .then(function(data) {
                     vm.campaigns = data;
                 });
+
+            service.reasons()
+                .then(function (data) {
+                    vm.reasons = data;
+                });
+
         }
 
         vm.search = function (tableState) {
@@ -61,6 +69,7 @@
             service.query(vm.searchModel)
                 .then(function (data) {
                     vm.mailers = data.items;
+                    logger.log('mailers', vm.mailers);
                     vm.searchModel = data;
                     vm.isBusy = false;
                 });

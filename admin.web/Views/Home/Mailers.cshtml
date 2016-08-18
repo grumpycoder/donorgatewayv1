@@ -69,7 +69,16 @@
                                         </option>
                                     </select>
                                 </th>
-                                <th></th>
+                                <th>
+                                    <select st-search="reasonId" ng-model="vm.searchViewModel.reasonId" class="form-control">
+                                        <option value="">
+                                            All items
+                                        </option>
+                                        <option ng-repeat="item in vm.reasons" value="{{ item.id }}">
+                                            {{ item.name }}
+                                        </option>
+                                    </select>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -94,8 +103,7 @@
                                 <td>{{m.finderNumber}}</td>
                                 <td>{{m.sourceCode}}</td>
                                 <td>{{m.campaign.name}}</td>
-                                <td ng-click="vm.openTags(m)">
-                                   
+                                <td>{{m.reason.name}}
                                 </td>
                             </tr>
                             </tbody>
