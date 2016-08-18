@@ -13,7 +13,8 @@
 
         var service = {
             get: get,
-            query: query, 
+            query: query,
+            download: download, 
             campaigns: campaigns, 
             reasons: reasons, 
             save: save
@@ -31,6 +32,13 @@
               .then(function (response) {
                   return response.data;
               });
+        }
+
+        function download(vm) {
+            return $http.post(url + '/export', vm)
+            .then(function (data) {
+                return data;
+            }).catch(error);
         }
 
         function campaigns() {

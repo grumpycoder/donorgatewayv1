@@ -229,6 +229,7 @@
     <Compile Include="ViewModels\GuestSearchViewModel.cs" />
     <Compile Include="ViewModels\GuestViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MailerMap.cs" />
     <Compile Include="ViewModels\MailerSearchViewModel.cs" />
     <Compile Include="ViewModels\MailerViewModel.cs" />
     <Compile Include="ViewModels\Pager.cs" />

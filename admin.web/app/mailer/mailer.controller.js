@@ -46,6 +46,35 @@
 
         }
 
+        vm.download = function () {
+            vm.isBusy = true;
+            service.download(vm.searchModel)
+                .then(function (data) {
+                    var contentType = data.headers()['content-type'];
+                    var filename = data.headers()['x-filename'];
+
+                    var linkElement = document.createElement('a');
+                    try {
+                        var blob = new Blob([data.data], { type: contentType });
+                        var url = window.URL.createObjectURL(blob);
+
+                        linkElement.setAttribute('href', url);
+                        linkElement.setAttribute("download", filename);
+
+                        var clickEvent = new MouseEvent("click", {
+                            "view": window,
+                            "bubbles": true,
+                            "cancelable": false
+                        });
+                        linkElement.dispatchEvent(clickEvent);
+                    } catch (ex) {
+                        logger.log(ex);
+                    }
+                }).finally(function () {
+                    vm.isBusy = false;
+                });
+        }
+
         vm.search = function (tableState) {
             tableStateRef = tableState;
 
