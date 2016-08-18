@@ -6,13 +6,16 @@ namespace DonorGateway.Data.Migrations
     {
         public override void Up()
         {
-            DropForeignKey("dbo.Events", "TemplateId", "dbo.Templates");
-            DropForeignKey("dbo.Guests", "EventId", "dbo.Events");
-            DropIndex("dbo.Guests", new[] { "EventId" });
-            DropIndex("dbo.Events", new[] { "TemplateId" });
+            //DropForeignKey("dbo.Events", "TemplateId", "dbo.Templates");
+            //DropForeignKey("dbo.Guests", "EventId", "dbo.Events");
+            //DropIndex("dbo.Guests", new[] { "EventId" });
+            //DropIndex("dbo.Events", new[] { "TemplateId" });
+
+            Sql("SELECT * INTO dbo.Templates2 FROM dbo.Templates;");
+
             DropTable("dbo.Templates");
-            DropTable("dbo.Guests");
-            DropTable("dbo.Events");
+            //DropTable("dbo.Guests");
+            //DropTable("dbo.Events");
 
             CreateTable(
                 "dbo.Events",
@@ -129,6 +132,14 @@ namespace DonorGateway.Data.Migrations
                     UpdatedBy = c.String(maxLength: 8000, unicode: false),
                 })
                 .PrimaryKey(t => t.Id);
+
+
+            Sql("SET IDENTITY_INSERT dbo.Templates ON; " +
+                "INSERT INTO dbo.Templates (Id, Name, Image, HeaderText, BodyText, FooterText, FAQText, YesResponseText, NoResponseText, WaitingResponseText) " +
+                "SELECT Id, Name, HeaderImage, HeaderText, BodyText, FooterText, FAQText, YesText, NoText, WaitText FROM dbo.Templates2;" +
+                "SET IDENTITY_INSERT dbo.Templates ON;");
+
+            DropTable("dbo.Templates2");
 
         }
 

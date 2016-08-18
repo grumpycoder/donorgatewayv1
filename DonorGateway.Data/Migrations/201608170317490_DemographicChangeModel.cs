@@ -7,7 +7,7 @@ namespace DonorGateway.Data.Migrations
     {
         public override void Up()
         {
-            DropTable("dbo.DemographicChanges");
+            //DropTable("dbo.DemographicChanges");
 
             CreateTable(
                 "dbo.DemographicChanges",

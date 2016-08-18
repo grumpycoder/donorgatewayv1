@@ -8,6 +8,9 @@ namespace DonorGateway.Data.Migrations
         {
             Sql("SELECT Id, Name, LookupId, FinderNumber, Street, Street2, City, State, Zipcode, Email, Phone, CreatedDate, CreatedBy, UpdatedDate, UpdatedBy INTO dbo.Constituents2 FROM dbo.Constituents;");
             Sql("SELECT * INTO dbo.TaxItems2 FROM dbo.TaxItems;");
+    
+            DropForeignKey("dbo.TaxItems", "FK_dbo.TaxItems_dbo.Constituents_ConstituentId");
+
             DropTable("dbo.Constituents");
             DropTable("dbo.TaxItems");
 
