@@ -28,5 +28,10 @@ namespace admin.web.Controllers
         {
             return View();
         }
+
+        public ActionResult Mailers()
+        {
+            return View();
+        }
     }
 }

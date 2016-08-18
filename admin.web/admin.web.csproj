@@ -207,6 +207,7 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MailerController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -270,6 +271,8 @@
     <Content Include="app\events\views\wait-queue.html" />
     <Content Include="app\filters\app.filters.js" />
     <Content Include="app\filters\filter.module.js" />
+    <Content Include="app\mailer\mailer.controller.js" />
+    <Content Include="app\mailer\mailer.module.js" />
     <Content Include="app\modules.min.js" />
     <Content Include="app\nav\nav.js" />
     <Content Include="app\nav\nav.module.js" />
@@ -356,6 +359,7 @@
     <Content Include="Views\Home\Events.cshtml" />
     <Content Include="Views\Home\Demographics.cshtml" />
     <Content Include="Views\Home\DonorTax.cshtml" />
+    <Content Include="Views\Home\Mailers.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
