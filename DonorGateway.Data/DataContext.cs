@@ -30,6 +30,9 @@ namespace DonorGateway.Data
 
         public DbSet<Constituent> Constituents { get; set; }
         public DbSet<TaxItem> TaxItems { get; set; }
+        public DbSet<Campaign> Campaigns { get; set; }
+        public DbSet<Mailer> Mailers { get; set; }
+        public DbSet<SuppressReason> SuppressReasons { get; set; }
 
         public override int SaveChanges()
         {

@@ -31,7 +31,7 @@
 
         function remove(id) {
             return $http.delete(url + '/' + id).then(_success);
-        };
+        }
 
         function get() {
             return $http.get(url)
@@ -63,6 +63,6 @@
 
         function _success(response) {
             return response.data;
-        };
+        }
     }
 })();

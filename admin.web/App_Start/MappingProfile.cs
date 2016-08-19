@@ -27,6 +27,9 @@ namespace web.App_Start
                     .ForMember(dest => dest.EventName, opt => opt.MapFrom(src => src.Event.Name));
 
                 cfg.CreateMap<Constituent, ConstituentViewModel>().ReverseMap();
+
+                cfg.CreateMap<Mailer, MailerViewModel>().ReverseMap();
+
             });
 
         }

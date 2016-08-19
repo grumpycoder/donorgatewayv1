@@ -72,7 +72,8 @@ namespace DonorGateway.Domain
         public void RegisterGuest(Guest guest)
         {
             guest.ResponseDate = DateTime.Now;
-            guest.IsAttending = guest.IsAttending;
+            guest.TicketCount = guest.TicketCount ?? 0;
+            guest.IsAttending = guest.IsAttending ?? false;
             if (TicketRemainingCount - guest.TicketCount < 0)
             {
                 guest.IsWaiting = true;
@@ -99,8 +100,8 @@ namespace DonorGateway.Domain
         public void AddTickets(Guest guest, int additionalTickets)
         {
             guest.TicketCount = guest.TicketCount + additionalTickets;
-            TicketMailedCount += additionalTickets;
-            GuestAttendanceCount = GuestAttendanceCount + additionalTickets;
+            if(guest.IsMailed) TicketMailedCount += additionalTickets;
+            GuestAttendanceCount += additionalTickets;
         }
 
         public void MoveToMailQueue(Guest guest)
@@ -135,7 +136,7 @@ namespace DonorGateway.Domain
 
             message += "Sincerely, <br />";
             message += $"<p><img style='width:150px;' src=\"http://donate.splcenter.org/image/morris_dees_sig2.png\" /></p>";
-            message += "Morris Dees<br />Founder, Souther Poverty Law Center";
+            message += "Morris Dees<br />Founder, Southern Poverty Law Center";
 
             var html = AlternateView.CreateAlternateViewFromString(message, null, "text/html");
 

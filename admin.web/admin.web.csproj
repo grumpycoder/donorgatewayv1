@@ -207,6 +207,7 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MailerController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -228,6 +229,9 @@
     <Compile Include="ViewModels\GuestSearchViewModel.cs" />
     <Compile Include="ViewModels\GuestViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MailerMap.cs" />
+    <Compile Include="ViewModels\MailerSearchViewModel.cs" />
+    <Compile Include="ViewModels\MailerViewModel.cs" />
     <Compile Include="ViewModels\Pager.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
@@ -258,7 +262,7 @@
     <Content Include="app\events\createGuest.controller.js" />
     <Content Include="app\events\editGuest.controller.js" />
     <Content Include="app\events\event.module.js" />
-    <Content Include="app\events\events.js" />
+    <Content Include="app\events\events.controller.js" />
     <Content Include="app\events\uploadGuest.controller.js" />
     <Content Include="app\events\views\create-event.html" />
     <Content Include="app\events\views\edit-guest.html" />
@@ -270,9 +274,14 @@
     <Content Include="app\events\views\wait-queue.html" />
     <Content Include="app\filters\app.filters.js" />
     <Content Include="app\filters\filter.module.js" />
+    <Content Include="app\mailer\mailer.controller.js" />
+    <Content Include="app\mailer\mailer.module.js" />
+    <Content Include="app\mailer\uploadMailer.controller.js" />
+    <Content Include="app\mailer\views\mailer-upload.html" />
     <Content Include="app\modules.min.js" />
     <Content Include="app\nav\nav.js" />
     <Content Include="app\nav\nav.module.js" />
+    <Content Include="app\services\mailer.service.js" />
     <Content Include="app\services\event.service.js" />
     <Content Include="app\services\file.service.js" />
     <Content Include="app\services\guest.service.js" />
@@ -356,6 +365,7 @@
     <Content Include="Views\Home\Events.cshtml" />
     <Content Include="Views\Home\Demographics.cshtml" />
     <Content Include="Views\Home\DonorTax.cshtml" />
+    <Content Include="Views\Home\Mailers.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
