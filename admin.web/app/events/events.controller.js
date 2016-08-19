@@ -8,9 +8,9 @@
 
     angular.module('app.events').controller(controllerId, mainController);
 
-    mainController.$inject = ['logger', '$uibModal', 'eventService', 'guestService', 'templateService'];
+    mainController.$inject = ['$scope', 'logger', '$uibModal', 'eventService', 'guestService', 'templateService'];
 
-    function mainController(logger, $modal, service, guestService, templateService) {
+    function mainController($scope, logger, $modal, service, guestService, templateService) {
         var vm = this;
         vm.title = 'Event Manager';
         var tableStateRef;
@@ -321,7 +321,7 @@
             return service.getGuests(vm.selectedEvent.id, vm.searchModel)
                 .then(function (data) {
                     var guests = data.items.map(function (guest) {
-                        BuildGuestOptions(guest); 
+                        BuildGuestOptions(guest);
                         return guest;
                     });
                     vm.selectedEvent.guests = guests;
@@ -352,21 +352,31 @@
         }
 
         vm.fileSelected = function ($files, $file) {
-            //TODO: Called multiple times. Error on directory selection of file. 
-            var reader = new FileReader();
-            reader.onloadstart = function () {
-                vm.isBusy = true;
-            };
-            reader.onloadend = function () {
-                vm.isBusy = false;
-            }
-            reader.onload = function () {
-                var dataUrl = reader.result;
-                vm.selectedEvent.template.image = dataUrl.split(",")[1];
-                vm.selectedEvent.template.mimeType = $file.type;
-            };
-            reader.readAsDataURL($file);
+            var file = $file;
 
+            var src = ''; 
+            var reader = new FileReader();
+            
+            reader.onloadstart = function() {
+                vm.isBusy = true; 
+            }
+
+            reader.onload = function (e) {
+                src = reader.result; 
+                vm.selectedEvent.template.image = reader.result;
+                vm.selectedEvent.template.mimeType = file.type;
+            }
+            reader.onerror = function (e) {
+                logger.log(e);
+            }
+
+            reader.onloadend = function (e) {
+                vm.isBusy = false;
+                //Added due to large images not complete before digest cycle. 
+                $scope.$apply();
+            };
+
+            reader.readAsDataURL(file);
         };
 
         vm.saveTemplate = function () {
@@ -433,6 +443,9 @@
                     vm.isBusy = false;
                 });
         }
+
+
+
 
     };
 

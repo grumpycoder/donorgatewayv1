@@ -68,7 +68,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="vm.save()" ng-disabled="form.$pristine || form.$invalid" ng-enabled="form.$dirty && !form.$invalid">
+        <button class="btn btn-primary" ng-click="vm.save()" ng-disabled="form.$pristine || form.$invalid || vm.isSaving" ng-enabled="form.$dirty && !form.$invalid">
             Create
         </button>
         <button class="btn btn-default pull-left" ng-click="vm.cancel()">

@@ -28,6 +28,7 @@
         }
 
         vm.save = function () {
+            vm.isSaving = true; 
             vm.event.template.name = vm.event.name;
             service.create(vm.event)
                 .then(function (data) {

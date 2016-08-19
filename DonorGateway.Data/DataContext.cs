@@ -82,6 +82,7 @@ namespace DonorGateway.Data
             builder.Entity<IdentityRole>().ToTable("Roles", "Security");
 
             builder.Entity<Event>().HasMany(x => x.Guests).WithRequired(x => x.Event).WillCascadeOnDelete(true);
+            builder.Entity<Template>().Property(p => p.Image).IsMaxLength();
             //builder.Entity<TaxItem>().Property(p => p.DonationDate).HasColumnType("date");
 
             builder.Entity<Constituent>().HasKey(c => c.Id);

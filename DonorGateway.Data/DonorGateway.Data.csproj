@@ -84,6 +84,10 @@
     <Compile Include="Migrations\201608180349432_ChangeSupressionReasonFieldName.Designer.cs">
       <DependentUpon>201608180349432_ChangeSupressionReasonFieldName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608191537045_TemplateImageDataTypeToString.cs" />
+    <Compile Include="Migrations\201608191537045_TemplateImageDataTypeToString.Designer.cs">
+      <DependentUpon>201608191537045_TemplateImageDataTypeToString.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -115,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608180349432_ChangeSupressionReasonFieldName.resx">
       <DependentUpon>201608180349432_ChangeSupressionReasonFieldName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608191537045_TemplateImageDataTypeToString.resx">
+      <DependentUpon>201608191537045_TemplateImageDataTypeToString.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

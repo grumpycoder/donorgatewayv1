@@ -1,5 +1,4 @@
 ﻿
-
 <form name="templateForm" novalidate="">
     <div class="box no-border">
 
@@ -23,7 +22,8 @@
                                     <div>
                                         Drop image here or click to upload
                                     </div>
-                                    <img ng-show="vm.selectedEvent.template.image" ng-src="data:{{vm.selectedEvent.template.mimeType}};base64,{{vm.selectedEvent.template.image}}" class="img-responsive center-block" alt="Event Image">
+                                    <!--<img ng-show="vm.selectedEvent.template.image" ng-src="data:{{vm.selectedEvent.template.mimeType}};base64,{{vm.selectedEvent.template.image}}" class="img-responsive center-block" alt="Event Image">-->
+                                    <img ng-show="vm.selectedEvent.template.image && !vm.showAlternateSourceImg" ng-src="{{vm.selectedEvent.template.image}}" class="img-responsive center-block" alt="Event Image">
                                 </div>
                             </div>
 

@@ -76,8 +76,12 @@ namespace admin.web.Controllers
                         await SignInManager.SignInAsync(user, true, model.RememberMe);
                         return RedirectToLocal(returnUrl);
                 }
-                await SignInManager.SignInAsync(user, true, model.RememberMe);
-                return RedirectToLocal(returnUrl);
+                if (ModelState.IsValid)
+                {
+                    await SignInManager.SignInAsync(user, true, model.RememberMe);
+                    return RedirectToLocal(returnUrl);
+                }
+                
             }
 
             ModelState.AddModelError("", "You are not authorized.");

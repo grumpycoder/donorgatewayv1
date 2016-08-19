@@ -44,6 +44,7 @@
                     vm.reasons = data;
                 });
 
+            
         }
 
         vm.download = function () {
@@ -102,6 +103,10 @@
                     vm.searchModel = data;
                     vm.isBusy = false;
                 });
+        }
+
+        vm.clickSearch = function() {
+            vm.search(tableStateRef);
         }
 
         vm.showUpload = function () {

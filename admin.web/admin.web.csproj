@@ -366,6 +366,9 @@
     <Content Include="Views\Home\Demographics.cshtml" />
     <Content Include="Views\Home\DonorTax.cshtml" />
     <Content Include="Views\Home\Mailers.cshtml" />
+    <None Include="Web.Prod.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

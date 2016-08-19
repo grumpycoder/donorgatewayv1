@@ -12,7 +12,7 @@
         public string WaitingResponseText { get; set; }
         public string CancelledEventText { get; set; }
         public string ExpiredEventText { get; set; }
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
         public string MimeType { get; set; }
     }
 }
