@@ -1,7 +1,7 @@
 ﻿//mark.lawrence
 //mailer.controller.js
 
-(function() {
+(function () {
     'use strict';
 
     var controllerId = 'MailerController';
@@ -29,13 +29,13 @@
             orderDirection: 'asc',
             suppress: false
         };
-        
+
         activate();
 
         function activate() {
             logger.log(controllerId + ' activated');
             service.campaigns()
-                .then(function(data) {
+                .then(function (data) {
                     vm.campaigns = data;
                 });
 
@@ -104,11 +104,39 @@
                 });
         }
 
+        vm.showUpload = function () {
+            $modal.open({
+                keyboard: false,
+                backdrop: 'static',
+                templateUrl: '/app/mailer/views/mailer-upload.html',
+                controller: 'UploadMailerController',
+                controllerAs: 'vm',
+                resolve: {
+                    campaigns: function() { return vm.campaigns; }
+                }
+            })
+            .result.then(function (result) {
+                vm.campaigns = angular.extend(result.campaigns);
+
+                if (result.success) {
+                    logger.success(result.message);
+                } else {
+                    logger.error(result.message);
+                }
+
+            });
+        }
+
         vm.paged = function paged(pageNum) {
             vm.search(tableStateRef);
         };
 
-        vm.refresh = function() {
+        vm.refresh = function () {
+            service.campaigns()
+               .then(function (data) {
+                   vm.campaigns = data;
+               });
+
             vm.search(tableStateRef);
         }
 
@@ -120,9 +148,9 @@
             vm.search(tableStateRef);
         }
 
-        vm.toggleSuppress = function(mailer) {
+        vm.toggleSuppress = function (mailer) {
             mailer.suppress = !mailer.suppress;
-            service.save(mailer).then(function(data) {
+            service.save(mailer).then(function (data) {
                 angular.extend(mailer, data);
             });
         }

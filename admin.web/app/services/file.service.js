@@ -13,13 +13,23 @@
         var url = config.apiUrl + config.apiEndPoints.File;
 
         var service = {
-            guest: guest
+            guest: guest, 
+            mailer: mailer
         }
 
         return service;
 
         function guest(id, datafile) {
             return $http.post(url + '/guest/' + id, formDataObject(datafile), {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            }).then(function (response) {
+                return response.data;
+            });
+        }
+
+        function mailer(id, datafile) {
+            return $http.post(url + '/mailer/' + id, formDataObject(datafile), {
                 transformRequest: angular.identity,
                 headers: { 'Content-Type': undefined }
             }).then(function (response) {

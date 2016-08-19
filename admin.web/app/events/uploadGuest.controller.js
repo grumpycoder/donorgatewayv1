@@ -13,7 +13,7 @@
 
     function mainController(logger, $modal, service, event) {
         var vm = this;
-        vm.title = 'Edit Guest';
+        vm.title = 'Upload Guest List';
 
         vm.event = event;
 

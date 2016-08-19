@@ -262,7 +262,7 @@
     <Content Include="app\events\createGuest.controller.js" />
     <Content Include="app\events\editGuest.controller.js" />
     <Content Include="app\events\event.module.js" />
-    <Content Include="app\events\events.js" />
+    <Content Include="app\events\events.controller.js" />
     <Content Include="app\events\uploadGuest.controller.js" />
     <Content Include="app\events\views\create-event.html" />
     <Content Include="app\events\views\edit-guest.html" />
@@ -276,6 +276,8 @@
     <Content Include="app\filters\filter.module.js" />
     <Content Include="app\mailer\mailer.controller.js" />
     <Content Include="app\mailer\mailer.module.js" />
+    <Content Include="app\mailer\uploadMailer.controller.js" />
+    <Content Include="app\mailer\views\mailer-upload.html" />
     <Content Include="app\modules.min.js" />
     <Content Include="app\nav\nav.js" />
     <Content Include="app\nav\nav.module.js" />

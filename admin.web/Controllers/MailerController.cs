@@ -132,7 +132,15 @@ namespace admin.web.Controllers
             return ResponseMessage(response);
         }
 
+        [HttpPost, Route("CreateCampaign")]
+        public IHttpActionResult CreateCampaign(Campaign campaign)
+        {
 
+            context.Campaigns.Add(campaign);
+            context.SaveChanges();
+
+            return Ok(campaign);
+        }
 
         [HttpPut]
         public IHttpActionResult Put(Mailer mailer)

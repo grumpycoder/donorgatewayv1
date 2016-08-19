@@ -17,7 +17,8 @@
             download: download, 
             campaigns: campaigns, 
             reasons: reasons, 
-            save: save
+            save: save, 
+            createCampaign: createCampaign
         }
 
         return service;
@@ -43,6 +44,10 @@
 
         function campaigns() {
             return $http.get(url + '/campaigns').then(_success).catch(error);
+        }
+
+        function createCampaign(name) {
+            return $http.post(url + '/createcampaign', name).then(_success).catch(error);
         }
 
         function reasons() {
