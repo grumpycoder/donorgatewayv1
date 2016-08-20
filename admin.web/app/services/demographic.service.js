@@ -14,7 +14,8 @@
         var service = {
             get: get,
             remove: remove,
-            removeAll: removeAll, 
+            removeAll: removeAll,
+            query: query,
             exportList: exportList
         }
 
@@ -27,6 +28,13 @@
                 });
         }
 
+         function query(vm) {
+            return $http.post(url + '/search', vm)
+              .then(function (response) {
+                  return response.data;
+              });
+        }
+        
         function remove(id) {
             return $http.delete(url + '/' + id).then(_success).catch(error);
         }

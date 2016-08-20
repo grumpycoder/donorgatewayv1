@@ -12,9 +12,19 @@
 
     function UserController(logger, service) {
         var vm = this;
+        var tableStateRef;
+        var pageSizeDefault = 10;
+
         vm.title = 'Demographic Updates';
         vm.description = 'Updates made to constituent data'; 
         vm.subTitle = 'Demographics';
+
+        vm.searchModel = {
+            page: 1,
+            pageSize: pageSizeDefault,
+            orderBy: 'id',
+            orderDirection: 'asc'
+        };
 
         vm.demographics = [];
 
@@ -22,16 +32,42 @@
 
         function activate() {
             logger.log(controllerId + ' activated');
-            getDemographics();
         };
 
+        vm.search = function (tableState) {
+            tableStateRef = tableState;
 
-        function getDemographics() {
-            service.get(1, 20)
-                .then(function(data) {
-                    vm.demographics = data;
+            if (!vm.searchModel.isPriority) vm.searchModel.isPriority = null;
+
+            if (typeof (tableState.sort.predicate) !== "undefined") {
+                vm.searchModel.orderBy = tableState.sort.predicate;
+                vm.searchModel.orderDirection = tableState.sort.reverse ? 'desc' : 'asc';
+            }
+            if (typeof (tableState.search.predicateObject) !== "undefined") {
+                vm.searchModel.name = tableState.search.predicateObject.name;
+                vm.searchModel.lookupId = tableState.search.predicateObject.lookupId;
+                vm.searchModel.finderNumber = tableState.search.predicateObject.finderNumber;
+                vm.searchModel.city = tableState.search.predicateObject.city;
+                vm.searchModel.state = tableState.search.predicateObject.state;
+                vm.searchModel.zipcode = tableState.search.predicateObject.zipcode;
+                vm.searchModel.email = tableState.search.predicateObject.email;
+                vm.searchModel.phone = tableState.search.predicateObject.phone;
+                vm.searchModel.updatedBy = tableState.search.predicateObject.updatedBy;
+                vm.searchModel.source = tableState.search.predicateObject.source;
+            }
+
+            vm.isBusy = true;
+            service.query(vm.searchModel)
+                .then(function (data) {
+                    vm.demographics = data.items;
+                    vm.searchModel = data;
+                    vm.isBusy = false;
                 });
         }
+
+        vm.paged = function paged(pageNum) {
+            vm.search(tableStateRef);
+        };
 
         vm.delete = function(demo) {
             vm.isBusy = true;

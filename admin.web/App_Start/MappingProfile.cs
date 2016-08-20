@@ -21,6 +21,7 @@ namespace web.App_Start
                 cfg.CreateMap<Guest, DemographicChange>().ReverseMap();
 
                 cfg.CreateMap<Constituent, DemographicChange>().ReverseMap();
+                cfg.CreateMap<DemographicChange, DemographicViewModel>().ReverseMap();
 
                 cfg.CreateMap<Guest, GuestExportViewModel>()
                     .ForMember(dest => dest.EventCode, opt => opt.MapFrom(src => src.Event.EventCode))

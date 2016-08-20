@@ -37,7 +37,11 @@
         </div>
     </div>
     <div class="box-body">
-
+       
+        <small>({{vm.searchModel.filteredCount}} / {{vm.searchModel.totalCount}}) Total Records</small>
+        <span class="pull-right">
+            <small>Page {{vm.searchModel.page}} of {{vm.searchModel.totalPages}}</small>
+        </span>
         <table st-table="vm.selectedEvent.guests" st-pipe="vm.searchGuests" class="table table-striped table-bordered table-hover">
 
             <thead class="text-nowrap">

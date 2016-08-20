@@ -223,6 +223,8 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ConsituentSearchViewModel.cs" />
     <Compile Include="ViewModels\ConstituentViewModel.cs" />
+    <Compile Include="ViewModels\DemographicSearchViewModel.cs" />
+    <Compile Include="ViewModels\DemographicViewModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\GuestExportViewModel.cs" />
     <Compile Include="ViewModels\GuestMap.cs" />
@@ -244,7 +246,7 @@
     <Content Include="app\blocks\logger\logger.module.js" />
     <Content Include="app\core\config.js" />
     <Content Include="app\core\core.module.js" />
-    <Content Include="app\demographics\demographics.js" />
+    <Content Include="app\demographics\demographics.controller.js" />
     <Content Include="app\demographics\demographics.module.js" />
     <Content Include="app\directives\clear-key.directive.js" />
     <Content Include="app\directives\date-before.js" />

@@ -23,6 +23,10 @@
                 <div class="box box-default box-solid">
                     <div class="box-header">
                         <h3 class="box-title">{{vm.subTitle}}</h3>
+                        <small>({{vm.searchModel.filteredCount}} / {{vm.searchModel.totalCount}}) Total Records</small>
+                        <span class="pull-right">
+                            <small>Page {{vm.searchModel.page}} of {{vm.searchModel.totalPages}}</small>
+                        </span>
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <button class="btn btn-info" ng-click="vm.export()">
@@ -30,22 +34,36 @@
                             Export
                         </button>
                         <button class="btn btn-warning" ng-click="vm.deleteAll()">Update All</button>
-                        <table class="table">
+                        <table st-table="vm.people" st-pipe="vm.search" class="table table-responsive table-striped">
                             <thead class="text-nowrap">
                             <tr>
-                                <th>LookupId</th>
-                                <th>FinderNumber</th>
-                                <th>Name</th>
-                                <th>Address</th>
-                                <th>City </th>
-                                <th>State</th>
-                                <th>Zip</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Updated By</th>
-                                <th>Source</th>
+                                <th class="sort-header" st-sort="LookupId">LookupId</th>
+                                <th class="sort-header" st-sort="FinderNumber">FinderNumber</th>
+                                <th class="sort-header" st-sort="Name">Name</th>
+                                <th class="sort-header" st-sort="Address">Address</th>
+                                <th class="sort-header" st-sort="City">City </th>
+                                <th class="sort-header" st-sort="State">State</th>
+                                <th class="sort-header" st-sort="Zipcode">Zip</th>
+                                <th class="sort-header" st-sort="Email">Email</th>
+                                <th class="sort-header" st-sort="Phone">Phone</th>
+                                <th class="sort-header" st-sort="UpdatedBy">Updated By</th>
+                                <th class="sort-header" st-sort="Source">Source</th>
                                 <th></th>
                             </tr>
+                                <tr>
+                                    <th><input type="text" st-clear-key st-search="lookupId" class="form-control" placeholder="Lookup Id" /></th>
+                                    <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number" /></th>
+                                    <th><input type="text" st-clear-key st-search="name" class="form-control" placeholder="Name" /></th>
+                                    <th><input type="text" st-clear-key st-search="address" class="form-control" placeholder="Address" /></th>
+                                    <th><input type="text" st-clear-key st-search="city" class="form-control" placeholder="City" /></th>
+                                    <th><input type="text" st-clear-key st-search="state" class="form-control" placeholder="State" /></th>
+                                    <th><input type="text" st-clear-key st-search="zipcode" class="form-control" placeholder="Zip Code" /></th>
+                                    <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="email" class="form-control" placeholder="Email Address" /></th>
+                                    <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="phone" class="form-control" placeholder="Phone Number" /></th>
+                                    <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="updatedBy" class="form-control" placeholder="Updated By" /></th>
+                                    <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="source" class="form-control" placeholder="Source" /></th>
+                                    <th></th>
+                                </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="d in vm.demographics">
@@ -72,6 +90,21 @@
                                 </td>
                             </tr>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="14" class="text-center">
+                                        <uib-pagination total-items="vm.searchModel.filteredCount"
+                                                        ng-model="vm.searchModel.page"
+                                                        max-size="5"
+                                                        items-per-page="vm.searchModel.pageSize"
+                                                        class="pagination-sm"
+                                                        boundary-link-numbers="true"
+                                                        ng-change="vm.paged()"
+                                                        rotate="false">
+                                        </uib-pagination>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                     <!-- /.box-body -->
