@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
+using System.Linq;
 
 [assembly: OwinStartup(typeof(Startup))]
 
@@ -23,15 +24,27 @@ namespace admin.web
             var userManager = new ApplicationUserManager(new ApplicationUserStore(context));
             var roleManager = new ApplicationRoleManager(new ApplicationRoleStore(context));
 
-            if (roleManager.FindByName("admin") == null)
+            string[] roles = { "admin", "rsvp", "tax", "mailer", "user" };
+            foreach (string role in roles)
             {
-                await roleManager.CreateAsync(new IdentityRole("admin"));
+                if (!context.Roles.Any(r => r.Name == role))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                }
             }
 
-            if (roleManager.FindByName("user") == null)
+            var users = roleManager.FindByName("tax-user").Users.ToList();
+            foreach (var user in users)
             {
-                await roleManager.CreateAsync(new IdentityRole("user"));
+                await userManager.AddToRoleAsync(user.UserId, "tax");
             }
+            foreach (var user in users)
+            {
+                await userManager.RemoveFromRoleAsync(user.UserId, "tax-user");
+            }
+
+            var deletedRole = roleManager.FindByName("tax-user");
+            if (deletedRole != null) roleManager.Delete(deletedRole);
 
             if (userManager.FindByName("admin") == null)
             {

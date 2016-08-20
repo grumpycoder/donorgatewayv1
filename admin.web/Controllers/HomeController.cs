@@ -9,26 +9,31 @@ namespace admin.web.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult Users()
         {
             return View();
         }
 
+        [Authorize(Roles = "rsvp")]
         public ActionResult Events()
         {
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult Demographics()
         {
             return View();
         }
 
+        [Authorize(Roles = "tax")]
         public ActionResult DonorTax()
         {
             return View();
         }
 
+        [Authorize(Roles = "mailer")]
         public ActionResult Mailers()
         {
             return View();
