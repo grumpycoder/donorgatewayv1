@@ -32,12 +32,11 @@
 
         function activate() {
             logger.log(controllerId + ' activated');
+            vm.manual = false; 
         };
 
         vm.search = function (tableState) {
             tableStateRef = tableState;
-
-            if (!vm.searchModel.isPriority) vm.searchModel.isPriority = null;
 
             if (typeof (tableState.sort.predicate) !== "undefined") {
                 vm.searchModel.orderBy = tableState.sort.predicate;
@@ -55,14 +54,19 @@
                 vm.searchModel.updatedBy = tableState.search.predicateObject.updatedBy;
                 vm.searchModel.source = tableState.search.predicateObject.source;
             }
-
             vm.isBusy = true;
             service.query(vm.searchModel)
                 .then(function (data) {
                     vm.demographics = data.items;
                     vm.searchModel = data;
                     vm.isBusy = false;
+                    vm.manual = true; 
                 });
+        }
+        
+        vm.manualSearch = function () {
+            logger.log('manual');
+            vm.search(tableStateRef);
         }
 
         vm.paged = function paged(pageNum) {
