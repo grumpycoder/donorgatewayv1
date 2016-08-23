@@ -15,7 +15,7 @@
         var tableStateRef;
         var pageSizeDefault = 10;
 
-        vm.title = 'Mailer Manager';
+        vm.title = 'MarkIt Manager';
         vm.subTitle = 'Mailers';
 
         vm.campaigns = [];
