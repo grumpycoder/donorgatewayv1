@@ -154,11 +154,31 @@
         }
 
         vm.toggleSuppress = function (mailer) {
-            mailer.suppress = !mailer.suppress;
-            service.save(mailer).then(function (data) {
-                angular.extend(mailer, data);
-            });
+            if (mailer.suppress) {
+                mailer.suppress = false;
+                mailer.reasonId = null;
+                service.save(mailer)
+                    .then(function(data) {
+                        angular.extend(mailer, data);
+                    });
+            } else {
+                $modal.open({
+                        templateUrl: '/app/mailer/views/mailer-suppress.html',
+                        controller: 'SuppressMailerController',
+                        controllerAs: 'vm',
+                        resolve: {
+                            mailer: mailer,
+                            reasons: function() { return vm.reasons }
+                        }
+                    })
+                    .result.then(function(result) {
+                        angular.extend(mailer, result);
+                    });
+            }
+
         }
     }
+
+  
 
 })();

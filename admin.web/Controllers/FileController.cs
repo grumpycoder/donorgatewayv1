@@ -63,6 +63,7 @@ namespace web.Controllers
                 var result = new OperationResult(true, message, DateTime.Now.Subtract(startTime));
 
                 csv.Dispose();
+                File.Delete(filePath);
                 return Ok(message);
 
             }
@@ -113,6 +114,7 @@ namespace web.Controllers
                 var result = new OperationResult(true, message, DateTime.Now.Subtract(startTime));
 
                 csv.Dispose();
+                File.Delete(filePath);
                 return Ok(message);
 
             }

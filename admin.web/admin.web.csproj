@@ -278,7 +278,9 @@
     <Content Include="app\filters\filter.module.js" />
     <Content Include="app\mailer\mailer.controller.js" />
     <Content Include="app\mailer\mailer.module.js" />
+    <Content Include="app\mailer\suppressMailer.controller.js" />
     <Content Include="app\mailer\uploadMailer.controller.js" />
+    <Content Include="app\mailer\views\mailer-suppress.html" />
     <Content Include="app\mailer\views\mailer-upload.html" />
     <Content Include="app\modules.min.js" />
     <Content Include="app\nav\nav.js" />

@@ -15,8 +15,7 @@
         'app.events', 
         'app.demographics',
         'app.donortax',
-        'app.mailer',
-        //'app.mailers',
+        'app.mailer'
         
     ]);
 })();
