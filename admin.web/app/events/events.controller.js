@@ -25,7 +25,7 @@
         ];
 
         //TODO: hostLocation needs to be dynamic to environment
-        vm.hostLocation = 'rsvp-test/';
+        vm.hostLocation = 'rsvp.splcenter.org/';
 
         vm.title = 'Event Manager';
         vm.description = "Manage Donor Events";

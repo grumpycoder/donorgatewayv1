@@ -23,10 +23,13 @@
             'switcher',
             'gfl.textAvatar',
             'textAngular',
-            'ui.bootstrap.datetimepicker', 
-            'angular-confirm' 
+            'ui.bootstrap.datetimepicker',
+            'angular-confirm'
         ])
         .constant('toastr', toastr)
-        .constant('moment', moment);
+        .constant('moment', moment)
+        .config(function (stConfig) {
+            stConfig.search.delay = 2000;
+        });
 
 })();
