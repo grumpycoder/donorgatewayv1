@@ -260,6 +260,7 @@
     <Content Include="app\donortax\donortax.module.js" />
     <Content Include="app\donortax\views\edit-constituent.html" />
     <Content Include="app\donortax\views\taxitems.html" />
+    <Content Include="app\env.js" />
     <Content Include="app\events\createEvent.controller.js" />
     <Content Include="app\events\createGuest.controller.js" />
     <Content Include="app\events\editGuest.controller.js" />

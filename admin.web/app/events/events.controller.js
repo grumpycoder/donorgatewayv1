@@ -24,8 +24,7 @@
             { id: 5, name: "Add Tickets", command: function (e) { vm.registerGuest(e) }, icon: 'icon ion-android-add-circle', default: false }
         ];
 
-        //TODO: hostLocation needs to be dynamic to environment
-        vm.hostLocation = 'rsvp.splcenter.org/';
+        vm.hostLocation = window.__env.rsvpUrl + '/';
 
         vm.title = 'Event Manager';
         vm.description = "Manage Donor Events";
