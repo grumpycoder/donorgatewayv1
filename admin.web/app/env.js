@@ -10,6 +10,7 @@
             break;
         case 'dg':
             window.__env.rsvpUrl = 'rsvp.splcenter.org';
+            break;
         default:
             window.__env.rsvpUrl = 'localhost:54505';
     }
