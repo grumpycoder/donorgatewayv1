@@ -60,7 +60,8 @@
                     vm.demographics = data.items;
                     vm.searchModel = data;
                     vm.isBusy = false;
-                    vm.manual = true; 
+                    vm.manual = true;
+                    logger.log(data.items);
                 });
         }
         

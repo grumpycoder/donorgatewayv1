@@ -222,10 +222,10 @@ namespace admin.web.Controllers
             @event.RegisterGuest(dto);
             @event.SendEmail(dto);
 
-            if (guest != dto)
+            if (!guest.Equals(dto))
             {
                 var demoChange = Mapper.Map<DemographicChange>(dto);
-                demoChange.Source = Source.Event;
+                demoChange.Source = Source.RSVP;
                 context.DemographicChanges.Add(demoChange);
             }
 
@@ -255,7 +255,7 @@ namespace admin.web.Controllers
             if (current != guest)
             {
                 var demoChange = Mapper.Map<DemographicChange>(guest);
-                demoChange.Source = Source.Event;
+                demoChange.Source = Source.RSVP;
                 context.DemographicChanges.Add(demoChange);
             }
 

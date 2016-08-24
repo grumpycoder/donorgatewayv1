@@ -99,9 +99,9 @@ namespace DonorGateway.Domain
             return string.Equals(Name, other.Name, StringComparison.OrdinalIgnoreCase) &&
                                                    string.Equals(LookupId, other.LookupId, StringComparison.OrdinalIgnoreCase) &&
                                                    string.Equals(FinderNumber, other.FinderNumber, StringComparison.OrdinalIgnoreCase) &&
-                                                   string.Equals(Address, other.Address, StringComparison.OrdinalIgnoreCase) &&
-                                                   string.Equals(Address2, other.Address2, StringComparison.OrdinalIgnoreCase) &&
-                                                   string.Equals(Address3, other.Address3, StringComparison.OrdinalIgnoreCase) &&
+                                                   ((Address ?? string.Empty) == (other.Address ?? string.Empty)) &&
+                                                   ((Address2 ?? string.Empty) == (other.Address2 ?? string.Empty)) &&
+                                                   ((Address3 ?? string.Empty) == (other.Address3 ?? string.Empty)) &&
                                                    string.Equals(City, other.City, StringComparison.OrdinalIgnoreCase) &&
                                                    string.Equals(State, other.State, StringComparison.OrdinalIgnoreCase) &&
                                                    string.Equals(Zipcode, other.Zipcode, StringComparison.OrdinalIgnoreCase) &&

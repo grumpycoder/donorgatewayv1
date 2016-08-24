@@ -48,29 +48,31 @@ namespace rsvp.web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Confirm(RegisterFormViewModel form)
+        public ActionResult Confirm(RegisterFormViewModel dto)
         {
             if (!ModelState.IsValid)
             {
-                var @evt = db.Events.Include(x => x.Template).SingleOrDefault(e => e.Id == form.EventId);
-                if (@evt != null) form.Template = @evt.Template;
-                return View("Register", form);
+                var @evt = db.Events.Include(x => x.Template).SingleOrDefault(e => e.Id == dto.EventId);
+                if (@evt != null) dto.Template = @evt.Template;
+                return View("Register", dto);
             }
 
-            var @event = db.Events.Include(x => x.Template).SingleOrDefault(e => e.Id == form.EventId);
+            var @event = db.Events.Include(x => x.Template).SingleOrDefault(e => e.Id == dto.EventId);
             if (@event == null) return View("EventNotFound");
 
-            var guest = db.Guests.Include(e => e.Event).Include(t => t.Event.Template).SingleOrDefault(g => g.Id == form.GuestId);
+            var guest = db.Guests.Include(e => e.Event).Include(t => t.Event.Template).SingleOrDefault(g => g.Id == dto.GuestId);
 
-            var current = guest.Copy();
-            Mapper.Map(form, guest);
+            var compareGuest = Mapper.Map<Guest>(dto);
+            //compareGuest.FinderNumber = dto.PromoCode;
 
-            if (guest != current)
+            if (!guest.Equals(compareGuest))
             {
-                var demoChange = Mapper.Map<DemographicChange>(guest);
-                demoChange.Source = Source.Event;
+                var demoChange = Mapper.Map<DemographicChange>(compareGuest);
+                demoChange.Source = Source.RSVP;
+                demoChange.UpdatedBy = "Donor";
                 db.DemographicChanges.Add(demoChange);
             }
+            Mapper.Map(dto, guest);
 
             @event.RegisterGuest(guest);
             @event.SendEmail(guest);

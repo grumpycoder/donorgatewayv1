@@ -59,6 +59,7 @@
                     <th st-sort="mailedDate" class="hidden-xs hidden-sm hidden-md">Mailed</th>
                     <th st-sort="responseDate" class="hidden-xs hidden-sm hidden-md">Responded</th>
                     <th class="hidden-xs hidden-sm hidden-md">Comments</th>
+                    <th class="hidden-xs hidden-sm hidden-md">SPLC Comments</th>
                     <th></th>
                 </tr>
                 <tr>
@@ -74,6 +75,7 @@
                     <td><input type="text" st-clear-key st-search="constituentType" class="form-control" placeholder="Type" /></td>
                     <td class="hidden-xs hidden-sm hidden-md"></td>
                     <td class="hidden-xs hidden-sm hidden-md"></td>
+                    <td class="text-center hidden-xs hidden-sm hidden-md"></td>
                     <td class="text-center hidden-xs hidden-sm hidden-md"></td>
                     <td>
                         <div class="pull-right">
@@ -109,6 +111,9 @@
                     <td class="hidden-xs hidden-sm hidden-md">{{g.responseDate | date :'MM/dd/yyyy'}}</td>
                     <td class="text-center hidden-xs hidden-sm hidden-md">
                         <i ng-show="g.comment.length > 0" class="fa fa-comment" uib-popover="{{g.comment}}" popover-trigger="mouseenter"></i>
+                    </td>
+                    <td class="text-center hidden-xs hidden-sm hidden-md">
+                        <i ng-show="g.splcComment.length > 0" class="fa fa-comment" uib-popover="{{g.splcComment}}" popover-trigger="mouseenter"></i>
                     </td>
                     <td>
 

@@ -1,3 +1,5 @@
+using System;
+
 namespace admin.web.ViewModels
 {
     public class DemographicViewModel
@@ -12,6 +14,8 @@ namespace admin.web.ViewModels
         public string Zipcode { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        //public string Source { get; set; }
+        public string UpdatedBy { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public string Source { get; set; }
     }
 }

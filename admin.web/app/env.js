@@ -8,7 +8,13 @@
         case 'dg-test':
             window.__env.rsvpUrl = 'rsvp-test';
             break;
+        case 'donorgateway.splcenter.org':
+            window.__env.rsvpUrl = 'rsvp.splcenter.org';
+            break;
         case 'dg':
+            window.__env.rsvpUrl = 'rsvp.splcenter.org';
+            break;
+        case 'donorgateway':
             window.__env.rsvpUrl = 'rsvp.splcenter.org';
             break;
         default:

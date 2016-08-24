@@ -7,7 +7,7 @@
 
     public enum Source
     {
-        Tax, 
-        Event
+        Tax,
+        RSVP
     }
 }

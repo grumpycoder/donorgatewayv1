@@ -324,7 +324,6 @@
                         return guest;
                     });
                     vm.selectedEvent.guests = guests;
-
                     vm.searchModel = data;
                     vm.isBusy = false;
                 });

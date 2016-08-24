@@ -14,6 +14,8 @@ namespace rsvp.web.ViewModels
     {
         public int GuestId { get; set; }
 
+        public string LookupId { get; set; }
+
         public string PromoCode { get; set; }
 
         public string Name { get; set; }
