@@ -4,6 +4,7 @@ namespace admin.web.ViewModels
 {
     public class DemographicViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string LookupId { get; set; }
         public string FinderNumber { get; set; }

@@ -33,6 +33,14 @@ namespace web.App_Start
 
                 cfg.CreateMap<Mailer, MailerViewModel>().ReverseMap();
 
+                cfg.CreateMap<Guest, DemographicChange>()
+                    .ForMember(d => d.Street, map => map.MapFrom(m => m.Address))
+                    .ForMember(d => d.Street2, map => map.MapFrom(m => m.Address2))
+                    .ReverseMap();
+
+
+
+
             });
 
         }

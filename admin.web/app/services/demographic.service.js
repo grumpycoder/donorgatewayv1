@@ -35,7 +35,7 @@
               });
         }
         
-        function remove(id) {
+         function remove(id) {
             return $http.delete(url + '/' + id).then(_success).catch(error);
         }
 

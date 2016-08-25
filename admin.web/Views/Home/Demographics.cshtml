@@ -53,7 +53,6 @@
                                         <th class="sort-header" st-sort="Zipcode">Zip</th>
                                         <th class="sort-header" st-sort="Email">Email</th>
                                         <th class="sort-header" st-sort="Phone">Phone</th>
-                                        <th class="sort-header" st-sort="UpdatedBy">Updated By</th>
                                         <th class="sort-header" st-sort="Source">Source</th>
                                         <th>
                                          
@@ -69,7 +68,6 @@
                                         <th><input type="text" st-clear-key st-search="zipcode" class="form-control" placeholder="Zip Code" /></th>
                                         <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="email" class="form-control" placeholder="Email Address" /></th>
                                         <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="phone" class="form-control" placeholder="Phone Number" /></th>
-                                        <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="updatedBy" class="form-control" placeholder="Updated By" /></th>
                                         <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="source" class="form-control" placeholder="Source" /></th>
                                         <th></th>
                                     </tr>
@@ -91,7 +89,6 @@
                                         <td>{{d.zipcode}}</td>
                                         <td>{{d.email}}</td>
                                         <td>{{d.phone}}</td>
-                                        <td>{{d.updatedBy}}</td>
                                         <td>{{d.source}}</td>
                                         <td>
                                             <button class="btn btn-default" ng-click="vm.delete(d)">Update</button>
