@@ -18,7 +18,13 @@
 
         vm.reasons = reasons;
 
+        vm.mailer.reasonId = vm.reasons[0].id;
+
         vm.cancel = function () {
+            $modal.dismiss();
+        }
+
+        vm.cancel = function() {
             $modal.dismiss();
         }
 

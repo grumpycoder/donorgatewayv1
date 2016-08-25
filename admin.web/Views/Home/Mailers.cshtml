@@ -30,23 +30,23 @@
                         </span>
 
                     </div><!-- /.box-header -->
-                    <div class="box-body">
-
+                    <div class="box-body" st-table="vm.mailers" st-pipe="vm.search">
 
                         <div class="row">
-
-
                             <div class="col-md-9 col-sm-9">
                                 <div class="form-group">
-                                    @*<button class="btn" ng-click="vm.clickSearch()">Search</button>*@
-
+                                    <span>
+                                        <button class="btn btn-primary" st-submit-search>
+                                            <i class="fa fa-search"></i> Search
+                                        </button>
+                                        <button class="btn btn-default" st-reset-search ng-model="vm.searchModel">Clear</button>
+                                    </span>
                                     <button class="btn btn-default"
-                                            ng-class="{ 'btn-warning': vm.showSuppress, 'btn-default': !vm.showSuppress }"
-                                            ng-click="vm.toggleFilter()">
-                                        <i class="fa fa-clock-o"></i> Suppress List
-                                    </button>
-                                    <button class="btn btn-default" ng-click="vm.refresh()">
-                                        <i class="fa fa-refresh"></i>
+                                    ng-class="{ 'btn-warning': vm.showSuppress, 'btn-default': !vm.showSuppress }"
+                                    ng-click="vm.toggleFilter()"
+                                    uib-popover="{{vm.showSuppress ? 'Show Clear Mailers' : 'Show Suppressed Mailers'}}"
+                                    popover-trigger="mouseenter">
+                                    <i class="fa fa-eye"></i> Suppress List
                                     </button>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                         <div class="row">
 
                             <div class="col-md-12">
-                                <table st-table="vm.mailers" st-pipe="vm.search" class="table table-responsive table-bordered">
+                                <table class="table table-responsive table-bordered">
                                     <thead>
                                         <tr>
                                             <th class="sort-header"></th>
@@ -88,14 +88,14 @@
                                             <th>
                                                 <toggle st-search="suppress" ng-model="vm.toggleSuppress" ng-change="vm.filterSuppress()"></toggle>
                                             </th>
-                                            <th><input st-clear-key st-search="firstName" class="form-control" placeholder="First Name" /></th>
-                                            <th><input st-clear-key st-search="lastName" class="form-control" placeholder="Last Name" /></th>
-                                            <th><input st-clear-key st-search="address" class="form-control" placeholder="Address" /></th>
-                                            <th><input st-clear-key st-search="city" class="form-control" placeholder="City" /></th>
-                                            <th><input st-clear-key st-search="state" class="form-control" placeholder="State" /></th>
-                                            <th><input st-clear-key st-search="zipCode" style="width: 100px;" class="form-control" placeholder="Zipcode" /></th>
-                                            <th><input st-clear-key st-search="finderNumber" style="width: 120px;" class="form-control" placeholder="Finder Number" /></th>
-                                            <th><input st-clear-key st-search="sourceCode" class="form-control" placeholder="Source Code" /></th>
+                                            <th><input st-clear-key ng-model="vm.searchModel.firstName" class="form-control" placeholder="First Name" /></th>
+                                            <th><input st-clear-key ng-model="vm.searchModel.lastName" class="form-control" placeholder="Last Name" /></th>
+                                            <th><input st-clear-key ng-model="vm.searchModel.address" class="form-control" placeholder="Address" /></th>
+                                            <th><input st-clear-key ng-model="vm.searchModel.city" class="form-control" placeholder="City" /></th>
+                                            <th><input st-clear-key ng-model="vm.searchModel.state" class="form-control" placeholder="State" /></th>
+                                            <th><input st-clear-key ng-model="vm.searchModel.zipCode" style="width: 100px;" class="form-control" placeholder="Zipcode" /></th>
+                                            <th><input st-clear-key ng-model="vm.searchModel.finderNumber" style="width: 120px;" class="form-control" placeholder="Finder Number" /></th>
+                                            <th><input st-clear-key ng-model="vm.searchModel.sourceCode" class="form-control" placeholder="Source Code" /></th>
                                             <th>
                                                 <select st-search="campaignId" ng-model="vm.searchViewModel.campaignId" class="form-control">
                                                     <option value="">
@@ -121,7 +121,7 @@
                                     <tbody>
                                         <tr ng-repeat="m in vm.mailers">
                                             <td>
-                                                <button class="btn" ng-class="m.suppress ? 'btn-warning' : 'btn-primary'" ng-click="vm.toggleSuppress(m)">
+                                                <button class="btn" ng-class="m.suppress ? 'btn-warning' : 'btn-primary'" ng-click="vm.toggleSuppress(m)" uib-popover="{{m.suppress ? 'Clear' : 'Suppress'}}" popover-trigger="mouseenter" popover-placement="right">
                                                     <span ng-hide="m.suppress"><i class="icon ion-android-hand"></i> </span>
                                                     <span ng-show="m.suppress"><i class="icon ion-ios-flag"></i> </span>
                                                 </button>

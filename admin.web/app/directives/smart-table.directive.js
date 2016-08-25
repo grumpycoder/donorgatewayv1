@@ -11,22 +11,26 @@
                     var ngModel = ctrls[1];
                     var ctrl = ctrls[0];
 
-                    if (event.which !== 27) return;
+                    if (event.which === 13) {
+                        return ctrl.pipe();
+                    }
+                    if (event.which === 27) {
 
-                    if (element.context.attributes['st-search'] !== undefined) {
-                        return scope.$apply(function () {
-                            var fieldName = element.context.attributes['st-search'].value;
-                            var tableState = ctrl.tableState();
-                            tableState.search.predicateObject[fieldName] = '';
-                            return ctrl.pipe();
-                        });
+                        if (element.context.attributes['st-search'] !== undefined) {
+                            return scope.$apply(function () {
+                                var fieldName = element.context.attributes['st-search'].value;
+                                var tableState = ctrl.tableState();
+                                tableState.search.predicateObject[fieldName] = '';
+                                return ctrl.pipe();
+                            });
 
-                    } else {
-                        return scope.$apply(function () {
-                            ngModel.$setViewValue(null);
-                            ngModel.$render(); // will update the input value as well
-                        });
+                        } else {
+                            return scope.$apply(function () {
+                                ngModel.$setViewValue(null);
+                                ngModel.$render(); // will update the input value as well
+                            });
 
+                        }
                     }
                 });
             }
@@ -47,9 +51,12 @@
 
                                 return scope.$apply(function () {
                                     angular.forEach(model.$viewValue,
-                                        function(value, key) {
-                                            if (Array.isArray(value) || key.toLowerCase().includes('page') ) return;
-                                            model.$viewValue[key] = null; 
+                                        function (value, key) {
+                                            if (key.toLowerCase() === 'page') {
+                                                model.$viewValue[key] = 1;
+                                            }
+                                            if (Array.isArray(value) || key.toLowerCase().includes('page')) return;
+                                            model.$viewValue[key] = null;
                                         });
                                     tableState = ctrl.tableState();
                                     tableState.search.predicateObject = {};
@@ -61,12 +68,12 @@
                 };
             });
 
-    angular.module('app').directive('stSubmitSearch', ['stConfig', '$timeout','$parse', function (stConfig, $timeout, $parse) {
+    angular.module('app').directive('stSubmitSearch', ['stConfig', '$timeout', '$parse', function (stConfig, $timeout, $parse) {
         return {
             require: '^stTable',
             link: function (scope, element, attr, ctrl) {
                 return element.bind('click',
-                    function() {
+                    function () {
                         var tableCtrl = ctrl;
                         tableCtrl.pipe();
                     });

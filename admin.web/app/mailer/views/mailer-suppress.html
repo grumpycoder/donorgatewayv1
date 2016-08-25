@@ -9,13 +9,13 @@
     <div class="form-group">
 
         <label>Reason to suppress</label>
-        <select class="form-control" ng-model="vm.mailer.reasonId">
-            <option ng-repeat="item in vm.reasons" value="{{ item.id }}">
-                {{ item.name }}
-            </option>
+        <select class="form-control" ng-model="vm.mailer.reasonId"
+                ng-options="reason.id as reason.name for reason in vm.reasons">
         </select>
     </div>
+
 </div>
 <div class="modal-footer">
-    <button class="btn" ng-click="vm.save()">Save</button>
+    <button class="btn btn-default" ng-click="vm.cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="vm.save()">Save</button>
 </div>

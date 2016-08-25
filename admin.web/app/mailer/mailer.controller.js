@@ -83,18 +83,8 @@
                 vm.searchModel.orderBy = tableState.sort.predicate;
                 vm.searchModel.orderDirection = tableState.sort.reverse ? 'desc' : 'asc';
             }
-            if (typeof (tableState.search.predicateObject) !== "undefined") {
-                vm.searchModel.firstName = tableState.search.predicateObject.firstName;
-                vm.searchModel.lastName = tableState.search.predicateObject.lastName;
-                vm.searchModel.address = tableState.search.predicateObject.address;
-                vm.searchModel.city = tableState.search.predicateObject.city;
-                vm.searchModel.state = tableState.search.predicateObject.state;
-                vm.searchModel.zipCode = tableState.search.predicateObject.zipCode;
-                vm.searchModel.finderNumber = tableState.search.predicateObject.finderNumber;
-                vm.searchModel.sourceCode = tableState.search.predicateObject.sourceCode;
-                vm.searchModel.campaignId = tableState.search.predicateObject.campaignId;
-                vm.searchModel.reasonId = tableState.search.predicateObject.reasonId;
-            }
+
+            if (vm.searchModel.suppress === null) vm.searchModel.suppress = false; 
 
             vm.isBusy = true;
             service.query(vm.searchModel)
