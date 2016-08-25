@@ -22,26 +22,30 @@
             <div class="col-md-12">
                 <div class="box box-default box-solid">
                     <div class="box-header">
+
                         <h3 class="box-title">{{vm.subTitle}}</h3>
                         <small>({{vm.searchModel.filteredCount}} / {{vm.searchModel.totalCount}}) Total Records</small>
                         <span class="pull-right">
                             <small>Page {{vm.searchModel.page}} of {{vm.searchModel.totalPages}}</small>
                         </span>
                     </div><!-- /.box-header -->
-                    <div class="box-body">
-                        @*<span>
-                            <button class="btn btn-primary" ng-click="vm.manualSearch()">
-                            <i class="fa fa-search"></i> Search
-                            </button>
-                        </span>*@
-                        <span class="pull-right">
-                            <button class="btn btn-info" ng-click="vm.export()">
-                                <i class="fa fa-download"></i>
-                                Export
-                            </button>
-                            <button class="btn btn-warning" ng-click="vm.deleteAll()">Update All</button>
-                        </span>
-                        <table st-table="vm.people" st-pipe="vm.search" class="table table-responsive table-striped">
+                    <div class="box-body" st-table="vm.people" st-pipe="vm.search">
+                        <form novalidate name="form">
+                            <span>
+                                <button class="btn btn-primary" st-submit-search>
+                                    <i class="fa fa-search"></i> Search
+                                </button>
+                                <button class="btn btn-default" st-reset-search ng-model="vm.searchModel">Clear</button>
+                            </span>
+
+                            <span class="pull-right">
+                                <button class="btn btn-info" ng-click="vm.export()">
+                                    <i class="fa fa-download"></i>
+                                    Export
+                                </button>
+                                <button class="btn btn-warning" ng-click="vm.deleteAll()">Update All</button>
+                            </span>
+                            <table class="table table-responsive table-striped">
                                 <thead class="text-nowrap">
                                     <tr>
                                         <th class="sort-header" st-sort="LookupId">LookupId</th>
@@ -53,22 +57,24 @@
                                         <th class="sort-header" st-sort="Zipcode">Zip</th>
                                         <th class="sort-header" st-sort="Email">Email</th>
                                         <th class="sort-header" st-sort="Phone">Phone</th>
+                                        <th class="sort-header" st-sort="UpdatedBy">Updated By</th>
                                         <th class="sort-header" st-sort="Source">Source</th>
                                         <th>
-                                         
+
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th><input type="text" st-clear-key st-search="lookupId" class="form-control" placeholder="Lookup Id" /></th>
-                                        <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="finderNumber" class="form-control" placeholder="Finder Number" /></th>
-                                        <th><input type="text" st-clear-key st-search="name" class="form-control" placeholder="Name" /></th>
-                                        <th><input type="text" st-clear-key st-search="address" class="form-control" placeholder="Address" /></th>
-                                        <th><input type="text" st-clear-key st-search="city" class="form-control" placeholder="City" /></th>
-                                        <th><input type="text" st-clear-key st-search="state" class="form-control" placeholder="State" /></th>
-                                        <th><input type="text" st-clear-key st-search="zipcode" class="form-control" placeholder="Zip Code" /></th>
-                                        <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="email" class="form-control" placeholder="Email Address" /></th>
-                                        <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="phone" class="form-control" placeholder="Phone Number" /></th>
-                                        <th class="hidden-sm hidden-xs"><input type="text" st-clear-key st-search="source" class="form-control" placeholder="Source" /></th>
+                                        <th><input type="text" st-clear-key ng-model="vm.searchModel.lookupId" class="form-control" placeholder="Lookup Id" /></th>
+                                        <th class="hidden-sm hidden-xs"><input type="text" st-clear-key ng-model="vm.searchModel.finderNumber" class="form-control" placeholder="Finder Number" /></th>
+                                        <th><input type="text" st-clear-key ng-model="vm.searchModel.name" class="form-control" placeholder="Name" /></th>
+                                        <th><input type="text" st-clear-key ng-model="vm.searchModel.address" class="form-control" placeholder="Address" /></th>
+                                        <th><input type="text" st-clear-key ng-model="vm.searchModel.city" class="form-control" placeholder="City" /></th>
+                                        <th><input type="text" st-clear-key ng-model="vm.searchModel.state" class="form-control" placeholder="State" /></th>
+                                        <th><input type="text" st-clear-key ng-model="vm.searchModel.zipcode" class="form-control" placeholder="Zip Code" /></th>
+                                        <th class="hidden-sm hidden-xs"><input type="text" st-clear-key ng-model="vm.searchModel.email" class="form-control" placeholder="Email Address" /></th>
+                                        <th class="hidden-sm hidden-xs"><input type="text" st-clear-key ng-model="vm.searchModel.phone" class="form-control" placeholder="Phone Number" /></th>
+                                        <th class="hidden-sm hidden-xs"><input type="text" st-clear-key ng-model="vm.searchModel.updatedBy" class="form-control" placeholder="Updated By" /></th>
+                                        <th class="hidden-sm hidden-xs"><input type="text" st-clear-key ng-model="vm.searchModel.source" class="form-control" placeholder="Source" /></th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -89,6 +95,7 @@
                                         <td>{{d.zipcode}}</td>
                                         <td>{{d.email}}</td>
                                         <td>{{d.phone}}</td>
+                                        <td>{{d.updatedBy}}</td>
                                         <td>{{d.source}}</td>
                                         <td>
                                             <button class="btn btn-default" ng-click="vm.delete(d)">Update</button>
@@ -111,7 +118,8 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                        
+
+                        </form>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">

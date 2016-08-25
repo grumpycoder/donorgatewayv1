@@ -9,6 +9,10 @@ namespace admin.web.Helpers
         public static IOrderedQueryable<T> Order<T>(this IQueryable<T> source, string propertyName, SortDirection descending, bool anotherLevel = false)
         {
             var param = Expression.Parameter(typeof(T), string.Empty);
+            if (string.IsNullOrWhiteSpace(propertyName))
+            {
+                propertyName = "Id";
+            }
             var property = Expression.PropertyOrField(param, propertyName);
             var sort = Expression.Lambda(property, param);
 

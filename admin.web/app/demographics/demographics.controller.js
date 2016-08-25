@@ -32,28 +32,18 @@
 
         function activate() {
             logger.log(controllerId + ' activated');
-            vm.manual = false; 
         };
 
         vm.search = function (tableState) {
             tableStateRef = tableState;
 
-            if (typeof (tableState.sort.predicate) !== "undefined") {
-                vm.searchModel.orderBy = tableState.sort.predicate;
-                vm.searchModel.orderDirection = tableState.sort.reverse ? 'desc' : 'asc';
+            if (tableState !== undefined) {
+                if (typeof (tableState.sort.predicate) !== "undefined") {
+                    vm.searchModel.orderBy = tableState.sort.predicate;
+                    vm.searchModel.orderDirection = tableState.sort.reverse ? 'desc' : 'asc';
+                }
             }
-            if (typeof (tableState.search.predicateObject) !== "undefined") {
-                vm.searchModel.name = tableState.search.predicateObject.name;
-                vm.searchModel.lookupId = tableState.search.predicateObject.lookupId;
-                vm.searchModel.finderNumber = tableState.search.predicateObject.finderNumber;
-                vm.searchModel.city = tableState.search.predicateObject.city;
-                vm.searchModel.state = tableState.search.predicateObject.state;
-                vm.searchModel.zipcode = tableState.search.predicateObject.zipcode;
-                vm.searchModel.email = tableState.search.predicateObject.email;
-                vm.searchModel.phone = tableState.search.predicateObject.phone;
-                vm.searchModel.updatedBy = tableState.search.predicateObject.updatedBy;
-                vm.searchModel.source = tableState.search.predicateObject.source;
-            }
+
             vm.isBusy = true;
             service.query(vm.searchModel)
                 .then(function (data) {
@@ -61,7 +51,6 @@
                     vm.searchModel = data;
                     vm.isBusy = false;
                     vm.manual = true;
-                    logger.log(data.items);
                 });
         }
         
