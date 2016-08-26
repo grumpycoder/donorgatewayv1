@@ -279,7 +279,7 @@ namespace admin.web.Controllers
 
             if (@event == null) return NotFound();
 
-            var list = context.Guests.Where(x => x.IsMailed == false && x.IsAttending == true && x.IsWaiting == false);
+            var list = context.Guests.Where(x => x.EventId == id && x.IsMailed == false && x.IsAttending == true && x.IsWaiting == false);
 
             //TODO: Event should do this
             foreach (var guest in list)
