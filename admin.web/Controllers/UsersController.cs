@@ -56,12 +56,12 @@ namespace admin.web.Controllers
             return Ok(applicationUser);
         }
 
-        [HttpGet, Route("Search")]
-        public IHttpActionResult Search(string term = "")
+        [HttpGet, Route("search/{name?}")]
+        public IHttpActionResult Search(string name = null)
         {
 
             var list =
-                UserManager.Users.Where(x => x.UserName.Contains(term) || x.FullName.Contains(term)).ToList();
+                UserManager.Users.Where(x => (name == null) || (x.UserName.Contains(name) || x.FullName.Contains(name))).ToList();
 
             var users = Mapper.Map<List<ApplicationUser>, List<UserViewModel>>(list);
 

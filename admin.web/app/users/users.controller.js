@@ -30,6 +30,10 @@
             password: defaults.GENERIC_PASSWORD
         };
 
+        vm.searchModel = {
+            searchTerm: ''
+        }
+
         var tableStateRef;
 
         activate();
@@ -101,17 +105,12 @@
 
         vm.search = function (tableState) {
             tableStateRef = tableState;
-            var searchTerm;
-
-            if (typeof (tableState.search.predicateObject) != 'undefined') {
-                searchTerm = tableState.search.predicateObject.searchTerm;
-            }
+            if (vm.searchModel.searchTerm === undefined) vm.searchModel.searchTerm = '';
 
             vm.isBusy = true;
-            service.query(searchTerm)
+            service.query(vm.searchModel.searchTerm)
                 .then(function (data) {
                     vm.users = data;
-                    logger.log('users', vm.users);
                 })
                 .finally(function () {
                     vm.isBusy = false;

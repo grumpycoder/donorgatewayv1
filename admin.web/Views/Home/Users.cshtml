@@ -23,46 +23,53 @@
                     <div class="box-header">
                         <h3 class="box-title">{{vm.subTitle}}</h3>
                     </div><!-- /.box-header -->
-                    <div class="box-body">
+                    <div class="box-body" st-table="vm.users" st-pipe="vm.search">
                         <div class="row">
+                            <div class="col-md-12">
+                                <span class="col-md-9">
+                                    <button class="btn btn-primary" st-submit-search>
+                                        <i class="fa fa-search"></i> Search
+                                    </button>
+                                    <button class="btn btn-default" st-reset-search ng-model="vm.searchModel">Clear</button>
+                                </span>
+                                <div class="col-md-3">
+                                    <div class="pull-right">
+                                        <form novalidate name="myForm">
+                                            <span class="input-group">
+                                                <input type="text" name="username" class="form-control" st-clear-key ng-model="vm.user.userName"
+                                                       placeholder="New username ..." ng-pattern="/^[a-zA-Z0-9.]*$/">
+                                                <span class="input-group-btn">
+                                                    <button type="submit" class="btn btn-primary" ng-click="vm.addItem()" ng-disabled="!vm.user.userName"
+                                                            tooltip="Click here to add new user" tooltip-placement="right">
+                                                        <span class="fa fa-plus"></span> Add
+                                                    </button>
+                                                </span>
+                                            </span><!-- /input-group -->
+                                            <span ng-messages="myForm.username.$error" class="has-error" role="alert">
 
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <form novalidate="" name="myForm">
-                                    <div class="input-group">
-                                        <input type="text" name="username" class="form-control" clear-key ng-model="vm.user.userName"
-                                               placeholder="New username ..." ng-pattern="/^[a-zA-Z0-9.]*$/">
-                                        <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-primary" ng-click="vm.addItem()" ng-disabled="!vm.user.userName"
-                                                    tooltip="Click here to add new user" tooltip-placement="right">
-                                                <span class="fa fa-plus"></span> Add
-                                            </button>
-                                        </span>
-                                    </div><!-- /input-group -->
-                                    <div ng-messages="myForm.username.$error" class="has-error" role="alert">
-
-                                        <span ng-message="pattern" class="has-error help-block">Username must be alpha-numeric with no spaces</span>
-                                    </div>
-                                </form>
-                            </div><!-- /.col-lg-6 -->
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="pull-right">
-                                    <button class="btn btn-warning" ng-click="vm.undoDelete()" ng-show="vm.lastDeleted"><i class="fa fa-undo"></i> Undo Delete</button>
-                                    <button class="btn btn-warning" ng-click="vm.undoChange()" ng-show="vm.lastUpdated"><i class="fa fa-undo"></i> Undo Change</button>
-                                </div>
+                                                <span ng-message="pattern" class="has-error help-block">Username must be alpha-numeric with no spaces</span>
+                                            </span>
+                                        </form>
+                                   </div>
+                                </div><!-- /.col-lg-6 -->
                             </div>
                         </div>
 
-                        <table st-table="vm.users" st-pipe="vm.search" class="table table-responsive table-striped">
+                        <table class="table table-responsive table-striped">
                             <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Full Name</th>
-                                <th>Roles</th>
-                                <td></td>
-                            </tr>
                                 <tr>
-                                    <td colspan="2"><input st-search="searchTerm" st-clear-key class="form-control" type="text" placeholder="Filter Username or full name..." /></td>
+                                    <th>User</th>
+                                    <th>Full Name</th>
+                                    <th>Roles</th>
                                     <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <input ng-model="vm.searchModel.searchTerm" st-clear-key class="form-control" type="text" placeholder="Filter Username or full name..." />
+                                    </td>
+                                    <td>
+                                        @*<input type="text" ng-model="vm.searchModel.role" st-clear-key class="form-control" placeholder="Roles ..." />*@
+                                    </td>
                                     <td></td>
                                 </tr>
                             </thead>

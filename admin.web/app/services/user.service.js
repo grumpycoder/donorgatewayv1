@@ -37,11 +37,9 @@
         }
 
         function query(searchTerm) {
-            var searchUrl = url + '/search/';
+            var term = searchTerm === null ? '' : searchTerm;
+            var searchUrl = url + '/search/' + term;
 
-            if (searchTerm != undefined && searchTerm.length > 0) {
-                searchUrl += '?' + searchTerm;
-            };
             return $http.get(searchUrl).then(_success);
         }
 

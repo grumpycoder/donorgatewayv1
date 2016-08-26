@@ -295,7 +295,7 @@
     <Content Include="app\services\template.service.js" />
     <Content Include="app\services\constituent.service.js" />
     <Content Include="app\services\user.service.js" />
-    <Content Include="app\users\users.js" />
+    <Content Include="app\users\users.controller.js" />
     <Content Include="app\users\users.module.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
