@@ -222,11 +222,14 @@ namespace admin.web.Controllers
             @event.RegisterGuest(dto);
             @event.SendEmail(dto);
 
-            if (!guest.Equals(dto))
+            if (guest != null)
             {
-                var demoChange = Mapper.Map<DemographicChange>(dto);
-                demoChange.Source = Source.RSVP;
-                context.DemographicChanges.Add(demoChange);
+                if (!guest.Equals(dto))
+                {
+                    var demoChange = Mapper.Map<DemographicChange>(dto);
+                    demoChange.Source = Source.RSVP;
+                    context.DemographicChanges.Add(demoChange);
+                }
             }
 
             context.Entry(@event.Template).State = EntityState.Unchanged;
