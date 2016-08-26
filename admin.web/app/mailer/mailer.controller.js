@@ -87,16 +87,13 @@
             if (vm.searchModel.suppress === null) vm.searchModel.suppress = false; 
 
             vm.isBusy = true;
+
             service.query(vm.searchModel)
                 .then(function (data) {
                     vm.mailers = data.items;
                     vm.searchModel = data;
                     vm.isBusy = false;
                 });
-        }
-
-        vm.clickSearch = function() {
-            vm.search(tableStateRef);
         }
 
         vm.showUpload = function () {

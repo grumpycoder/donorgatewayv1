@@ -94,7 +94,8 @@ namespace web.Controllers
                     WillThrowOnMissingField = false,
                     IgnoreReadingExceptions = true,
                     ThrowOnBadData = false,
-                    SkipEmptyRecords = true
+                    SkipEmptyRecords = true, 
+                    TrimHeaders = true
                 };
                 var csv = new CsvReader(new StreamReader(filePath, Encoding.Default, true), configuration);
 

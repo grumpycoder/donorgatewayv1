@@ -42,11 +42,11 @@
                                         <button class="btn btn-default" st-reset-search ng-model="vm.searchModel">Clear</button>
                                     </span>
                                     <button class="btn btn-default"
-                                    ng-class="{ 'btn-warning': vm.showSuppress, 'btn-default': !vm.showSuppress }"
-                                    ng-click="vm.toggleFilter()"
-                                    uib-popover="{{vm.showSuppress ? 'Show Clear Mailers' : 'Show Suppressed Mailers'}}"
-                                    popover-trigger="mouseenter">
-                                    <i class="fa fa-eye"></i> Suppress List
+                                            ng-class="{ 'btn-warning': vm.showSuppress, 'btn-default': !vm.showSuppress }"
+                                            ng-click="vm.toggleFilter()"
+                                            uib-popover="{{vm.showSuppress ? 'Show Clear Mailers' : 'Show Suppressed Mailers'}}"
+                                            popover-trigger="mouseenter">
+                                        <i class="fa fa-eye"></i> Suppress List
                                     </button>
                                 </div>
                             </div>
@@ -97,24 +97,12 @@
                                             <th><input st-clear-key ng-model="vm.searchModel.finderNumber" style="width: 120px;" class="form-control" placeholder="Finder Number" /></th>
                                             <th><input st-clear-key ng-model="vm.searchModel.sourceCode" class="form-control" placeholder="Source Code" /></th>
                                             <th>
-                                                <select st-search="campaignId" ng-model="vm.searchViewModel.campaignId" class="form-control">
-                                                    <option value="">
-                                                        All Campaigns
-                                                    </option>
-                                                    <option ng-repeat="item in vm.campaigns" value="{{ item.id }}">
-                                                        {{ item.name }}
-                                                    </option>
-                                                </select>
+                                                <select st-clear-key class="form-control" ng-model="vm.searchModel.campaignId"
+                                                        ng-options="campaign.id as campaign.name for campaign in vm.campaigns"></select>
                                             </th>
                                             <th style="width: 100px;">
-                                                <select st-search="reasonId" ng-model="vm.searchViewModel.reasonId" class="form-control">
-                                                    <option value="">
-                                                        All Reason
-                                                    </option>
-                                                    <option ng-repeat="item in vm.reasons" value="{{ item.id }}">
-                                                        {{ item.name }}
-                                                    </option>
-                                                </select>
+                                                <select st-clear-key class="form-control" ng-model="vm.searchModel.reasonId"
+                                                        ng-options="reason.id as reason.name for reason in vm.reasons"></select>
                                             </th>
                                         </tr>
                                     </thead>
