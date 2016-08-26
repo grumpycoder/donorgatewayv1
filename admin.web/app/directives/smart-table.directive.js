@@ -55,10 +55,10 @@
                                             if (key.toLowerCase() === 'page') {
                                                 model.$viewValue[key] = 1;
                                             }
-                                            if (Array.isArray(value) || key.toLowerCase().includes('page')) return;
+                                            if (Array.isArray(value) || _.includes(key.toLowerCase(), 'page')) return;
                                             model.$viewValue[key] = null;
                                         });
-                                    tableState = ctrl.tableState();
+                                    var tableState = ctrl.tableState();
                                     tableState.search.predicateObject = {};
                                     tableState.pagination.start = 0;
                                     return ctrl.pipe();
