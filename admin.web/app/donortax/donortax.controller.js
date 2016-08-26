@@ -37,17 +37,11 @@
 
             if (!vm.searchModel.isPriority) vm.searchModel.isPriority = null;
 
-            if (typeof (tableState.sort.predicate) !== "undefined") {
-                vm.searchModel.orderBy = tableState.sort.predicate;
-                vm.searchModel.orderDirection = tableState.sort.reverse ? 'desc' : 'asc';
-            }
-            if (typeof (tableState.search.predicateObject) !== "undefined") {
-                vm.searchModel.name = tableState.search.predicateObject.name;
-                vm.searchModel.lookupId = tableState.search.predicateObject.lookupId;
-                vm.searchModel.finderNumber = tableState.search.predicateObject.finderNumber;
-                vm.searchModel.zipcode = tableState.search.predicateObject.zipcode;
-                vm.searchModel.email = tableState.search.predicateObject.email;
-                vm.searchModel.phone = tableState.search.predicateObject.phone;
+            if (tableState !== undefined) {
+                if (typeof (tableState.sort.predicate) !== "undefined") {
+                    vm.searchModel.orderBy = tableState.sort.predicate;
+                    vm.searchModel.orderDirection = tableState.sort.reverse ? 'desc' : 'asc';
+                }
             }
 
             vm.isBusy = true;

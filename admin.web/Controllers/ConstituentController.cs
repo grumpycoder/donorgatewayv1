@@ -41,6 +41,8 @@ namespace admin.web.Controllers
             if (!string.IsNullOrWhiteSpace(vm.Name)) pred = pred.And(p => p.Name.Contains(vm.Name));
             if (!string.IsNullOrWhiteSpace(vm.FinderNumber)) pred = pred.And(p => p.FinderNumber.Contains(vm.FinderNumber));
             if (!string.IsNullOrWhiteSpace(vm.LookupId)) pred = pred.And(p => p.LookupId.Contains(vm.LookupId));
+            if (!string.IsNullOrWhiteSpace(vm.City)) pred = pred.And(p => p.State.StartsWith(vm.City));
+            if (!string.IsNullOrWhiteSpace(vm.State)) pred = pred.And(p => p.State.StartsWith(vm.State));
             if (!string.IsNullOrWhiteSpace(vm.Zipcode)) pred = pred.And(p => p.Zipcode.StartsWith(vm.Zipcode));
             if (!string.IsNullOrWhiteSpace(vm.Email)) pred = pred.And(p => p.Email.Contains(vm.Email));
             if (!string.IsNullOrWhiteSpace(vm.Phone)) pred = pred.And(p => p.Phone.Contains(vm.Phone));
