@@ -41,6 +41,12 @@ namespace rsvp.web.Controllers
 
             if (guest != null && guest.IsRegistered) ModelState.AddModelError("Attendance", "Already registered for event");
 
+            var @event = db.Events.Find(model.EventId);
+
+            @event.ReserveTickets();
+            db.Events.AddOrUpdate(@event);
+            db.SaveChanges();
+
             if (ModelState.IsValid) return View(guest);
 
             model.Template = db.Templates.FirstOrDefault(x => x.Id == model.TemplateId);
@@ -63,7 +69,6 @@ namespace rsvp.web.Controllers
             var guest = db.Guests.Include(e => e.Event).Include(t => t.Event.Template).SingleOrDefault(g => g.Id == dto.GuestId);
 
             var compareGuest = Mapper.Map<Guest>(dto);
-            //compareGuest.FinderNumber = dto.PromoCode;
 
             if (!guest.Equals(compareGuest))
             {

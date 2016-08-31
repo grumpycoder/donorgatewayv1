@@ -58,13 +58,13 @@ namespace DonorGateway.Domain
 
         public void CancelRegistration(Guest guest)
         {
+            if(guest.IsWaiting ?? false) TicketMailedCount -= guest.TicketCount ?? 0;
             guest.ResponseDate = DateTime.Now;
             guest.IsAttending = false;
             guest.IsMailed = false;
             guest.IsWaiting = false;
             guest.WaitingDate = null;
             GuestAttendanceCount -= guest.TicketCount ?? 0;
-            TicketMailedCount -= guest.TicketCount ?? 0;
             guest.TicketCount = 0;
 
         }
@@ -74,17 +74,23 @@ namespace DonorGateway.Domain
             guest.ResponseDate = DateTime.Now;
             guest.TicketCount = guest.TicketCount ?? 0;
             guest.IsAttending = guest.IsAttending ?? false;
+
+            var actualTickets = (TicketAllowance ?? 0) - (guest.TicketCount ?? 0);
+
+            //Reset Attendance from reserved ticket allowance amount
+            GuestAttendanceCount -= TicketAllowance ?? 0; 
+
             if (TicketRemainingCount - guest.TicketCount < 0)
             {
                 guest.IsWaiting = true;
                 guest.WaitingDate = DateTime.Now;
-                GuestWaitingCount += guest.TicketCount ?? 0;
+                GuestWaitingCount += actualTickets;
             }
             else
             {
                 guest.IsWaiting = false;
                 guest.WaitingDate = null;
-                GuestAttendanceCount += guest.TicketCount ?? 0;
+                GuestAttendanceCount += actualTickets;
             }
 
         }
@@ -100,7 +106,7 @@ namespace DonorGateway.Domain
         public void AddTickets(Guest guest, int additionalTickets)
         {
             guest.TicketCount = guest.TicketCount + additionalTickets;
-            if(guest.IsMailed) TicketMailedCount += additionalTickets;
+            if (guest.IsMailed) TicketMailedCount += additionalTickets;
             GuestAttendanceCount += additionalTickets;
         }
 
@@ -229,6 +235,10 @@ namespace DonorGateway.Domain
 
         }
 
+        public void ReserveTickets()
+        {
+            GuestAttendanceCount += TicketAllowance ?? 0;
+        }
     }
 
 
