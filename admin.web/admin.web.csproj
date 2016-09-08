@@ -330,6 +330,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
+    <None Include="Properties\PublishProfiles\Azure.pubxml" />
     <None Include="Properties\PublishProfiles\Prod.pubxml" />
     <None Include="Properties\PublishProfiles\Test.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
@@ -371,6 +372,10 @@
     <Content Include="Views\Home\Demographics.cshtml" />
     <Content Include="Views\Home\DonorTax.cshtml" />
     <Content Include="Views\Home\Mailers.cshtml" />
+    <None Include="Web.donorgatewayadmin - Web Deploy.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Prod.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
