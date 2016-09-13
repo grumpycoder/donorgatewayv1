@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
@@ -58,7 +59,7 @@ namespace DonorGateway.Domain
 
         public void CancelRegistration(Guest guest)
         {
-            if(guest.IsWaiting ?? false) TicketMailedCount -= guest.TicketCount ?? 0;
+            if (guest.IsWaiting ?? false) TicketMailedCount -= guest.TicketCount ?? 0;
             guest.ResponseDate = DateTime.Now;
             guest.IsAttending = false;
             guest.IsMailed = false;
@@ -78,7 +79,7 @@ namespace DonorGateway.Domain
             var actualTickets = (TicketAllowance ?? 0) - (guest.TicketCount ?? 0);
 
             //Reset Attendance from reserved ticket allowance amount
-            GuestAttendanceCount -= TicketAllowance ?? 0; 
+            GuestAttendanceCount -= TicketAllowance ?? 0;
 
             if (TicketRemainingCount - guest.TicketCount < 0)
             {
@@ -125,7 +126,9 @@ namespace DonorGateway.Domain
             ParseTemplate();
             ParseTemplate(guest);
 
-            var message = Template.HeaderText + Template.BodyText;
+            string message = "<link crossorigin=anonymous href=https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css integrity=sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u rel=stylesheet><style>body{margin-top:20px;font-size:13px;font-family:verdana}section{padding-bottom:15px}p.well-sm img{margin-left:-130}</style><body class=container><div class=row><div class=col-md-12><p class=well-sm><img alt=\"\"src=https://donate.splcenter.org/image/splc_logo_ecard.jpg></div></div>";
+
+            message += $"<div class=row><div class=col-md-12><section><div><p>{DateTime.Today:d}</p></div></section></div></div>";
 
             if (guest.IsWaiting == true && guest.IsAttending == true)
             {
@@ -140,9 +143,9 @@ namespace DonorGateway.Domain
                 message += Template.YesResponseText;
             }
 
-            message += "Sincerely, <br />";
-            message += $"<p><img style='width:150px;' src=\"http://donate.splcenter.org/image/morris_dees_sig2.png\" /></p>";
-            message += "Morris Dees<br />Founder, Southern Poverty Law Center";
+            message += "<div class=row><div class=\"col-md-12 col-sm-12\"><div><div style=float:left;width:121px><img src=http://donate.splcenter.org/image/morris_dees_photo.png alt=\"\"class=\"img-responsive inline-block\"></div><div style=margin-left:135px><p>Sincerely,<div style=height:93px><img src=http://donate.splcenter.org/image/morris_dees_sig2.png style=margin-top:10px;height:32px></div><span>Morris Dees<br>Founder, Southern Poverty Law Center</span></div></div></div></div><hr><div class=row><div class=\"col-md-12 col-sm-12\"><p class=small><i><a href=\"https://donate.splcenter.org/sslpage.aspx?pid=463&erid=3925852&trid=5cf6eac0-d290-4710-a6ee-7252ba7c10fa&efndnum=10196485410\">Make a contribution</a> to support our work fighting hate, teaching tolerance, and seeking justice.<br></i><p class=small><i>Take advantage of corporate matching gift opportunities. Contact your employer\'s HR department to see if they <a href=https://www.splcenter.org/support-us/employer-matching>will match your contributions to the SPLC.</a></i><p class=small><i>We welcome your feedback.<br>Contact us <a href=https://www.splcenter.org/contact-us>online</a>.<br>400 Washington Ave.<br>Montgomery, AL 36104</i></div></div>";
+            message += "</body>";
+
 
             var html = AlternateView.CreateAlternateViewFromString(message, null, "text/html");
 
@@ -159,10 +162,13 @@ namespace DonorGateway.Domain
                     sendToAddress = new MailAddress(ConfigurationManager.AppSettings["SendToOverride"]);
                     break;
             }
+
+
             var mail = new MailMessage(sendFromAddress, sendToAddress)
             {
                 Subject = subject,
-                Body = message
+                Body = message,
+                IsBodyHtml = true
             };
 
             mail.AlternateViews.Add(html);
@@ -202,7 +208,6 @@ namespace DonorGateway.Domain
                 prop.SetValue(this.Template, Convert.ChangeType(propValue, prop.PropertyType), null);
 
             }
-
         }
 
         private string Parse(string message)
