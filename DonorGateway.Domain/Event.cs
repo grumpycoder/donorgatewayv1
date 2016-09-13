@@ -76,22 +76,17 @@ namespace DonorGateway.Domain
             guest.TicketCount = guest.TicketCount ?? 0;
             guest.IsAttending = guest.IsAttending ?? false;
 
-            var actualTickets = (TicketAllowance ?? 0) - (guest.TicketCount ?? 0);
-
-            //Reset Attendance from reserved ticket allowance amount
-            GuestAttendanceCount -= TicketAllowance ?? 0;
-
             if (TicketRemainingCount - guest.TicketCount < 0)
             {
                 guest.IsWaiting = true;
                 guest.WaitingDate = DateTime.Now;
-                GuestWaitingCount += actualTickets;
+                GuestWaitingCount += guest.TicketCount ?? 0;
             }
             else
             {
                 guest.IsWaiting = false;
                 guest.WaitingDate = null;
-                GuestAttendanceCount += actualTickets;
+                GuestAttendanceCount += guest.TicketCount ?? 0;
             }
 
         }
