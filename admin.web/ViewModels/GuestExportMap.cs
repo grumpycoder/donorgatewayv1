@@ -1,11 +1,10 @@
 using CsvHelper.Configuration;
-using DonorGateway.Domain;
 
 namespace admin.web.ViewModels
 {
-    public sealed class GuestMap : CsvClassMap<Guest>
+    public sealed class GuestExportMap : CsvClassMap<GuestExportViewModel>
     {
-        public GuestMap()
+        public GuestExportMap()
         {
             Map(m => m.FinderNumber).Name("FinderNumber");
             Map(m => m.LookupId).Name("LookupId");
@@ -37,11 +36,12 @@ namespace admin.web.ViewModels
 
             Map(m => m.TicketCount).Name("TicketCount").Default(0);
             Map(m => m.IsMailed).Name("TicketMailed").Default(false);
-            Map(m => m.IsAttending).Name("Response");
+            Map(m => m.Attending).Name("Attending");
 
             Map(m => m.ActualDate).Name("ActualDate");
             Map(m => m.ExpectedDate).Name("ExpectedDate");
             Map(m => m.Comment).Name("DonorComment");
+            Map(m => m.Response).Name("Response");
             Map(m => m.ResponseType).Name("ResponseType");
             Map(m => m.SPLCComment).Name("SPLCComment");
             Map(m => m.Status).Name("Status");
@@ -51,8 +51,8 @@ namespace admin.web.ViewModels
             Map(m => m.SubCategory).Name("SubCategory");
             Map(m => m.Owner).Name("Owner");
 
-            //Map(m => m.EventName).Name("EventName");
-            //Map(m => m.EventCode).Name("EventCode");
+            Map(m => m.EventName).Name("EventName");
+            Map(m => m.EventCode).Name("EventCode");
 
 
 

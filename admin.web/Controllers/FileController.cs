@@ -48,7 +48,7 @@ namespace web.Controllers
                 };
                 var csv = new CsvReader(new StreamReader(filePath, Encoding.Default, true), configuration);
 
-                csv.Configuration.RegisterClassMap<GuestMap>();
+                csv.Configuration.RegisterClassMap<GuestImportMap>();
                 var list = csv.GetRecords<Guest>().ToList();
                 foreach (var guest in list)
                 {

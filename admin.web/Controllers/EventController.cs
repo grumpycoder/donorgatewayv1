@@ -132,7 +132,7 @@ namespace admin.web.Controllers
 
             using (var csv = new CsvWriter(new StreamWriter(File.Create(path))))
             {
-                csv.Configuration.RegisterClassMap<GuestMap>();
+                csv.Configuration.RegisterClassMap<GuestExportMap>();
                 csv.WriteHeader<GuestExportViewModel>();
                 csv.WriteRecords(list);
             }

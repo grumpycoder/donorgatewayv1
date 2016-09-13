@@ -9,7 +9,7 @@ namespace admin.web.ViewModels
         public string InteractionId { get; set; }
 
         public string MembershipYear { get; set; }
-        public bool? LeadershipCouncil { get; set; }
+        public string LeadershipCouncil { get; set; }
         public string InsideSalutation { get; set; }
         public string OutsideSalutation { get; set; }
         public string HouseholdSalutation1 { get; set; }
@@ -30,9 +30,9 @@ namespace admin.web.ViewModels
         public string Country { get; set; }
 
         public int? TicketCount { get; set; }
-        public bool? IsMailed { get; set; } = false;
+        public string IsMailed { get; set; }
 
-        public bool? IsAttending { get; set; } = false;
+        public string Attending { get; set; }
 
 
         //ADDED FOR IMPORT/EXPORT FIELDS
@@ -40,6 +40,7 @@ namespace admin.web.ViewModels
         public string ActualDate { get; set; }
         public string ExpectedDate { get; set; }
         public string Comment { get; set; }
+        public string Response { get; set; }
         public string ResponseType { get; set; }
         public string SPLCComment { get; set; }
         public string Status { get; set; }

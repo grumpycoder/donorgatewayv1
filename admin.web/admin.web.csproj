@@ -226,8 +226,9 @@
     <Compile Include="ViewModels\DemographicSearchViewModel.cs" />
     <Compile Include="ViewModels\DemographicViewModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
+    <Compile Include="ViewModels\GuestImportMap.cs" />
     <Compile Include="ViewModels\GuestExportViewModel.cs" />
-    <Compile Include="ViewModels\GuestMap.cs" />
+    <Compile Include="ViewModels\GuestExportMap.cs" />
     <Compile Include="ViewModels\GuestSearchViewModel.cs" />
     <Compile Include="ViewModels\GuestViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
