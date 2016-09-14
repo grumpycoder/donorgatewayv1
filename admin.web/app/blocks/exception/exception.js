@@ -20,6 +20,6 @@
             return function (reason) {
                 logger.error(message, reason);
             };
-        };
+        }
     };
 })();
