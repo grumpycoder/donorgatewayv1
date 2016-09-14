@@ -181,27 +181,6 @@
             });
         }
 
-        function BuildGuestOptions(guest) {
-            var options = [];
-
-            if (guest.isAttending === null) options.push(choices[0]);
-            if (guest.isAttending && !guest.isWaiting && !guest.isMailed) {
-                options.push(choices[1]);
-            }
-            if (guest.isWaiting) {
-                options.push(choices[3]);
-            }
-            if (guest.isAttending) {
-                options.push(choices[4]);
-            }
-            if (guest.isAttending !== null) options.push(choices[2]);
-
-            guest.primaryChoice = angular.copy(options[0]);
-            options.shift();
-
-            angular.extend(guest, { choices: options });
-        }
-
         vm.registerGuest = function (guest) {
             guest.event = angular.copy(vm.selectedEvent);
             $modal.open({
@@ -312,6 +291,7 @@
                         return guest;
                     });
                     vm.selectedEvent.guests = guests;
+                   
                     vm.searchModel = data;
                     vm.isBusy = false;
                 });
@@ -430,8 +410,26 @@
                 });
         }
 
+        function BuildGuestOptions(guest) {
+            var options = [];
 
+            if (guest.isAttending === null || guest.isAttending === false) options.push(choices[0]); 
+            if (guest.isAttending && !guest.isWaiting && !guest.isMailed) {
+                options.push(choices[1]);
+            }
+            if (guest.isWaiting) {
+                options.push(choices[3]);
+            }
+            if (guest.isAttending) {
+                options.push(choices[4]);
+            }
+            if (guest.isAttending === true) options.push(choices[2]);
 
+            guest.primaryChoice = angular.copy(options[0]);
+            options.shift();
+
+            angular.extend(guest, { choices: options });
+        }
 
     };
 
