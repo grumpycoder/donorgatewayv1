@@ -34,6 +34,11 @@ h6,
     /*font-family: "Knockout 28 A","Knockout 28 B","Arial",sans-serif;*/
 }
 
+#faq p {
+    line-height: 1.5em;
+    padding-bottom: 1.1em;
+}
+
 div.validation-summary-errors {
     color: red;
 }

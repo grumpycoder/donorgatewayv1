@@ -82,8 +82,12 @@ namespace rsvp.web.Controllers
             @event.RegisterGuest(guest);
             @event.SendEmail(guest);
 
+            @event.ParseTemplate();
+            @event.ParseTemplate(guest);
+
             //Do not modify template of event. 
             db.Entry(@event.Template).State = EntityState.Unchanged;
+
 
             db.Events.AddOrUpdate(@event);
 

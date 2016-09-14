@@ -123,7 +123,7 @@ namespace DonorGateway.Domain
 
             string message = "<link crossorigin=anonymous href=https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css integrity=sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u rel=stylesheet><style>body{margin-top:20px;font-size:13px;font-family:verdana}section{padding-bottom:15px}p.well-sm img{margin-left:-130}</style><body class=container><div class=row><div class=col-md-12><p class=well-sm><img alt=\"\"src=https://donate.splcenter.org/image/splc_logo_ecard.jpg></div></div>";
 
-            message += $"<div class=row><div class=col-md-12><section><div><p>{DateTime.Today:d}</p></div></section></div></div>";
+            message += $"<div class=row><div class=col-md-12><section><div><p>{DateTime.Today:D}</p></div></section></div></div>";
 
             if (guest.IsWaiting == true && guest.IsAttending == true)
             {
