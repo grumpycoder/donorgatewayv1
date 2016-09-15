@@ -234,11 +234,6 @@ namespace DonorGateway.Domain
             return matches.Replace(stringToReplace, fieldValue);
 
         }
-
-        public void ReserveTickets()
-        {
-            GuestAttendanceCount += TicketAllowance ?? 0;
-        }
     }
 
 

@@ -43,7 +43,6 @@ namespace rsvp.web.Controllers
 
             var @event = db.Events.Find(model.EventId);
 
-            @event.ReserveTickets();
             db.Events.AddOrUpdate(@event);
             db.SaveChanges();
 
