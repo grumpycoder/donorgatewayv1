@@ -31,8 +31,8 @@
 
                         <div class="row">
 
-                            <div class="col-md-3">
-                                <form class="form-inline">
+                            <div class="col-md-4">
+                                
                                     <div class="form-group">
                                         <select ng-model="vm.selectedEvent"
                                                 ng-options="event.name for event in vm.events"
@@ -42,9 +42,9 @@
                                             <option value="">Choose an Event</option>
                                         </select>
                                     </div>
-                                </form>
+                                
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <button class="btn btn-primary pull-right" ng-click="vm.showCreateEvent()">
                                     <i class="fa fa-plus"></i>
                                     New Event
