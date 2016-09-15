@@ -32,15 +32,17 @@
                         <div class="row">
 
                             <div class="col-md-3">
-                                <div class="form-group">
-                                    <select ng-model="vm.selectedEvent"
-                                            ng-options="event.name for event in vm.events"
-                                            ng-disabled="false"
-                                            ng-change="vm.changeEvent(); showNewEvent = false"
-                                            class="form-control">
-                                        <option value="">Choose an Event</option>
-                                    </select>
-                                </div>
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <select ng-model="vm.selectedEvent"
+                                                ng-options="event.name for event in vm.events"
+                                                ng-disabled="false"
+                                                ng-change="vm.changeEvent(); showNewEvent = false"
+                                                class="form-control">
+                                            <option value="">Choose an Event</option>
+                                        </select>
+                                    </div>
+                                </form>
                             </div>
                             <div class="col-md-9">
                                 <button class="btn btn-primary pull-right" ng-click="vm.showCreateEvent()">
