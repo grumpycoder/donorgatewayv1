@@ -81,12 +81,11 @@ namespace rsvp.web.Controllers
             @event.RegisterGuest(guest);
             @event.SendEmail(guest);
 
-            @event.ParseTemplate();
-            @event.ParseTemplate(guest);
+            //Need copy of template before discarding changes. 
+            var template = @event.Template.Copy();
 
             //Do not modify template of event. 
             db.Entry(@event.Template).State = EntityState.Unchanged;
-
 
             db.Events.AddOrUpdate(@event);
 
@@ -95,8 +94,7 @@ namespace rsvp.web.Controllers
 
             var finishFormViewModel = Mapper.Map<FinishFormViewModel>(guest);
 
-            finishFormViewModel.Template = @event.Template;
-            finishFormViewModel.ParseMessages();
+            finishFormViewModel.Template = template;
 
             return View("Finish", finishFormViewModel);
         }

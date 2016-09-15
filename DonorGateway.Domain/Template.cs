@@ -14,5 +14,10 @@
         public string ExpiredEventText { get; set; }
         public string Image { get; set; }
         public string MimeType { get; set; }
+
+        public virtual Template Copy()
+        {
+            return MemberwiseClone() as Template;
+        }
     }
 }

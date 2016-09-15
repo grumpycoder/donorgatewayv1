@@ -17,6 +17,18 @@ html, body {
     display: block !important; /* yes, important */
 }
 
+.info-box-content {
+    cursor: default;
+}
+
+fieldset>legend {
+    cursor: default;
+}
+
+td {
+    cursor: default;
+}
+
 form#logoutForm {
     border: none;
     margin-left: 18px;
