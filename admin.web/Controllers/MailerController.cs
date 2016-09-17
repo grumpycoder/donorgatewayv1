@@ -58,8 +58,8 @@ namespace admin.web.Controllers
 
             var pred = PredicateBuilder.True<Mailer>();
             pred = pred.And(p => p.Suppress == vm.Suppress);
-            if (!string.IsNullOrWhiteSpace(vm.FirstName)) pred = pred.And(p => p.FirstName.Contains(vm.FirstName));
-            if (!string.IsNullOrWhiteSpace(vm.LastName)) pred = pred.And(p => p.LastName.Contains(vm.LastName));
+            if (!string.IsNullOrWhiteSpace(vm.FirstName)) pred = pred.And(p => p.FirstName.StartsWith(vm.FirstName));
+            if (!string.IsNullOrWhiteSpace(vm.LastName)) pred = pred.And(p => p.LastName.StartsWith(vm.LastName));
             if (!string.IsNullOrWhiteSpace(vm.FinderNumber)) pred = pred.And(p => p.FinderNumber.StartsWith(vm.FinderNumber));
             if (!string.IsNullOrWhiteSpace(vm.SourceCode)) pred = pred.And(p => p.SourceCode.StartsWith(vm.SourceCode));
             if (!string.IsNullOrWhiteSpace(vm.ZipCode)) pred = pred.And(p => p.ZipCode.StartsWith(vm.ZipCode));
