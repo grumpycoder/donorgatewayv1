@@ -207,7 +207,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
     <Content Include="Views\Event\EventNotFound.cshtml" />
     <Content Include="Views\Event\Finish.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />

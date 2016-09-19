@@ -11,9 +11,9 @@ namespace DonorGateway.Data.Migrations
             //DropIndex("dbo.Guests", new[] { "EventId" });
             //DropIndex("dbo.Events", new[] { "TemplateId" });
 
-            Sql("SELECT * INTO dbo.Templates2 FROM dbo.Templates;");
+            //Sql("SELECT * INTO dbo.Templates2 FROM dbo.Templates;");
 
-            DropTable("dbo.Templates");
+            //DropTable("dbo.Templates");
             //DropTable("dbo.Guests");
             //DropTable("dbo.Events");
 
@@ -134,12 +134,12 @@ namespace DonorGateway.Data.Migrations
                 .PrimaryKey(t => t.Id);
 
 
-            Sql("SET IDENTITY_INSERT dbo.Templates ON; " +
-                "INSERT INTO dbo.Templates (Id, Name, Image, HeaderText, BodyText, FooterText, FAQText, YesResponseText, NoResponseText, WaitingResponseText) " +
-                "SELECT Id, Name, HeaderImage, HeaderText, BodyText, FooterText, FAQText, YesText, NoText, WaitText FROM dbo.Templates2;" +
-                "SET IDENTITY_INSERT dbo.Templates ON;");
+            //Sql("SET IDENTITY_INSERT dbo.Templates ON; " +
+            //    "INSERT INTO dbo.Templates (Id, Name, Image, HeaderText, BodyText, FooterText, FAQText, YesResponseText, NoResponseText, WaitingResponseText) " +
+            //    "SELECT Id, Name, HeaderImage, HeaderText, BodyText, FooterText, FAQText, YesText, NoText, WaitText FROM dbo.Templates2;" +
+            //    "SET IDENTITY_INSERT dbo.Templates ON;");
 
-            DropTable("dbo.Templates2");
+            //DropTable("dbo.Templates2");
 
         }
 

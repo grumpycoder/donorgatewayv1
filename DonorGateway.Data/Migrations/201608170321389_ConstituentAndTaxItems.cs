@@ -6,13 +6,13 @@ namespace DonorGateway.Data.Migrations
     {
         public override void Up()
         {
-            Sql("SELECT Id, Name, LookupId, FinderNumber, Street, Street2, City, State, Zipcode, Email, Phone, CreatedDate, CreatedBy, UpdatedDate, UpdatedBy INTO dbo.Constituents2 FROM dbo.Constituents;");
-            Sql("SELECT * INTO dbo.TaxItems2 FROM dbo.TaxItems;");
+            //Sql("SELECT Id, Name, LookupId, FinderNumber, Street, Street2, City, State, Zipcode, Email, Phone, CreatedDate, CreatedBy, UpdatedDate, UpdatedBy INTO dbo.Constituents2 FROM dbo.Constituents;");
+            //Sql("SELECT * INTO dbo.TaxItems2 FROM dbo.TaxItems;");
 
-            DropForeignKey("dbo.TaxItems", "FK_dbo.TaxItems_dbo.Constituents_ConstituentId");
+            //DropForeignKey("dbo.TaxItems", "FK_dbo.TaxItems_dbo.Constituents_ConstituentId");
 
-            DropTable("dbo.Constituents");
-            DropTable("dbo.TaxItems");
+            //DropTable("dbo.Constituents");
+            //DropTable("dbo.TaxItems");
 
             CreateTable(
                 "dbo.Constituents",
@@ -55,18 +55,18 @@ namespace DonorGateway.Data.Migrations
                 .ForeignKey("dbo.Constituents", t => t.ConstituentId, cascadeDelete: true)
                 .Index(t => t.ConstituentId);
 
-            Sql("SET IDENTITY_INSERT dbo.Constituents ON; " +
-                "INSERT INTO dbo.Constituents (Id, Name, LookupId, FinderNumber, Street, Street2, City, State, Zipcode, Email, Phone, CreatedDate, CreatedBy, UpdatedDate, UpdatedBy) " +
-                "SELECT Id, Name, LookupId, FinderNumber, Street, Street2, City, State, Zipcode, Email, Phone, CreatedDate, CreatedBy, UpdatedDate, UpdatedBy FROM dbo.Constituents2; " +
-                " SET IDENTITY_INSERT dbo.Constituents OFF; ");
+            //Sql("SET IDENTITY_INSERT dbo.Constituents ON; " +
+            //    "INSERT INTO dbo.Constituents (Id, Name, LookupId, FinderNumber, Street, Street2, City, State, Zipcode, Email, Phone, CreatedDate, CreatedBy, UpdatedDate, UpdatedBy) " +
+            //    "SELECT Id, Name, LookupId, FinderNumber, Street, Street2, City, State, Zipcode, Email, Phone, CreatedDate, CreatedBy, UpdatedDate, UpdatedBy FROM dbo.Constituents2; " +
+            //    " SET IDENTITY_INSERT dbo.Constituents OFF; ");
 
-            Sql("SET IDENTITY_INSERT dbo.TaxItems ON; " +
-               "INSERT INTO dbo.TaxItems (Id, ConstituentId,TaxYear,DonationDate,Amount,IsUpdated,CreatedDate,CreatedBy,UpdatedDate,UpdatedBy) " +
-               "SELECT Id, ConstituentId,TaxYear,DonationDate,Amount,IsUpdated,CreatedDate,CreatedBy,UpdatedDate,UpdatedBy FROM dbo.TaxItems2; " +
-               " SET IDENTITY_INSERT dbo.TaxItems OFF; ");
+            //Sql("SET IDENTITY_INSERT dbo.TaxItems ON; " +
+            //   "INSERT INTO dbo.TaxItems (Id, ConstituentId,TaxYear,DonationDate,Amount,IsUpdated,CreatedDate,CreatedBy,UpdatedDate,UpdatedBy) " +
+            //   "SELECT Id, ConstituentId,TaxYear,DonationDate,Amount,IsUpdated,CreatedDate,CreatedBy,UpdatedDate,UpdatedBy FROM dbo.TaxItems2; " +
+            //   " SET IDENTITY_INSERT dbo.TaxItems OFF; ");
 
-            DropTable("dbo.Constituents2");
-            DropTable("dbo.TaxItems2");
+            //DropTable("dbo.Constituents2");
+            //DropTable("dbo.TaxItems2");
 
         }
 

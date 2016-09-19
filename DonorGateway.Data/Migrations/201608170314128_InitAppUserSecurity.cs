@@ -6,17 +6,17 @@ namespace DonorGateway.Data.Migrations
     {
         public override void Up()
         {
-            Sql("SELECT * INTO Security.UserRoles2 FROM Security.UserRoles;");
-            Sql("SELECT * INTO Security.UserLogins2 FROM Security.UserLogins;");
-            Sql("SELECT * INTO Security.UserClaims2 FROM Security.UserClaims;");
-            Sql("SELECT * INTO Security.Users2 FROM Security.Users;");
-            Sql("SELECT * INTO Security.Roles2 FROM Security.Roles;");
+            //Sql("SELECT * INTO Security.UserRoles2 FROM Security.UserRoles;");
+            //Sql("SELECT * INTO Security.UserLogins2 FROM Security.UserLogins;");
+            //Sql("SELECT * INTO Security.UserClaims2 FROM Security.UserClaims;");
+            //Sql("SELECT * INTO Security.Users2 FROM Security.Users;");
+            //Sql("SELECT * INTO Security.Roles2 FROM Security.Roles;");
 
-            DropTable("Security.UserRoles");
-            DropTable("Security.UserLogins");
-            DropTable("Security.UserClaims");
-            DropTable("Security.Users");
-            DropTable("Security.Roles");
+            //DropTable("Security.UserRoles");
+            //DropTable("Security.UserLogins");
+            //DropTable("Security.UserClaims");
+            //DropTable("Security.Users");
+            //DropTable("Security.Roles");
 
             CreateTable(
                 "Security.Roles",
@@ -90,26 +90,26 @@ namespace DonorGateway.Data.Migrations
                 .Index(t => t.UserId);
 
 
-            Sql("INSERT INTO Security.Roles (Id, Name) " +
-             "SELECT Id, Name FROM Security.Roles2;");
+            //Sql("INSERT INTO Security.Roles (Id, Name) " +
+            // "SELECT Id, Name FROM Security.Roles2;");
 
-            Sql("INSERT INTO Security.Users (Id,FullName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName) " +
-                "SELECT Id,FullName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName FROM Security.Users2; ");
+            //Sql("INSERT INTO Security.Users (Id,FullName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName) " +
+            //    "SELECT Id,FullName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName FROM Security.Users2; ");
 
-            Sql("INSERT INTO Security.UserRoles (UserId,RoleId) " +
-                "SELECT UserId,RoleId FROM Security.UserRoles2; ");
+            //Sql("INSERT INTO Security.UserRoles (UserId,RoleId) " +
+            //    "SELECT UserId,RoleId FROM Security.UserRoles2; ");
 
-            Sql("INSERT INTO Security.UserLogins (LoginProvider,ProviderKey,UserId) " +
-                "SELECT LoginProvider,ProviderKey,UserId FROM Security.UserLogins2; ");
+            //Sql("INSERT INTO Security.UserLogins (LoginProvider,ProviderKey,UserId) " +
+            //    "SELECT LoginProvider,ProviderKey,UserId FROM Security.UserLogins2; ");
 
-            Sql("INSERT INTO Security.UserClaims (UserId, ClaimType, ClaimValue) " +
-                "SELECT UserId, ClaimType, ClaimValue FROM Security.UserClaims2; ");
+            //Sql("INSERT INTO Security.UserClaims (UserId, ClaimType, ClaimValue) " +
+            //    "SELECT UserId, ClaimType, ClaimValue FROM Security.UserClaims2; ");
 
-            DropTable("Security.UserRoles2");
-            DropTable("Security.UserLogins2");
-            DropTable("Security.UserClaims2");
-            DropTable("Security.Users2");
-            DropTable("Security.Roles2");
+            //DropTable("Security.UserRoles2");
+            //DropTable("Security.UserLogins2");
+            //DropTable("Security.UserClaims2");
+            //DropTable("Security.Users2");
+            //DropTable("Security.Roles2");
 
         }
 
