@@ -30,7 +30,7 @@ namespace web.App_Start
                     .ForMember(dest => dest.EventName, opt => opt.MapFrom(src => src.Event.Name))
                     .ForMember(dest => dest.IsMailed, opt => opt.MapFrom(src => src.IsMailed ? "Yes" : "No"))
                     .ForMember(dest => dest.LeadershipCouncil, opt => opt.MapFrom(src => src.LeadershipCouncil.Value ? "No" : src.LeadershipCouncil.Value ? "Yes" : "No"))
-                    .ForMember(dest => dest.Attending, opt => opt.MapFrom(src => src.IsWaiting.Value ? "Waiting" : src.IsAttending.Value ? "Yes" : "No"));
+                    .ForMember(dest => dest.Attending, opt => opt.MapFrom(src => src.IsWaiting.Value ? "Waiting" : src.IsAttending == null ? "" : src.IsAttending.Value ? "Yes" : "No"));
 
                 cfg.CreateMap<Constituent, ConstituentViewModel>().ReverseMap();
 
