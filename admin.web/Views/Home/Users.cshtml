@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "Users";
+}
+<div ng-controller="UserController as vm" ng-cloak>
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            {{vm.title}}
+            <small>{{vm.description}}</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">{{vm.title}}</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-default box-solid">
+                    <div class="box-header">
+                        <h3 class="box-title">{{vm.subTitle}}</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body" st-table="vm.users" st-pipe="vm.search">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="col-md-9">
+                                    <button class="btn btn-primary" st-submit-search>
+                                        <i class="fa fa-search"></i> Search
+                                    </button>
+                                    <button class="btn btn-default" st-reset-search ng-model="vm.searchModel">Clear</button>
+                                </span>
+                                <div class="col-md-3">
+                                    <div class="pull-right">
+                                        <form novalidate name="myForm">
+                                            <span class="input-group">
+                                                <input type="text" name="username" class="form-control" st-clear-key ng-model="vm.user.userName"
+                                                       placeholder="New username ..." ng-pattern="/^[a-zA-Z0-9.]*$/">
+                                                <span class="input-group-btn">
+                                                    <button type="submit" class="btn btn-primary" ng-click="vm.addItem()" ng-disabled="!vm.user.userName"
+                                                            tooltip="Click here to add new user" tooltip-placement="right">
+                                                        <span class="fa fa-plus"></span> Add
+                                                    </button>
+                                                </span>
+                                            </span><!-- /input-group -->
+                                            <span ng-messages="myForm.username.$error" class="has-error" role="alert">
+
+                                                <span ng-message="pattern" class="has-error help-block">Username must be alpha-numeric with no spaces</span>
+                                            </span>
+                                        </form>
+                                   </div>
+                                </div><!-- /.col-lg-6 -->
+                            </div>
+                        </div>
+
+                        <table class="table table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Full Name</th>
+                                    <th>Roles</th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <input ng-model="vm.searchModel.searchTerm" st-clear-key class="form-control" type="text" placeholder="Filter Username or full name..." />
+                                    </td>
+                                    <td>
+                                        @*<input type="text" ng-model="vm.searchModel.role" st-clear-key class="form-control" placeholder="Roles ..." />*@
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="user in vm.users">
+                                    <td>
+                                        <gfl-text-avatar ng-hide="user.userPhoto" size="30" class="img-circle">{{user.fullName}}</gfl-text-avatar>
+                                        <img ng-show="user.userPhoto" class="user-image" height="30" width="30" ng-src="data:{{user.userPhotoType}};base64,{{user.userPhoto}}">
+
+                                        <span>{{user.userName}}</span>
+                                    </td>
+                                    <td>
+                                        <span ng-hide="vm.currentEdit[user.id]">{{user.fullName}}</span>
+
+                                        <input type="text" ng-model="vm.itemToEdit.fullName" ng-show="vm.currentEdit[user.id]" />
+                                    </td>
+                                    <td>
+                                        <ul class="list-inline" ng-hide="vm.currentEdit[user.id]">
+                                            <li ng-repeat="role in user.roles">
+                                                <span class="label label-info">{{role}}</span>
+                                            </li>
+                                        </ul>
+                                        <tags-input ng-model="vm.itemToEdit.roles" placeholder="Add a role" ng-show="vm.currentEdit[user.id]" display-property="name">
+                                            <auto-complete source="vm.availableRoles" min-length="1" load-on-down-arrow="true"></auto-complete>
+                                        </tags-input>
+                                    </td>
+                                    <td style="text-align: right; white-space: nowrap;">
+                                        <button class="btn  btn-success" ng-hide="vm.currentEdit[user.id]" ng-click="vm.editItem(user)"><i class="fa fa-edit"></i></button>
+                                        <button class="btn  btn-danger" ng-hide="vm.currentEdit[user.id]" ng-click="vm.deleteItem(user)"><i class="fa fa-trash"></i></button>
+
+                                        <button class="btn  btn-success" ng-show="vm.currentEdit[user.id]" ng-click="vm.saveItem(user)">Save</button>
+                                        <button class="btn  btn-warning" ng-show="vm.currentEdit[user.id]" ng-click="vm.cancelEdit(user.id)">Cancel</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                    </div>
+                    <!-- ./box-footer -->
+                    <div class="overlay" ng-show="vm.isBusy">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>

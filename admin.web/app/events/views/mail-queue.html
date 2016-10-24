@@ -1,0 +1,75 @@
+﻿
+
+<div class="box no-border">
+    <div class="box-header"></div><!--./box-header-->
+
+    <div class="box-body">
+        <table st-table="vm.guests" st-safe-src="vm.selectedEvent.guests" class="table table-striped table-bordered table-hover">
+
+            <thead class="text-nowrap">
+                <tr>
+                    <th></th>
+                    <th st-sort="name">Name</th>
+                    <th>Address</th>
+                    <th st-sort="city">City</th>
+                    <th st-sort="state">State</th>
+                    <th st-sort="zipcode">Zipcode</th>
+                    <th st-sort="responseDate">Responded</th>
+                    <th st-sort="guestCount">Guests</th>
+                    <th st-sort="email">Email</th>
+                    <th st-sort="phone">Phone</th>
+                    <th st-sort="accountId">Account Id</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="search" st-search="name" class="form-control" placeholder="Name" /></td>
+                    <td><input type="text" st-clear-key st-search="address" class="form-control" placeholder="Address" /></td>
+                    <td><input type="text" st-clear-key st-search="city" class="form-control" placeholder="City" /></td>
+                    <td><input type="text" st-clear-key st-search="state" class="form-control" placeholder="State" /></td>
+                    <td><input type="text" st-clear-key st-search="zipcode" class="form-control" placeholder="Zipcode" /></td>
+                    <td><input type="text" st-clear-key st-search="responseDate" class="form-control" placeholder="Response Date" /></td>
+                    <td><input type="text" st-clear-key st-search="guestCount" class="form-control" placeholder="Guests" /></td>
+                    <td><input type="text" st-clear-key st-search="email" class="form-control" placeholder="Email" /></td>
+                    <td><input type="text" st-clear-key st-search="phone" class="form-control" placeholder="Phone" /></td>
+                    <td><input type="text" st-clear-key st-search="accountId" class="form-control" placeholder="Account Id" /></td>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr ng-repeat="g in vm.selectedEvent.guests | filter:{ ticketIssued: 'false' } | filter:{ hasResponded: 'true' }  | filter:{ isWaiting: 'false' }">
+                    <td>
+                        <button class="btn btn-primary" ng-click="vm.issueTicket(g)">
+                            Mail Ticket
+                        </button>
+                    </td>
+                    <td>{{g.name}}</td>
+                    <td>
+                        <address>
+                            {{g.street}}
+                            <br>
+                            {{g.street2}}<br>
+                            {{g.street3}}
+                        </address>
+                    </td>
+                    <td>{{g.city}}</td>
+                    <td>{{g.state}}</td>
+                    <td>{{g.zipCode}}</td>
+                    <td>{{g.responseDate | date: 'medium' }}</td>
+                    <td>{{g.guestCount}}</td>
+                    <td>{{g.email}}</td>
+                    <td>{{g.phone}}</td>
+                    <td>{{g.accountId}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="11" class="text-center">
+                        <div st-pagination="" st-items-by-page="15" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div><!--./box-body-->
+</div><!--./box-->
+
+

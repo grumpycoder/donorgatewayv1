@@ -1,0 +1,368 @@
+﻿@using donortax.web.Utilities
+@model donortax.web.ViewModels.TaxViewModel
+@{
+    ViewBag.Title = "Tax Receipts";
+}
+
+@section css {
+    <link rel="stylesheet" type="text/css" href="//cloud.typography.com/71500/671746/css/fonts.css" />
+    <link href="@Url.Content("~/css/tax-print.css")" rel="stylesheet" media="print" />
+
+    <style>
+        .required::after {
+            content: " *";
+        }
+    </style>
+}
+
+<header>
+    <div class="container">
+        <a class="logo hidden-print" href="http://www.splcenter.org"></a>
+        <div class="nav-toggle hidden-print">
+            <a href="#"><i class="fa fa-bars"></i></a>
+        </div>
+    </div>
+    <nav class="main-nav hidden-print">
+        <div class="container">
+            <ul>
+                <li>
+                    <a href="http://www.splcenter.org/what-we-do">What We Do</a>
+                </li>
+                <li>
+                    <a href="http://www.splcenter.org/our-issues">Our Issues</a>
+                </li>
+                <li>
+                    <a href="http://www.splcenter.org/resources">Resources</a>
+                </li>
+                <li>
+                    <a href="http://www.splcenter.org/hate-map">Hate Map</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <img class="pull-left visible-print" src="~/img/SPLC_LOGO.png" alt="SPLC Logo" width="300" />
+
+    <div class="visible-print pull-right" style="padding-bottom: 30px;">
+        <div class="small red">
+            Fighting Hate <br />
+            Teaching Tolerance<br />
+            Seeking Justice<br />
+        </div>
+        <br />
+        <div class="small">
+            Southern Poverty Law Center <br />
+            400 Washington Avenue<br />
+            Montgomery, AL 36104<br />
+            334.956.8200<br />
+            splcenter.org
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+</header>
+
+
+<div class="container form">
+
+    @using (Html.BeginForm())
+    {
+        <!-- BEGIN HIDDEN FIELDS AREA -->
+
+        @Html.HiddenFor(m => m.EventCommand)
+        <!-- END HIDDEN FIELDS AREA -->
+
+        if (!@Model.IsEditVisible)
+        {
+            <div class="hidden-print">
+                @Html.Markdown(@Model.Template.HeaderText)
+            </div>
+
+            <section class="hidden-print">
+                <p>
+                    @Html.Markdown(@Model.Template.BodyText)
+                </p>
+            </section>
+
+            <section>
+
+
+                <!-- BEGIN SEARCH AREA -->
+                <div class="panel panel-default hidden-print">
+                    <div class="panel-heading">
+                        <strong>Enter Your Information</strong>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-12 col-md-6">
+                                @Html.TextBoxFor(m => m.SearchEntity.FinderNumber, new { @class = "input", @placeholder = "Tax Receipt Id", @autofocus = true })
+                            </div>
+
+                            <div class="col-sm-12 col-sm-6">
+                                &nbsp;
+                                @*@Html.TextBoxFor(m => m.SearchEntity.Zipcode, new { @placeholder = "Zipcode" })*@
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="checkbox-inline">
+                                    @Html.CheckBoxFor(m => m.AcceptTerms)
+                                    @Html.LabelFor(m => m.AcceptTerms)
+                                </div>
+                            </div>
+                        </div>
+
+                        <button id="btnSearch"
+                                class="btn btn-sm btn-primary form-submit"
+                                data-tax-action="search">
+                            <i class="fa fa-paperclip"></i>&nbsp;Get Tax Receipt
+                        </button>
+
+                    </div>
+
+                </div>
+                <div>
+                    <a href="https://www.splcenter.org/privacy-policy-terms" class="hidden-print">Privacy Policy</a>
+
+                </div>
+                <!-- END SEARCH AREA -->
+                <!-- BEGIN VALIDATION ERROR -->
+                <div class="row hidden-print">
+                    <div class="col-xs-12">
+                        @if (!Model.IsValid)
+                        {
+                        <div class="alert alert-danger alert-dismissable" role="alert">
+                            <button type="button" class="close" data-dismiss="alert">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            @Html.ValidationSummary(false)
+                        </div>
+                        }
+                    </div>
+                </div>
+                <!-- END VALIDATION ERROR -->
+                <!-- BEGIN DETAILS/GRID AREA -->
+                @if (Model.IsDetailsVisible)
+                {
+                    <div class="row well well-sm">
+                        <div class="form-group">
+                            <div class="lead col-sm-8 col-xs-12">@Model.Entity.Name</div>
+                            <div>
+                                <address class="pull-right col-sm-4 col-xs-12">
+                                    @if (!String.IsNullOrWhiteSpace(Model.Entity.Street))
+                                    {
+                                        @Model.Entity.Street <br />
+                                    }
+                                    @if (!String.IsNullOrWhiteSpace(Model.Entity.Street2))
+                                    {
+                                        @Model.Entity.Street2 <br />
+                                    }
+                                    @($"{@Model.Entity.City}, {@Model.Entity.State} {@Model.Entity.Zipcode}") <br />
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row hidden-print">
+                        @*<div class="col-sm-4"><div class="form-group">@Html.DropDownListFor(model => model.SelectedTaxYear, Enumerable.Range(2010, DateTime.Now.Year - 2010).Select(x => new SelectListItem { Text = x.ToString() }), "Tax Year", new { @class = "form-control select" })</div></div>*@
+                        <div class="col-sm-4 form-group">
+                            @*<button id="btnSearch" class="btn btn-primary" data-tax-action="search"> <i class="fa fa-filter"></i>&nbsp;Filter</button>*@
+                            <button class="btn btn-info" id="showPrint" data-tax-action="print"><i class="fa fa-print"></i>&nbsp;Print</button>
+                            <button class="btn btn-primary" data-tax-action="edit">
+                                <i class="fa fa-edit"></i>&nbsp;
+                                Update Information
+                            </button>
+                        </div>
+                    </div>
+
+                    if (!@Model.IsTaxDataAvailable)
+                    {
+                        <div class="alert alert-warning">
+                            No tax data available for @Model.SelectedTaxYear
+                        </div>
+
+                    }
+                    if (@Model.IsTaxDataAvailable)
+                    {
+                        <table class="table table-condensed table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Tax Year</th>
+                                    <th>Donation Date</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.TaxItems)
+                            {
+                                    <tr>
+                                        <td>@item.TaxYear</td>
+                                        <td>@($"{@item.DonationDate:MM/dd/yyyy}")</td>
+                                        <td>@($"{@item.Amount:c}")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+
+                                    <td colspan="2" id="totalTitleCell" class="text-right">Total</td>
+                                    <td>
+                                        @($"{@Model.TotalTax:c}")
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    }
+                }
+                <!-- END DETAILS/GRID AREA -->
+            </section>
+
+            <div class="visible-print">
+                <span class="tax-footer">
+                    @Html.Markdown(Model.Template.FAQText)
+                </span>
+            </div>
+        }
+
+        if (@Model.IsEditVisible)
+        {
+            <section>
+                <!-- BEGIN EDIT AREA -->
+                @Html.HiddenFor(m => m.Entity.Id)
+                @Html.HiddenFor(m => m.Entity.LookupId)
+                @Html.HiddenFor(m => m.Entity.FinderNumber)
+                @Html.HiddenFor(m => m.AcceptTerms)
+                @Html.HiddenFor(m => m.SearchEntity.FinderNumber)
+                @Html.HiddenFor(m => m.SearchEntity.Zipcode)
+                <div class="row hidden-print">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3>Update Information</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-xs-12">
+                                @if (!Model.IsValid)
+                                {
+                                <div class="alert alert-danger alert-dismissable" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                    @Html.ValidationSummary(false)
+                                </div>
+                                }
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Entity.Name, new {@class = "control-label required"})
+                                @Html.TextBoxFor(m => m.Entity.Name, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Entity.Email, new {@class = "control-label required"})
+                                @Html.TextBoxFor(m => m.Entity.Email, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Entity.Phone, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.Entity.Phone, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Entity.Street, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.Entity.Street, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Entity.Street2, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.Entity.Street2, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Entity.City, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.Entity.City, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Entity.State, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.Entity.State, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Entity.Zipcode, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.Entity.Zipcode, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                        <div class="panel-footer">
+                            <button class="btn btn-success" data-tax-action="save"><i class="fa fa-save"></i>&nbsp;Save Changes</button>
+                            <button class="btn btn-default" data-tax-action="search"><i class="fa fa-ban"></i>&nbsp;Cancel</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- END EDIT AREA -->
+            </section>
+        }
+    }
+
+
+</div>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function isPostBack() {
+                if (document.referrer != null && document.referrer == window.location.href)
+                    return true;
+                return false;
+            }
+
+            if (!isPostBack()) gaTrack('/', 'Home');
+
+            function gaInit() {
+                $.getScript('//www.google-analytics.com/analytics.js'); // jQuery shortcut
+                window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
+                ga('create', 'UA-29086802-7', 'auto');
+
+                console.log("Initalized");
+                return ga;
+            };
+
+            function gaTrack(path, title) {
+                var track = { page: path, title: title };
+
+                ga = window.ga || gaInit();
+
+                ga('set', track);
+                ga('send', 'pageview');
+
+                ga('send', {
+                    hitType: 'event',
+                    eventCategory: 'Tax',
+                    eventAction: title,
+                    eventLabel: path
+                });
+
+                console.log("Tracked : " + track);
+            };
+
+            $("[data-tax-action]").on("click", function (e) {
+                e.preventDefault();
+
+                $("#EventCommand").val(
+                  $(this).data("tax-action"));
+
+                var action = $(this).data('tax-action');
+                console.log(action);
+                gaTrack('/', action);
+                if (action !== 'print')
+                    $("form").submit();
+
+
+            });
+
+            $("#showPrint").on('click', function (e) {
+                e.preventDefault();
+                window.print();
+            });
+
+        });
+    </script>
+
+}

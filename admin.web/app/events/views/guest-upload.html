@@ -1,0 +1,53 @@
+﻿
+<form name="uploadForm" novalidate>
+    <div class="modal-header">
+        <div class="modal-title">
+            {{vm.event.name}} Guest List Upload
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="box no-border no-shadow">
+            <div class="box-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+
+                            <div ngf-drop ng-model="vm.file" class="drop-box" name="file"
+                                 ngf-select
+                                 ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="false"
+                                 ngf-change="vm.fileSelected(vm.file, $event)">Drop CSV here or click to upload</div>
+
+                            <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+                        </div>
+
+                        <div ng-show="vm.file">
+                            <dl class="dl-horizontal">
+                                <dt>Filename</dt>
+                                <dd>{{vm.file.name}}</dd>
+                                <dt>Size</dt>
+                                <dd>{{vm.file.size}}</dd>
+                                <dt>Last Modified</dt>
+                                <dd>{{vm.file.lastModifiedDate | date: 'MM/dd/yyyy HH:mm'}}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+            </div><div class="overlay" ng-show="vm.isBusy">
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="vm.save()" ng-disabled="vm.isBusy || !vm.file || uploadForm.$pristine">
+            Load File
+        </button>
+        <button class="btn btn-default pull-left" ng-click="vm.cancel()" ng-disabled="vm.isBusy">
+            Close
+        </button>
+    </div>
+
+</form>
