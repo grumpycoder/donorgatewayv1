@@ -20,7 +20,7 @@ using System.Web.Http;
 
 namespace admin.web.Controllers
 {
-    [RoutePrefix("api/event"), Authorize]
+    [RoutePrefix("api/event")]
     public class EventController : ApiController
     {
         private readonly DataContext context;

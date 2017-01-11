@@ -18,7 +18,7 @@ using System.Web.Http;
 
 namespace admin.web.Controllers
 {
-    [RoutePrefix("api/mailer"), Authorize]
+    [RoutePrefix("api/mailer")]
     public class MailerController : ApiController
     {
 
