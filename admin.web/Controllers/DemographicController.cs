@@ -4,6 +4,7 @@ using AutoMapper.QueryableExtensions;
 using CsvHelper;
 using DonorGateway.Data;
 using DonorGateway.Domain;
+using EntityFramework.Utilities;
 using System;
 using System.Data.Entity;
 using System.IO;
@@ -14,11 +15,10 @@ using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Http;
-using EntityFramework.Utilities;
 
 namespace admin.web.Controllers
 {
-    [RoutePrefix("api/demographics"), Authorize]
+    [RoutePrefix("api/demographics")]
     public class DemographicsController : ApiController
     {
         private readonly DataContext context;

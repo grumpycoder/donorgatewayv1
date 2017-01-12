@@ -13,7 +13,7 @@ using System.Web.Http;
 
 namespace admin.web.Controllers
 {
-    [RoutePrefix("api/constituent"), Authorize]
+    [RoutePrefix("api/constituent")]
     public class ConstituentController : ApiController
     {
 
