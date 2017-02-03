@@ -26,7 +26,7 @@
             page: 1,
             pageSize: pageSizeDefault,
             orderBy: 'id',
-            orderDirection: 'asc',
+            orderDirection: 'desc',
             suppress: false
         };
 

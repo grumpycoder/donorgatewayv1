@@ -71,6 +71,7 @@ namespace admin.web.Controllers
 
             var list = context.Mailers.AsQueryable()
                          .Order(vm.OrderBy, vm.OrderDirection == "desc" ? SortDirection.Descending : SortDirection.Ascending)
+                         .ThenByDescending(m => m.CampaignId)
                          .Include(r => r.Reason)
                          .Where(pred)
                          .Skip(skipRows)
