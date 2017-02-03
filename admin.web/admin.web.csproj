@@ -58,11 +58,11 @@
     </Reference>
     <Reference Include="DonorGateway.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\DonorGateway.Data.dll</HintPath>
+      <HintPath>..\DonorGateway.Data\bin\Debug\DonorGateway.Data.dll</HintPath>
     </Reference>
     <Reference Include="DonorGateway.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\DonorGateway.Domain.dll</HintPath>
+      <HintPath>..\DonorGateway.Domain\bin\Debug\DonorGateway.Domain.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
