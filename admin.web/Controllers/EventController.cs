@@ -50,6 +50,11 @@ namespace admin.web.Controllers
             var @event = context.Events.Include(t => t.Template).SingleOrDefault(x => x.Id == id);
             if (@event == null) return NotFound();
 
+
+            var count = context.Guests.Where(g => g.EventId == id && g.IsAttending == true && g.IsWaiting == false).Sum(g => g.TicketCount);
+            @event.GuestAttendanceCount = count ?? 0;
+            context.SaveChanges(); 
+            
             var model = Mapper.Map<EventViewModel>(@event);
             return Ok(model);
         }
