@@ -51,8 +51,11 @@ namespace admin.web.Controllers
             if (@event == null) return NotFound();
 
 
-            var count = context.Guests.Where(g => g.EventId == id && g.IsAttending == true && g.IsWaiting == false).Sum(g => g.TicketCount);
-            @event.GuestAttendanceCount = count ?? 0;
+            var attendanceCount = context.Guests.Where(g => g.EventId == id && g.IsAttending == true && g.IsWaiting == false).Sum(g => g.TicketCount);
+            @event.GuestAttendanceCount = attendanceCount ?? 0;
+            var waitingCount = context.Guests.Where(g => g.EventId == id && g.IsAttending == true && g.IsWaiting == true).Sum(g => g.TicketCount);
+            @event.GuestWaitingCount = waitingCount ?? 0;
+
             context.SaveChanges(); 
             
             var model = Mapper.Map<EventViewModel>(@event);
