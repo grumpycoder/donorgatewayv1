@@ -50,6 +50,10 @@
             }
         }
 
+        vm.changeTicket = function () {
+            vm.guest.isAttending = vm.guest.ticketCount !== null; 
+        }
+
         vm.save = function () {
 
             if (vm.showAddTicket) {

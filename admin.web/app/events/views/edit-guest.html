@@ -40,6 +40,7 @@
                         <label class="control-label">Tickets Requested</label>
 
                         <select ng-model="vm.guest.ticketCount"
+                                ng-change="vm.changeTicket()"
                                 ng-options="x for x in vm.ticketCountList "
                                 class="form-control">
                             <option value="">-- Choose Ticket --</option>
