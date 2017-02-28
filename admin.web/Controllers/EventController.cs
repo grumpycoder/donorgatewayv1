@@ -72,8 +72,9 @@ namespace admin.web.Controllers
             var isWaiting = vm.IsWaiting ?? false;
             var isAttending = vm.IsAttending ?? false;
 
+            var baseQuery = context.Guests.Where(e => e.EventId == id);
+
             var pred = PredicateBuilder.True<Guest>();
-            pred = pred.And(p => p.EventId == id);
             if (!string.IsNullOrWhiteSpace(vm.Address)) pred = pred.And(p => p.Address.Contains(vm.Address));
             if (!string.IsNullOrWhiteSpace(vm.FinderNumber)) pred = pred.And(p => p.FinderNumber.StartsWith(vm.FinderNumber));
             if (!string.IsNullOrWhiteSpace(vm.Name)) pred = pred.And(p => p.Name.Contains(vm.Name));
@@ -89,15 +90,17 @@ namespace admin.web.Controllers
             if (vm.IsWaiting != null) pred = pred.And(p => p.IsWaiting == isWaiting);
             if (vm.IsAttending != null) pred = pred.And(p => p.IsAttending == isAttending);
 
-            var list = context.Guests.AsQueryable()
+            var filteredQuery = baseQuery.Where(pred);
+
+            var list = filteredQuery
                 .Order(vm.OrderBy, vm.OrderDirection == "desc" ? SortDirection.Descending : SortDirection.Ascending)
                 .Where(pred)
                 .Skip(skipRows)
                 .Take(pageSize)
                 .ProjectTo<GuestViewModel>();
 
-            var totalCount = context.Guests.Count();
-            var filterCount = context.Guests.Where(pred).Count();
+            var totalCount = baseQuery.Count();
+            var filterCount = filteredQuery.Count();
             var totalPages = (int)Math.Ceiling((decimal)filterCount / pageSize);
 
             vm.TotalCount = totalCount;
