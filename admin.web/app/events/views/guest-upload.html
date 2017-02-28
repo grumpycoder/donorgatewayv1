@@ -33,9 +33,20 @@
                                 <dd>{{vm.file.lastModifiedDate | date: 'MM/dd/yyyy HH:mm'}}</dd>
                             </dl>
                         </div>
+                        
+                        <fieldset>
+                            <a ng-click="vm.showDetails = !vm.showDetails">{{vm.showDetails ? 'Hide' : 'Show' }} accepted fields</a>
+
+                            <p ng-show="vm.showDetails">
+                                FinderNumber, LookupId, SourceCode, InteractionId, ConstituentName, ConstituentType, Email,
+                                EmailSalutation, HouseholdSalutation1, HouseholdSalutation2, HouseholdSalutation2, InsideSalutation, Phone,
+                                Address1, Address2, Address3, City, State, StateName, Zipcode, Country, LeadershipCouncil, MembershipYear, EventName, EventCode
+                            </p>
+
+                        </fieldset>
+
                     </div>
                 </div>
-
             </div><div class="overlay" ng-show="vm.isBusy">
                 <i class="fa fa-refresh fa-spin"></i>
             </div>
