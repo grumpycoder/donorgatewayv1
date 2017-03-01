@@ -14,7 +14,8 @@
 
         var service = {
             guest: guest, 
-            mailer: mailer
+            mailer: mailer,
+            tax: tax
         }
 
         return service;
@@ -34,6 +35,18 @@
                 headers: { 'Content-Type': undefined }
             }).then(function (response) {
                 return response.data;
+            });
+        }
+        
+        function tax(datafile) {
+            console.log('post tax file');
+            return $http.post(url + '/tax', formDataObject(datafile), {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            }).then(function (response) {
+                return response.data;
+            }).catch(function(err) {
+                console.log('err', err);
             });
         }
 

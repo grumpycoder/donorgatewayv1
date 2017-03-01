@@ -88,6 +88,10 @@
     <Compile Include="Migrations\201608191537045_TemplateImageDataTypeToString.Designer.cs">
       <DependentUpon>201608191537045_TemplateImageDataTypeToString.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703011714206_TaxCsv.cs" />
+    <Compile Include="Migrations\201703011714206_TaxCsv.Designer.cs">
+      <DependentUpon>201703011714206_TaxCsv.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -122,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608191537045_TemplateImageDataTypeToString.resx">
       <DependentUpon>201608191537045_TemplateImageDataTypeToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703011714206_TaxCsv.resx">
+      <DependentUpon>201703011714206_TaxCsv.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

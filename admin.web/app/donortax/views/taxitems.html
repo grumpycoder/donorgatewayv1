@@ -65,7 +65,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in vm.taxItems | orderBy: '-donationDate' | filter:vm.selectedYear track by $index">
+                        <tr ng-repeat="item in vm.taxItems | orderBy: '-donationDate' | filter:{ taxYear : vm.selectedYear } 
+                            track by $index">
                                 <td style="white-space: nowrap;">
                                     <div>
                                         <button class="btn btn-primary" ng-click="vm.editItem(item)" ng-hide="vm.currentEdit[item.id]"><i class="fa fa-edit"></i></button>

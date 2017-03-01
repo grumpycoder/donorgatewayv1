@@ -1,8 +1,12 @@
-﻿
+﻿<style>
+    .modal-title h3 {
+        margin: auto;
+    }
+</style>
 <form name="uploadForm" novalidate>
     <div class="modal-header">
         <div class="modal-title">
-            {{vm.event.name}} Guest List Upload
+            <h3>Tax Records Upload</h3>
         </div>
     </div>
     <div class="modal-body">
@@ -10,7 +14,6 @@
             <div class="box-body">
 
                 <div class="row">
-                    <div class="col-md-12">
 
                         <div class="form-group">
 
@@ -33,8 +36,9 @@
                                 <dd>{{vm.file.lastModifiedDate | date: 'MM/dd/yyyy HH:mm'}}</dd>
                             </dl>
                         </div>
-                    </div>
+                    
                 </div>
+            
                 <div class="row">
                     <div class="col-md-12">
                         <button class="btn btn-primary"
@@ -55,12 +59,12 @@
 
                                 <h4>File Formatting:</h4>
                                 <p>
-                                File must have header in the following format:<br />
+                                File must have header in the following format:<br/>
                                 <p>
                                     <code>
-                                        [FinderNumber], [LookupId], [SourceCode], [InteractionId], [ConstituentName], [ConstituentType], [Email],
-                                        [EmailSalutation], [HouseholdSalutation1], [HouseholdSalutation2], [HouseholdSalutation2], [InsideSalutation], [Phone],
-                                        [Address1], [Address2], [Address3], [City], [State], [StateName], [Zipcode], [Country], [LeadershipCouncil], [MembershipYear], [EventName], [EventCode]
+                                        [LookupID | Lookup ID | LookupId], [FinderNumber | Finder Number],
+                                        Name, [Email address, EmailAddress, Emai], [Addressline1 | Address line 1 | Address Line 1],
+                                        [Addressline2 | Address line 2 | Address Line 2], City, State, Date, Amount
                                     </code>
                                 </p>
                                 <p>

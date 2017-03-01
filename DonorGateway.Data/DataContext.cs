@@ -34,6 +34,8 @@ namespace DonorGateway.Data
         public DbSet<Mailer> Mailers { get; set; }
         public DbSet<SuppressReason> SuppressReasons { get; set; }
 
+        public DbSet<CsvTaxRecord> CsvTaxRecord { get; set; }
+
         public override int SaveChanges()
         {
             AddTimestamps();
@@ -88,7 +90,7 @@ namespace DonorGateway.Data
             builder.Entity<Constituent>().HasKey(c => c.Id);
             builder.Entity<Constituent>().HasMany(t => t.TaxItems);
 
-
+            builder.Entity<CsvTaxRecord>().ToTable("TaxStaging");
         }
 
     }

@@ -31,12 +31,29 @@
 
                     </div><!-- /.box-header -->
                     <div class="box-body">
-                        <span>
-                            <button class="btn btn-primary" st-submit-search>
-                                <i class="fa fa-search"></i> Search
-                            </button>
-                            <button class="btn btn-default" st-reset-search ng-model="vm.searchModel">Clear</button>
-                        </span>
+                        <div class="col-md-9 col-sm-9">
+                            <div class="form-group">
+                                <span>
+                                    <button class="btn btn-primary" st-submit-search>
+                                        <i class="fa fa-search"></i> Search
+                                    </button>
+                                    <button class="btn btn-default" st-reset-search ng-model="vm.searchModel">Clear</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="pull-right">
+                                <div class="form-group">
+                                    <button class="btn" ng-click="vm.showUpload()"><i class="fa fa-cloud-upload"></i> Upload</button>
+                                    <button class="btn btn-info" ng-click="vm.download()">
+                                        <i class="fa fa-download"></i>
+                                        Export
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                         <table class="table table-responsive table-striped">
                             <thead>
                                 <tr>
@@ -65,39 +82,39 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="person in vm.people" st-select-row="person" st-select-mode="multiple">
-                                <td>{{person.name}}</td>
-                                <td>{{person.lookupId}}</td>
-                                <td class="hidden-sm hidden-xs">{{person.finderNumber}}</td>
-                                <td>
-                                    <address>
-                                        {{person.street}}<br>
-                                        {{person.street2}}<br>
-                                    </address>
-                                </td>
-                                <td>{{person.city}}</td>
-                                <td>{{person.state}}</td>
-                                <td>{{person.zipcode}}</td>
-                                <td class="hidden-sm hidden-xs">{{person.phone}}</td>
-                                <td class="hidden-sm hidden-xs">{{person.email}}</td>
-                                <td>
-                                    <!-- Split button -->
-                                    <div>
-                                        <div class="btn-group" uib-dropdown>
-                                            <button id="split-button" type="button" class="btn btn-primary" ng-click="vm.viewTaxes(person)"><i class="icon ion-cash"></i> <span>Taxes</span></button>
-                                            <button type="button" class="btn btn-primary" uib-dropdown-toggle>
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Split button</span>
-                                            </button>
-                                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
-                                                <li role="menuitem" >
-                                                    <a ng-click="vm.edit(person)"><i class="icon ion-edit"></i> Edit</a>
-                                                </li>
-                                            </ul>
+                                <tr ng-repeat="person in vm.people" st-select-row="person" st-select-mode="multiple">
+                                    <td>{{person.name}}</td>
+                                    <td>{{person.lookupId}}</td>
+                                    <td class="hidden-sm hidden-xs">{{person.finderNumber}}</td>
+                                    <td>
+                                        <address>
+                                            {{person.street}}<br>
+                                            {{person.street2}}<br>
+                                        </address>
+                                    </td>
+                                    <td>{{person.city}}</td>
+                                    <td>{{person.state}}</td>
+                                    <td>{{person.zipcode}}</td>
+                                    <td class="hidden-sm hidden-xs">{{person.phone}}</td>
+                                    <td class="hidden-sm hidden-xs">{{person.email}}</td>
+                                    <td>
+                                        <!-- Split button -->
+                                        <div>
+                                            <div class="btn-group" uib-dropdown>
+                                                <button id="split-button" type="button" class="btn btn-primary" ng-click="vm.viewTaxes(person)"><i class="icon ion-cash"></i> <span>Taxes</span></button>
+                                                <button type="button" class="btn btn-primary" uib-dropdown-toggle>
+                                                    <span class="caret"></span>
+                                                    <span class="sr-only">Split button</span>
+                                                </button>
+                                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                                                    <li role="menuitem">
+                                                        <a ng-click="vm.edit(person)"><i class="icon ion-edit"></i> Edit</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
