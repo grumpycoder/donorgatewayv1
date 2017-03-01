@@ -33,20 +33,49 @@
                                 <dd>{{vm.file.lastModifiedDate | date: 'MM/dd/yyyy HH:mm'}}</dd>
                             </dl>
                         </div>
-                        
-                        <fieldset>
-                            <a ng-click="vm.showDetails = !vm.showDetails">{{vm.showDetails ? 'Hide' : 'Show' }} accepted fields</a>
-
-                            <p ng-show="vm.showDetails">
-                                FinderNumber, LookupId, SourceCode, InteractionId, ConstituentName, ConstituentType, Email,
-                                EmailSalutation, HouseholdSalutation1, HouseholdSalutation2, HouseholdSalutation2, InsideSalutation, Phone,
-                                Address1, Address2, Address3, City, State, StateName, Zipcode, Country, LeadershipCouncil, MembershipYear, EventName, EventCode
-                            </p>
-
-                        </fieldset>
-
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary"
+                                ng-click="vm.isNotesOpen = !vm.isNotesOpen"
+                                uib-popover="Click here for additional information"
+                                popover-trigger="mouseenter"
+                                popover-placement="right">
+                            Additional Notes
+                        </button>
+
+                        <div uib-collapse="!vm.isNotesOpen">
+                            <div class="well in">
+                                <h4>Helpful tips:</h4>
+                                <ul>
+                                    <li>Choose your tax data file to upload.</li>
+                                    <li>Click the <kbd>Load File</kbd> button to begin processing the file. Depending on the number of records could take some time.</li>
+                                </ul>
+
+                                <h4>File Formatting:</h4>
+                                <p>
+                                File must have header in the following format:<br />
+                                <p>
+                                    <code>
+                                        [FinderNumber], [LookupId], [SourceCode], [InteractionId], [ConstituentName], [ConstituentType], [Email],
+                                        [EmailSalutation], [HouseholdSalutation1], [HouseholdSalutation2], [HouseholdSalutation2], [InsideSalutation], [Phone],
+                                        [Address1], [Address2], [Address3], [City], [State], [StateName], [Zipcode], [Country], [LeadershipCouncil], [MembershipYear], [EventName], [EventCode]
+                                    </code>
+                                </p>
+                                <p>
+                                    Header field names are case sensitive and must be in the exact case or word spacing specified and
+                                    have at minimum the fields indicated. Any additional fields will be ignored.
+                                </p>
+                                <p>
+                                    If you receive error regarding column mappings, make sure you update the file header format to match.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div><div class="overlay" ng-show="vm.isBusy">
                 <i class="fa fa-refresh fa-spin"></i>
             </div>
