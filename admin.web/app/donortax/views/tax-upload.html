@@ -1,0 +1,97 @@
+﻿<style>
+    .modal-title h3 {
+        margin: auto;
+    }
+</style>
+<form name="uploadForm" novalidate>
+    <div class="modal-header">
+        <div class="modal-title">
+            <h3>Tax Records Upload</h3>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="box no-border no-shadow">
+            <div class="box-body">
+
+                <div class="row">
+
+                        <div class="form-group">
+
+                            <div ngf-drop ng-model="vm.file" class="drop-box" name="file"
+                                 ngf-select
+                                 ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="false"
+                                 ngf-change="vm.fileSelected(vm.file, $event)">Drop CSV here or click to upload</div>
+
+                            <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+                        </div>
+
+                        <div ng-show="vm.file">
+                            <dl class="dl-horizontal">
+                                <dt>Filename</dt>
+                                <dd>{{vm.file.name}}</dd>
+                                <dt>Size</dt>
+                                <dd>{{vm.file.size}}</dd>
+                                <dt>Last Modified</dt>
+                                <dd>{{vm.file.lastModifiedDate | date: 'MM/dd/yyyy HH:mm'}}</dd>
+                            </dl>
+                        </div>
+                    
+                </div>
+            
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary"
+                                ng-click="vm.isNotesOpen = !vm.isNotesOpen"
+                                uib-popover="Click here for additional information"
+                                popover-trigger="mouseenter"
+                                popover-placement="right">
+                            Additional Notes
+                        </button>
+
+                        <div uib-collapse="!vm.isNotesOpen">
+                            <div class="well in">
+                                <h4>Helpful tips:</h4>
+                                <ul>
+                                    <li>Choose your tax data file to upload.</li>
+                                    <li>Click the <kbd>Load File</kbd> button to begin processing the file. Depending on the number of records could take some time.</li>
+                                </ul>
+
+                                <h4>File Formatting:</h4>
+                                <p>
+                                File must have header in the following format:<br/>
+                                <p>
+                                    <code>
+                                        [LookupID | Lookup ID | LookupId], [FinderNumber | Finder Number],
+                                        Name, [Email address, EmailAddress, Emai], [Addressline1 | Address line 1 | Address Line 1],
+                                        [Addressline2 | Address line 2 | Address Line 2], City, State, Date, Amount
+                                    </code>
+                                </p>
+                                <p>
+                                    Header field names are case sensitive and must be in the exact case or word spacing specified and
+                                    have at minimum the fields indicated. Any additional fields will be ignored.
+                                </p>
+                                <p>
+                                    If you receive error regarding column mappings, make sure you update the file header format to match.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><div class="overlay" ng-show="vm.isBusy">
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="vm.save()" ng-disabled="vm.isBusy || !vm.file || uploadForm.$pristine">
+            Load File
+        </button>
+        <button class="btn btn-default pull-left" ng-click="vm.cancel()" ng-disabled="vm.isBusy">
+            Close
+        </button>
+    </div>
+
+</form>

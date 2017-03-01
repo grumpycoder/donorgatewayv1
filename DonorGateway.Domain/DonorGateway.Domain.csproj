@@ -66,6 +66,7 @@
     <Compile Include="Campaign.cs" />
     <Compile Include="Constituent.cs" />
     <Compile Include="ConstituentDetail.cs" />
+    <Compile Include="CsvTaxRecord.cs" />
     <Compile Include="DemographicChange.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="Guest.cs" />

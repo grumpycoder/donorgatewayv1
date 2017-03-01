@@ -83,6 +83,24 @@
                 logger.success('Successfully updated ' + person.name);
             });
         }
+
+        vm.showUpload = function () {
+            $modal.open({
+                keyboard: false,
+                backdrop: 'static',
+                templateUrl: '/app/donortax/views/tax-upload.html',
+                controller: 'UploadTaxController',
+                controllerAs: 'vm'
+            })
+            .result.then(function (result) {
+                if (result.success) {
+                    logger.success(result.message);
+                } else {
+                    logger.error(result.message);
+                }
+
+            });
+        }
     }
 
 })();
