@@ -55,9 +55,9 @@ namespace admin.web.Controllers
             @event.GuestAttendanceCount = attendanceCount ?? 0;
             var waitingCount = context.Guests.Where(g => g.EventId == id && g.IsAttending == true && g.IsWaiting == true).Sum(g => g.TicketCount);
             @event.GuestWaitingCount = waitingCount ?? 0;
+            @event.TicketMailedCount = context.Guests.Where(g => g.EventId == id && g.IsAttending == true && g.IsWaiting == false).Sum(g => g.TicketCount) ?? 0;
+            context.SaveChanges();
 
-            context.SaveChanges(); 
-            
             var model = Mapper.Map<EventViewModel>(@event);
             return Ok(model);
         }
@@ -306,6 +306,9 @@ namespace admin.web.Controllers
             context.SaveChanges();
 
             EFBatchOperation.For(context, context.Guests).UpdateAll(@event.Guests.ToList(), x => x.ColumnsToUpdate(c => c.IsMailed, c => c.MailedDate));
+            context.SaveChanges();
+
+            @event.TicketMailedCount = context.Guests.Where(g => g.EventId == id && g.IsAttending == true && g.IsWaiting == false).Sum(g => g.TicketCount) ?? 0;
             context.SaveChanges();
 
             return Ok(@event);
