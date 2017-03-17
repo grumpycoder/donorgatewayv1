@@ -10,6 +10,7 @@ namespace admin.web.ViewModels
             Map(m => m.FinderNumber).Name("FinderNumber");
             Map(m => m.LookupId).Name("LookupId");
             Map(m => m.ConstituentType).Name("ConstituentType");
+            Map(m => m.DonorType).Name("DonorType");
             Map(m => m.SourceCode).Name("SourceCode");
             Map(m => m.InteractionId).Name("InteractionId");
             Map(m => m.MembershipYear).Name("MembershipYear");
