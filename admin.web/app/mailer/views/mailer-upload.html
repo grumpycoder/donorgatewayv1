@@ -46,7 +46,6 @@
                             <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
 
                         </div>
-
                         <div ng-show="vm.file">
                             <dl class="dl-horizontal">
                                 <dt>Filename</dt>
@@ -56,6 +55,46 @@
                                 <dt>Last Modified</dt>
                                 <dd>{{vm.file.lastModifiedDate | date: 'MM/dd/yyyy HH:mm'}}</dd>
                             </dl>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary"
+                                        ng-click="vm.isNotesOpen = !vm.isNotesOpen"
+                                        uib-popover="Click here for additional information"
+                                        popover-trigger="mouseenter"
+                                        popover-placement="right">
+                                    Additional Notes
+                                </button>
+
+                                <div uib-collapse="!vm.isNotesOpen">
+                                    <div class="well in">
+                                        <h4>Helpful tips:</h4>
+                                        <ul>
+                                            <li>Choose your tax data file to upload.</li>
+                                            <li>Click the <kbd>Load File</kbd> button to begin processing the file. Depending on the number of records could take some time.</li>
+                                        </ul>
+
+                                        <h4>File Formatting:</h4>
+                                        <p>
+                                            File must have header in the following format:<br />
+                                        <p>
+                                            <code>
+                                                [FinderNumber], [SourceCode], [FirstName], [MiddleName], [LastName], 
+                                                [AddressLine1], [AddressLine2], [AddressLine3], [City], [StateAbreviation], [Zipcode]
+                                            </code>
+                                        </p>
+                                        <p>
+                                            Header field names are case sensitive and must be in the exact case or word spacing specified and
+                                            have at minimum the fields indicated. Any additional fields will be ignored.
+                                        </p>
+                                        <p>
+                                            If you receive error regarding column mappings, make sure you update the file header format to match.
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
