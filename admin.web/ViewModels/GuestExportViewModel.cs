@@ -1,3 +1,5 @@
+using System;
+
 namespace admin.web.ViewModels
 {
     public class GuestExportViewModel
@@ -41,7 +43,7 @@ namespace admin.web.ViewModels
         public string ActualDate { get; set; }
         public string ExpectedDate { get; set; }
         public string Comment { get; set; }
-        public string Response { get; set; }
+        public DateTime? Response { get; set; }
         public string ResponseType { get; set; }
         public string SPLCComment { get; set; }
         public string Status { get; set; }
@@ -53,5 +55,7 @@ namespace admin.web.ViewModels
 
         public string EventName { get; set; }
         public string EventCode { get; set; }
+        public DateTime? MailedDate { get; set; }
+        public DateTime? WaitingDate { get; set; }
     }
 }
