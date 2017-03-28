@@ -41,6 +41,8 @@ namespace admin.web.ViewModels
 
             Map(m => m.ActualDate).Name("ActualDate");
             Map(m => m.ExpectedDate).Name("ExpectedDate");
+            Map(m => m.MailedDate).Name("MailedDate");
+            Map(m => m.WaitingDate).Name("WaitingDate");
             Map(m => m.Comment).Name("DonorComment");
             Map(m => m.Response).Name("Response");
             Map(m => m.ResponseType).Name("ResponseType");

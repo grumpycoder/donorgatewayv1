@@ -28,6 +28,7 @@ namespace web.App_Start
                 cfg.CreateMap<Guest, GuestExportViewModel>()
                     .ForMember(dest => dest.EventCode, opt => opt.MapFrom(src => src.Event.EventCode))
                     .ForMember(dest => dest.EventName, opt => opt.MapFrom(src => src.Event.Name))
+                    .ForMember(dest => dest.Response, opt => opt.MapFrom(src => src.ResponseDate))
                     .ForMember(dest => dest.IsMailed, opt => opt.MapFrom(src => src.IsMailed ? "Yes" : "No"))
                     .ForMember(dest => dest.LeadershipCouncil, opt => opt.MapFrom(src => src.LeadershipCouncil.Value ? "No" : src.LeadershipCouncil.Value ? "Yes" : "No"))
                     .ForMember(dest => dest.Attending, opt => opt.MapFrom(src => src.IsWaiting.Value ? "Waiting" : src.IsAttending == null ? "" : src.IsAttending.Value ? "Yes" : "No"));
