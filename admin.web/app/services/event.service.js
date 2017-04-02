@@ -24,6 +24,7 @@
             registerGuest: registerGuest,
             mailTicket: mailTicket,
             mailAllTickets: mailAllTickets,
+            mailAllWaiting: mailAllWaiting,
             addTicket: addTicket
         }
         return service;
@@ -66,6 +67,10 @@
 
         function mailAllTickets(eventId) {
             return $http.put(url + '/' + eventId + '/mailalltickets').then(_success).catch(error);
+        }
+
+        function mailAllWaiting(eventId) {
+            return $http.put(url + '/' + eventId + '/mailallwaiting').then(_success).catch(error);
         }
 
         function mailTicket(guest) {

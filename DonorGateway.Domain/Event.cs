@@ -59,10 +59,10 @@ namespace DonorGateway.Domain
 
         public void CancelRegistration(Guest guest)
         {
-            if (guest.IsMailed) TicketMailedCount -= guest.TicketCount ?? 0; 
+            if (guest.IsMailed) TicketMailedCount -= guest.TicketCount ?? 0;
             if (guest.IsWaiting ?? false) GuestWaitingCount -= guest.TicketCount ?? 0;
             GuestAttendanceCount -= guest.TicketCount ?? 0;
-            
+
             guest.ResponseDate = DateTime.Now;
             guest.IsAttending = false;
             guest.IsMailed = false;
@@ -77,7 +77,7 @@ namespace DonorGateway.Domain
             guest.ResponseDate = DateTime.Now;
             guest.TicketCount = guest.TicketCount ?? 0;
             guest.IsAttending = guest.IsAttending ?? false;
-            
+
             if (TicketRemainingCount - guest.TicketCount < 0)
             {
                 guest.IsWaiting = true;
@@ -112,6 +112,7 @@ namespace DonorGateway.Domain
         {
             guest.IsWaiting = false;
             guest.IsAttending = true;
+            guest.IsMailed = false;
             GuestWaitingCount = GuestWaitingCount - guest.TicketCount ?? 0;
             GuestAttendanceCount += guest.TicketCount ?? 0;
         }

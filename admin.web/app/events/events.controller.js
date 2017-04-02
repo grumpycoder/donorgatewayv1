@@ -67,10 +67,11 @@
 
         vm.addToMailQueue = function (guest) {
             vm.isBusy = true;
-            service.addToMail(guest)
+            console.log('add to mail queue');service.addToMail(guest)
                 .then(function (data) {
                     logger.info('Moved Guest ' + data.name + 'Send Ticket: ');
                     angular.extend(guest, data);
+
                     BuildGuestOptions(guest);
                     var event = angular.copy(vm.selectedEvent);
                     angular.extend(vm.selectedEvent, guest.event);
@@ -203,8 +204,18 @@
 
         vm.toggleWaiting = function () {
             vm.showWaiting = !vm.showWaiting;
+            vm.showWaitingSent = false; 
             vm.showMail = false;
             vm.showSent = false;
+            vm.searchModel.page = 1;
+            vm.searchGuests(tableStateRef);
+        }
+
+        vm.toggleWaitingSent = function () {
+            vm.showWaitingSent = !vm.showWaitingSent;
+            vm.showMail = false;
+            vm.showSent = false;
+            vm.showWaiting = false;
             vm.searchModel.page = 1;
             vm.searchGuests(tableStateRef);
         }
@@ -212,6 +223,7 @@
         vm.toggleMail = function () {
             vm.showMail = !vm.showMail;
             vm.showWaiting = false;
+            vm.showWaitingSent = false; 
             vm.showSent = false;
             vm.searchModel.page = 1;
             vm.searchGuests(tableStateRef);
@@ -220,6 +232,7 @@
         vm.toggleSent = function () {
             vm.showSent = !vm.showSent;
             vm.showWaiting = false;
+            vm.showWaitingSent = false; 
             vm.showMail = false;
             vm.searchModel.page = 1;
             vm.searchGuests(tableStateRef);
@@ -228,6 +241,16 @@
         vm.mailAllTickets = function () {
             vm.isBusy = true;
             service.mailAllTickets(vm.selectedEvent.id)
+                .then(function (data) {
+                    angular.extend(vm.selectedEvent, data);
+                    vm.searchGuests(tableStateRef);
+                    vm.isBusy = false;
+                });
+        }
+
+        vm.mailAllWaiting = function () {
+            vm.isBusy = true;
+            service.mailAllWaiting(vm.selectedEvent.id)
                 .then(function (data) {
                     angular.extend(vm.selectedEvent, data);
                     vm.searchGuests(tableStateRef);
@@ -268,7 +291,14 @@
             vm.searchModel.isMailed = null;
 
             if (vm.showWaiting) {
-                vm.searchModel.isWaiting = vm.showWaiting ? vm.showWaiting : null;
+                vm.searchModel.isWaiting = true; //vm.showWaiting ? vm.showWaiting : null;
+                vm.searchModel.isMailed = false; //vm.showWaitingSent ? vm.showWaitingSent : null;
+            }
+
+            if (vm.showWaitingSent) {
+                vm.searchModel.isWaiting = true;// vm.showWaitingSent ? vm.showWaitingSent : null;
+                vm.searchModel.isMailed = true; //vm.showWaitingSent ? vm.showWaitingSent : null;
+                vm.searchModel.isAttending = true;
             }
 
             if (vm.showMail) {
@@ -282,7 +312,6 @@
                 vm.searchModel.isMailed = true;
                 vm.searchModel.isAttending = true;
             }
-
             vm.isBusy = true;
             return service.getGuests(vm.selectedEvent.id, vm.searchModel)
                 .then(function (data) {
