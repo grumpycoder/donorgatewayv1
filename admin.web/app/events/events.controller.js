@@ -50,7 +50,7 @@
 
         vm.tabs = [
             { title: 'Details', template: 'app/events/views/home.html', active: false, icon: 'fa-info-circle' },
-            { title: 'Guests', template: 'app/events/views/guest-list.html', active: true, icon: 'fa-users' },
+            { title: 'Guests', template: 'app/events/views/guest-list.html?v1.1', active: true, icon: 'fa-users' },
             //{ title: 'Mail Queue', template: 'app/events/views/mail-queue.html', active: false, icon: '' },
             //{ title: 'Waiting Queue', template: 'app/events/views/wait-queue.html', active: false, icon: '' },
             { title: 'Template', template: 'app/events/views/template.html', active: false, icon: 'fa-file-text' }
