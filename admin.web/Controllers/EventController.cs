@@ -55,7 +55,7 @@ namespace admin.web.Controllers
             @event.GuestAttendanceCount = attendanceCount ?? 0;
             var waitingCount = context.Guests.Where(g => g.EventId == id && g.IsAttending == true && g.IsWaiting == true).Sum(g => g.TicketCount);
             @event.GuestWaitingCount = waitingCount ?? 0;
-            @event.TicketMailedCount = context.Guests.Where(g => g.EventId == id && g.IsAttending == true && g.IsWaiting == false).Sum(g => g.TicketCount) ?? 0;
+            @event.TicketMailedCount = context.Guests.Where(g => g.EventId == id && g.IsAttending == true && g.IsMailed).Sum(g => g.TicketCount) ?? 0;
             context.SaveChanges();
 
             var model = Mapper.Map<EventViewModel>(@event);
@@ -314,6 +314,32 @@ namespace admin.web.Controllers
             return Ok(@event);
         }
 
+        [HttpPut, Route("{id:int}/mailallwaiting")]
+        public IHttpActionResult MailAllWaiting(int id)
+        {
+            var @event = context.Events.SingleOrDefault(e => e.Id == id);
+
+            if (@event == null) return NotFound();
+
+            var list = context.Guests.Where(x => x.EventId == id && x.IsMailed == false && x.IsAttending == true && x.IsWaiting == true);
+
+            //TODO: Event should do this
+            foreach (var guest in list)
+            {
+                guest.IsMailed = true;
+                guest.MailedDate = DateTime.Now;
+            }
+            context.Events.AddOrUpdate(@event);
+            context.SaveChanges();
+
+            EFBatchOperation.For(context, context.Guests).UpdateAll(@event.Guests.ToList(), x => x.ColumnsToUpdate(c => c.IsMailed, c => c.MailedDate));
+            context.SaveChanges();
+
+            context.SaveChanges();
+
+            return Ok(@event);
+        }
+
         [HttpPost, Route("{id:int}/mailticket")]
         public IHttpActionResult MailTicket(int id, Guest dto)
         {
@@ -344,7 +370,7 @@ namespace admin.web.Controllers
             if (@event == null) return NotFound();
 
             if (dto == null) return NotFound();
-
+            
             @event.MoveToMailQueue(dto);
             dto.Event = @event;
 

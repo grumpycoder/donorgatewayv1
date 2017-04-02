@@ -18,7 +18,12 @@
                     <button class="btn btn-default"
                             ng-class="{ 'btn-warning': vm.showWaiting, 'btn-default': !vm.showWaiting }"
                             ng-click="vm.toggleWaiting()">
-                        <i class="fa fa-clock-o"></i> Waiting List
+                        <i class="fa fa-clock-o"></i> WL -Send Letter
+                    </button>
+                    <button class="btn btn-default"
+                            ng-class="{ 'btn-warning': vm.showWaitingSent, 'btn-default': !vm.showWaitingSent }"
+                            ng-click="vm.toggleWaitingSent()">
+                        <i class="fa fa-paper-plane"></i> WL -Letter Sent
                     </button>
                     <button class="btn btn-default"
                             ng-class="{ 'btn-warning': vm.showMail, 'btn-default': !vm.showMail }"
@@ -90,7 +95,8 @@
                         <td class="text-center hidden-xs hidden-sm hidden-md"></td>
                         <td>
                             <div class="pull-right">
-                                <button class="btn btn-danger" ng-show="vm.showMail" ng-click="vm.mailAllTickets()"> <i class="fa fa-paper-plane"></i> Send All</button>
+                                <button class="btn btn-danger" ng-show="vm.showMail" ng-click="vm.mailAllTickets()"> <i class="fa fa-paper-plane"></i> Send All Tickets</button>
+                                <button class="btn btn-danger" ng-show="vm.showWaiting" ng-click="vm.mailAllWaiting()"> <i class="fa fa-paper-plane"></i> Send All Waiting</button>
                                
                             </div>
                         </td>
