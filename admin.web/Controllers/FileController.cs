@@ -55,6 +55,7 @@ namespace web.Controllers
                 foreach (var guest in list)
                 {
                     guest.EventId = id;
+                    guest.CreatedBy = User.Identity.Name;
                 }
                 using (context)
                 {
@@ -107,6 +108,7 @@ namespace web.Controllers
                 {
                     mailer.CampaignId = id;
                     mailer.Suppress = false;
+                    mailer.CreatedBy = User.Identity.Name;
                 }
                 using (context)
                 {
