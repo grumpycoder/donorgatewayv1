@@ -9,6 +9,8 @@ namespace admin.web.ViewModels
         public string LookupId { get; set; }
         public string FinderNumber { get; set; }
         public string ConstituentType { get; set; }
+        public string DonorType { get; set; }
+
         public string SourceCode { get; set; }
         public string InteractionId { get; set; }
 
