@@ -223,12 +223,14 @@ namespace admin.web.Controllers
         }
 
         [HttpPost, Route("{id:int}/registerguest")]
-        public IHttpActionResult RegisterGuest(int id, Guest dto)
+        public IHttpActionResult RegisterGuest(int id, GuestViewModel model)
         {
             var @event = context.Events.Find(id);
-            var guest = context.Guests.Find(dto.Id);
-
+            var guest = context.Guests.Find(model.Id);
+            
             if (@event == null) return NotFound();
+
+            var dto = Mapper.Map<Guest>(model);
 
             @event.RegisterGuest(dto);
             @event.SendEmail(dto);
